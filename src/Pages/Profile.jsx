@@ -255,7 +255,7 @@ const Profile = () => {
     setIsModalOpen(false);
   };
 
-  const API_BASE_URL = 'http://localhost:3000'; // Add this line
+  const API_BASE_URL = 'https://eleweight-backend.vercel.app'; // Add this line
 
   const handleSubmit = async (e) => {
     e.preventDefault();
