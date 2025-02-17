@@ -275,7 +275,7 @@ const Profile = () => {
     }
 
     try {
-      const response = await fetch(`${API}/register`, {
+      const response = await fetch(`${API}/profile`, { // Changed from /register to /profile
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -309,7 +309,7 @@ const Profile = () => {
     } catch (err) {
       setError(err.message || 'An error occurred while updating profile');
     }
-  } 
+}
   
 
   useEffect(() => {
