@@ -20,7 +20,7 @@ const SignIn = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setIsLoading(true)
-        axios.post('https://eleweight-backend.vercel.app/', { email, password })
+        axios.post('http://localhost:3000/login', { email, password })
             .then(result => {
                 if (result.status === 200) {
                     const { token, message, user } = result.data
