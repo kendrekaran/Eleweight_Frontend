@@ -27,7 +27,7 @@ const Register = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:3000/register', formData);
+            const response = await axios.post('https://eleweight-frontend.vercel.app/register', formData);
 
             if (response.data.message === 'You are signed in') {
                 localStorage.setItem('token', response.data.token);
