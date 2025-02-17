@@ -284,12 +284,16 @@ const Profile = () => {
         body: JSON.stringify(updatedFields)
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to update profile');
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Server returned non-JSON response");
       }
 
       const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to update profile');
+      }
 
       localStorage.setItem('userName', data.user.name);
       localStorage.setItem('userEmail', data.user.email);
@@ -308,6 +312,7 @@ const Profile = () => {
       setTimeout(() => setSuccess(''), 3000);
     } catch (err) {
       setError(err.message || 'An error occurred while updating profile');
+      console.error('Profile update error:', err);
     }
   } 
   
