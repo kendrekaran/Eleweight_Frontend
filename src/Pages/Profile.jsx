@@ -255,7 +255,7 @@ const Profile = () => {
     setIsModalOpen(false);
   };
 
-  const API_BASE_URL = 'https://eleweight-backend.vercel.app'; // Add this line
+  const API = import.meta.env.VITE_API_URL
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -275,7 +275,7 @@ const Profile = () => {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/profile`, {
+      const response = await fetch(`${API}/register`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
