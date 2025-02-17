@@ -63,7 +63,7 @@ const SignIn = () => {
             <div className="hidden lg:flex lg:w-1/2 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-sky-500/20 backdrop-blur-sm z-10" />
                 <img
-                    src="/api/placeholder/1200/800"
+                    src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2940&auto=format&fit=crop"
                     alt="Background"
                     className="object-cover w-full h-full"
                 />
@@ -82,7 +82,7 @@ const SignIn = () => {
                     <div className="space-y-1 text-center mb-6">
                         <div className="flex items-center justify-center space-x-2 mb-2">
                             <img
-                                src="/api/placeholder/48/48"
+                                src="https://pbs.twimg.com/media/Gbg0yNhaQAAGV47?format=png&name=small"
                                 alt="Eleweight Logo"
                                 className="w-12 h-12"
                             />
