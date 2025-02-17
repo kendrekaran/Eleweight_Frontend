@@ -11,36 +11,50 @@ const SignIn = () => {
     const navigate = useNavigate()
     const token = localStorage.getItem('token');
 
-      useEffect(() => {
+    useEffect(() => {
         if (token) {
-          navigate("/home");
+            navigate("/home");
         }
-      }, [token, navigate]);
+    }, [token, navigate]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        axios.post(import.meta.env.PORT, { email, password })
-            .then(result => {
-                if (result.status === 200) {
-                    const { token, message, user } = result.data
-                    if (message === "Login Successful") {
-                        localStorage.setItem('token', token)
-                        localStorage.setItem('userName', user.name)
-                        localStorage.setItem('userEmail', user.email)
-                        navigate("/home")
-                    } else {
-                        setErrorMessage(message)
-                    }
-                } else {
-                    setErrorMessage("Unexpected response status.")
-                }
-            })
-            .catch(error => {
-                console.log("Login Error:", error)
-                setErrorMessage("Login failed. Please check your credentials")
-            })
-            .finally(() => setIsLoading(false))
+        setErrorMessage('')
+
+        try {
+            const API = import.meta.env.VITE_API_URL
+            if (!API) {
+                throw new Error('API URL is not configured')
+            }
+
+            const response = await axios.post(`${API}/login`, { email, password })
+            
+            const { token, message, user } = response.data
+            
+            if (message === "Login Successful") {
+                localStorage.setItem('token', token)
+                localStorage.setItem('userName', user.name)
+                localStorage.setItem('userEmail', user.email)
+                navigate("/home")
+            } else {
+                setErrorMessage(message || "Login failed. Please try again.")
+            }
+        } catch (error) {
+            console.error("Login Error:", error)
+            
+            if (error.message === 'API URL is not configured') {
+                setErrorMessage('Server configuration error. Please contact support.')
+            } else if (error.response?.status === 401) {
+                setErrorMessage('Invalid email or password')
+            } else if (error.response?.data?.message) {
+                setErrorMessage(error.response.data.message)
+            } else {
+                setErrorMessage('Login failed. Please check your credentials')
+            }
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -49,7 +63,7 @@ const SignIn = () => {
             <div className="hidden lg:flex lg:w-1/2 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-sky-500/20 backdrop-blur-sm z-10" />
                 <img
-                    src="https://images.unsplash.com/photo-1517963628607-235ccdd5476c?q=80&w=2942&auto=format&fit=crop"
+                    src="/api/placeholder/1200/800"
                     alt="Background"
                     className="object-cover w-full h-full"
                 />
@@ -68,7 +82,7 @@ const SignIn = () => {
                     <div className="space-y-1 text-center mb-6">
                         <div className="flex items-center justify-center space-x-2 mb-2">
                             <img
-                                src="https://pbs.twimg.com/media/Gbg0yNhaQAAGV47?format=png&name=small"
+                                src="/api/placeholder/48/48"
                                 alt="Eleweight Logo"
                                 className="w-12 h-12"
                             />
@@ -134,7 +148,7 @@ const SignIn = () => {
                             {isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Logging in...
+                                    Signing in...
                                 </>
                             ) : (
                                 <>

@@ -27,7 +27,8 @@ const Register = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post(import.meta.env.PORT, formData);
+            const API = import.meta.env.VITE_API_URL
+            const response = await axios.post(`${API}/register`, formData);
 
             if (response.data.message === 'You are signed in') {
                 localStorage.setItem('token', response.data.token);
