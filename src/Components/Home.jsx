@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import FeatureCards from './FeaturedCards';
 import { motion } from "framer-motion";
-import { Dumbbell, List, Utensils, Bot, MoveRight, BookOpen, Plus, Calendar, MapPin } from "lucide-react";
+import { Dumbbell, List, Utensils, MoveRight, BookOpen, Plus, Calendar, MapPin } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-gray-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         
         <div className="flex relative flex-col justify-center items-center p-4 md:ml-24 md:flex-row gap- sm:gap-24 sm:p-6 lg:p-8">
-          {/* Image Container */}
+
           <div className="w-full md:w-1/3 lg:w-72">
             <div className="overflow-hidden relative rounded-2xl aspect-square">
               <div className="absolute inset-0 bg-gradient-to-br transition-transform duration-300 from-sky-100/20 to-gray-100/20 group-hover:scale-110" />
