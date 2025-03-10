@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import FeatureCards from './FeaturedCards';
 import { motion } from "framer-motion";
-import { Dumbbell, List, Utensils, Bot, MoveRight, BookOpen, Plus, Calendar } from "lucide-react";
+import { Dumbbell, List, Utensils, Bot, MoveRight, BookOpen, Plus, Calendar, MapPin } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,47 +28,47 @@ const Home = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="group relative w-full max-w-5xl mx-auto border bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+        className="overflow-hidden relative mx-auto w-full max-w-5xl bg-white rounded-3xl border shadow-sm transition-all duration-300 group hover:shadow-xl"
       >
         {isNew && (
-          <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold rounded-full shadow-lg">
+          <div className="absolute top-4 right-4 z-10 px-3 py-1 text-xs font-bold text-white bg-gradient-to-r from-green-500 to-emerald-500 rounded-full shadow-lg">
             NEW
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-gray-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         
-        <div className="relative flex flex-col md:ml-24 md:flex-row items-center justify-center gap- sm:gap-24 p-4 sm:p-6 lg:p-8">
+        <div className="flex relative flex-col justify-center items-center p-4 md:ml-24 md:flex-row gap- sm:gap-24 sm:p-6 lg:p-8">
           {/* Image Container */}
           <div className="w-full md:w-1/3 lg:w-72">
-            <div className="aspect-square relative rounded-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-100/20 to-gray-100/20 group-hover:scale-110 transition-transform duration-300" />
+            <div className="overflow-hidden relative rounded-2xl aspect-square">
+              <div className="absolute inset-0 bg-gradient-to-br transition-transform duration-300 from-sky-100/20 to-gray-100/20 group-hover:scale-110" />
               <img
                 src={image}
-                className="h-full w-full object-cover rounded-3xl object-center p-4 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover object-center p-4 w-full h-full rounded-3xl transition-transform duration-300 group-hover:scale-105"
                 alt={title}
               />
             </div>
           </div>
   
           {/* Content Container */}
-          <div className="flex-1 flex flex-col gap-4 sm:gap-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center bg-sky-50 rounded-2xl group-hover:bg-sky-100 transition-colors duration-300">
-                <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-sky-600" />
+          <div className="flex flex-col flex-1 gap-4 sm:gap-6">
+            <div className="flex gap-4 items-center">
+              <div className="flex justify-center items-center w-12 h-12 bg-sky-50 rounded-2xl transition-colors duration-300 sm:w-14 sm:h-14 group-hover:bg-sky-100">
+                <Icon className="w-6 h-6 text-sky-600 sm:w-8 sm:h-8" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900">{title}</h3>
+              <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">{title}</h3>
             </div>
   
-            <p className="text-sm sm:text-base sm:pr-44 text-gray-600 leading-relaxed">
+            <p className="text-sm leading-relaxed text-gray-600 sm:text-base sm:pr-44">
               {description}
             </p>
   
             <Link
               to={link}
-              className="inline-flex items-center justify-between w-full sm:w-80 px-4 sm:px-6 py-3 bg-sky-600 text-white text-sm sm:text-base rounded-xl hover:bg-sky-700 transition-colors duration-200 group/button"
+              className="inline-flex justify-between items-center px-4 py-3 w-full text-sm text-white bg-sky-600 rounded-xl transition-colors duration-200 sm:w-80 sm:px-6 sm:text-base hover:bg-sky-700 group/button"
             >
               <span>Get Started</span>
-              <MoveRight className="ml-2 w-4 h-4 group-hover/button:translate-x-1 transition-transform duration-200" />
+              <MoveRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover/button:translate-x-1" />
             </Link>
           </div>
         </div>
@@ -82,11 +82,11 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative min-h-[90vh] overflow-hidden">
           {/* Decorative elements */}
-          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-blue-200/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br from-sky-200/20 to-sky-200/20 rounded-full blur-3xl" />
+          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br rounded-full blur-3xl from-blue-200/20 to-blue-200/20" />
+          <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br rounded-full blur-3xl from-sky-200/20 to-sky-200/20" />
 
           <div className="relative z-10 container mx-auto sm:my-32 lg:my-0 px-6 sm:px-16 lg:px-32 h-full md:h-[90vh] flex items-center">
-            <div className="px-8 py-8 flex flex-col lg:flex-row-reverse justify-center gap-4 sm:gap-12 items-center w-full">
+            <div className="flex flex-col gap-4 justify-center items-center px-8 py-8 w-full lg:flex-row-reverse sm:gap-12">
               <motion.div
                 className="relative w-full lg:w-1/2"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -97,7 +97,7 @@ const Home = () => {
                 <img
                   src="Toji.svg"
                   alt="Fitness"
-                  className="relative w-60 md:w-full max-w-xl pt-4 md:pt-0 mx-auto object-contain drop-shadow-2xl"
+                  className="object-contain relative pt-4 mx-auto w-60 max-w-xl drop-shadow-2xl md:w-full md:pt-0"
                 />
               </motion.div>
 
@@ -109,7 +109,7 @@ const Home = () => {
               >
                 <div className="space-y-2 sm:space-y-8">
                   <motion.div
-                    className="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-medium text-gray-600 border border-gray-100 shadow-sm"
+                    className="hidden gap-2 items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-full border border-gray-100 shadow-sm backdrop-blur-sm sm:inline-flex bg-white/80"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
@@ -118,35 +118,35 @@ const Home = () => {
                     <span className='text-xs'>Your Fitness Journey Starts Here</span>
                   </motion.div>
 
-                  <h1 className="text-3xl sm:text-5xl md:text-7xl text-center sm:text-start font-bold leading-tight">
-                    <span className="bg-gradient-to-br from-gray-900 via-gray-700 to-gray-800 bg-clip-text text-transparent">
+                  <h1 className="text-3xl font-bold leading-tight text-center sm:text-5xl md:text-7xl sm:text-start">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-700 to-gray-800">
                       Your 
-                      <span className="bg-gradient-to-br from-blue-600 to-sky-600 bg-clip-text text-transparent">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-sky-600">
                       {" "}
                       Personal
                     </span>
                       <br />
                       Guide To
                     </span>
-                    <span className="bg-gradient-to-br from-blue-600 to-sky-600 bg-clip-text text-transparent">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-sky-600">
                       {" "}
                       Fitness
                     </span>
                   </h1>
 
-                  <p className="text-xs text-center sm:text-start sm:text-base text-gray-600 max-w-xl leading-tight">
+                  <p className="max-w-xl text-xs leading-tight text-center text-gray-600 sm:text-start sm:text-base">
                     Explore customized exercises for your fitness level. Track progress, stay motivated, and build a stronger, healthier you.
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 px-8 sm:px-0">
+                <div className="flex flex-col gap-4 px-8 sm:flex-row sm:px-0">
                   <Link
                     to="/exercises"
                     className="group inline-flex items-center justify-center gap-2 px-2 py-2 sm:px-6 sm:py-3 bg-gradient-to-br from-blue-600 to-sky-600 text-white rounded-2xl font-semibold hover:shadow-xl transform transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
                   >
-                    <span className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-300 from-blue-400/20 group-hover:opacity-100" />
                     Browse Exercises
-                    <MoveRight className="group-hover:translate-x-1 transition-transform duration-300" />
+                    <MoveRight className="transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
 
                   <Link
@@ -154,7 +154,7 @@ const Home = () => {
                     className="group inline-flex items-center justify-center gap-2 px-2 py-2 sm:px-6 sm:py-3 bg-white border border-gray-200 text-gray-900 rounded-2xl font-semibold hover:border-gray-300 hover:shadow-lg transform transition-all duration-300 hover:scale-[1.02]"
                   >
                     Create Workout
-                    <Plus className="group-hover:rotate-12 transition-transform duration-300" />
+                    <Plus className="transition-transform duration-300 group-hover:rotate-12" />
                   </Link>
                 </div>
               </motion.div>
@@ -163,41 +163,41 @@ const Home = () => {
         </section>
 
         {/* New Features Banner */}
-        <section className="py-12 bg-gradient-to-r from-blue-600 to-blue-400 text-white">
-          <div className="container mx-auto px-6 sm:px-16 lg:px-32">
+        <section className="py-12 text-white bg-gradient-to-r from-blue-600 to-blue-400">
+          <div className="container px-6 mx-auto sm:px-16 lg:px-32">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center space-y-4"
+              className="space-y-4 text-center"
             >
-              <h2 className="text-3xl sm:text-4xl font-bold">
+              <h2 className="text-3xl font-bold sm:text-4xl">
                 New Features Available!
               </h2>
-              <p className="text-white/80 max-w-2xl mx-auto">
+              <p className="mx-auto max-w-2xl text-white/80">
                 We've added exciting new features to help you take your fitness journey to the next level
               </p>
               
-              <div className="flex flex-wrap justify-center gap-6 mt-8">
+              <div className="flex flex-wrap gap-6 justify-center mt-8">
                 <Link
                   to="/exercises"
-                  className="flex items-center gap-2 px-5 py-3 bg-white text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors"
+                  className="flex gap-2 items-center px-5 py-3 font-medium text-blue-600 bg-white rounded-lg transition-colors hover:bg-blue-50"
                 >
-                  <BookOpen className="h-5 w-5" />
+                  <BookOpen className="w-5 h-5" />
                   Exercise Library
                 </Link>
                 <Link
                   to="/create-plan"
-                  className="flex items-center gap-2 px-5 py-3 bg-blue-700 text-white rounded-lg font-medium hover:bg-blue-800 transition-colors"
+                  className="flex gap-2 items-center px-5 py-3 font-medium text-white bg-blue-700 rounded-lg transition-colors hover:bg-blue-800"
                 >
-                  <Plus className="h-5 w-5" />
+                  <Plus className="w-5 h-5" />
                   Create Custom Plan
                 </Link>
                 <Link
                   to="/my-plans"
-                  className="flex items-center gap-2 px-5 py-3 bg-blue-500/20 backdrop-blur-sm text-white border border-white/20 rounded-lg font-medium hover:bg-blue-500/30 transition-colors"
+                  className="flex gap-2 items-center px-5 py-3 font-medium text-white rounded-lg border backdrop-blur-sm transition-colors bg-blue-500/20 border-white/20 hover:bg-blue-500/30"
                 >
-                  <Calendar className="h-5 w-5" />
+                  <Calendar className="w-5 h-5" />
                   My Workout Plans
                 </Link>
               </div>
@@ -206,47 +206,39 @@ const Home = () => {
         </section>
 
         {/* Features Section */}
-        <section className="py-24 px-6 min-h-screen flex flex-col items-center justify-center gap-16 sm:px-16 lg:px-32 bg-gradient-to-br from-white to-gray-50">
+        <section className="flex flex-col gap-16 justify-center items-center px-6 py-24 min-h-screen bg-gradient-to-br from-white to-gray-50 sm:px-16 lg:px-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center space-y-4"
+            className="space-y-4 text-center"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold">
-              <span className="bg-gradient-to-br from-gray-900 to-gray-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold sm:text-5xl">
+              <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-900 to-gray-600">
                 Explore Our
               </span>
-              <span className="bg-gradient-to-br from-sky-600 to-sky-500 bg-clip-text text-transparent">
+              <span className="text-transparent bg-clip-text bg-gradient-to-br from-sky-600 to-sky-500">
                 {" "}Features
               </span>
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-gray-600">
               Discover powerful tools and resources designed to help you achieve your fitness goals
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 gap-8 w-full">
             <FeatureCard
-              image="https://i.pinimg.com/736x/55/21/9c/55219c8309c5ed369d81a4f7e30cdb84.jpg"
+              image="https://i.pinimg.com/originals/a0/d6/35/a0d635c33d9a31a1d3c4a6f6ab8c3e21.gif"
               Icon={Dumbbell}
-              title="Browse Muscle Groups"
-              description="Explore exercises organized by muscle groups. Find targeted workouts for specific areas of your body and learn proper form and technique."
+              title="Browse Exercises"
+              description="Explore a comprehensive library of exercises categorized by muscle groups. Find detailed instructions, animations, and tips to perfect your form."
               link="/muscle"
             />
             <FeatureCard
-              image="https://i.pinimg.com/originals/8e/34/bb/8e34bb41d30ceb2f65aa7873a87a4371.gif"
-              Icon={BookOpen}
-              title="Exercise Library"
-              description="Browse our comprehensive collection of exercises with detailed instructions and animations. Find the perfect exercises for your fitness level and goals."
-              link="/exercises"
-              isNew={true}
-            />
-            <FeatureCard
-              image="https://i.pinimg.com/474x/4c/e1/b1/4ce1b1f605f3b2aedfdd5aa8ab083b63.jpg"
+              image="https://i.pinimg.com/originals/8e/8a/99/8e8a99e5a5a5e0ca7a4f6b670f9d3a1c.gif"
               Icon={List}
               title="Workout Plans"
-              description="Choose from expertly designed workout plans to achieve your fitness goals. Whether you're building strength or improving endurance, we have the perfect plan for you."
+              description="Access curated workout plans designed by fitness experts. From beginners to advanced athletes, find the perfect routine to achieve your goals."
               link="/plans"
             />
             <FeatureCard
@@ -264,16 +256,24 @@ const Home = () => {
               description="Get personalized diet plans that complement your workout routine. Our nutrition guidance helps you fuel your body properly and achieve optimal results."
               link="/diet"
             />
+            <FeatureCard
+              image="https://i.pinimg.com/originals/e0/f3/73/e0f373000a27d99d4a4253db0f3a0af7.gif"
+              Icon={MapPin}
+              title="Find Nearby Gyms"
+              description="Discover fitness centers in your area to kickstart your fitness journey. We'll help you find the perfect gym based on your location."
+              link="/nearby-gyms"
+              isNew={true}
+            />
           </div>
         </section>
 
       {/* Results Section */}
-      <section className="py-24 px-6 sm:px-16 lg:px-32 bg-sky-200">
+      <section className="px-6 py-24 bg-sky-200 sm:px-16 lg:px-32">
         <motion.div 
-          className="text-center mb-16"
+          className="mb-16 text-center"
           {...fadeInUp}
         >
-          <h2 className="text-4xl sm:text-5xl font-bold bg-gradient-to-br from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-gray-900 to-gray-600 sm:text-5xl">
             Train Hard. Track Results.
             <br />
             Transform Your Fitness Journey.
@@ -283,24 +283,24 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16 px-6 sm:px-16 lg:px-32">
+      <footer className="px-6 py-16 text-white bg-gray-900 sm:px-16 lg:px-32">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
             <div>
-              <div className="flex items-center gap-4 mb-4">
-                <i className="fi fi-ss-gym text-white" />
-                <h1 className="font-bold text-3xl">Eleweight</h1>
+              <div className="flex gap-4 items-center mb-4">
+                <i className="text-white fi fi-ss-gym" />
+                <h1 className="text-3xl font-bold">Eleweight</h1>
               </div>
               <p className="text-gray-400">Created by Karan Kendre</p>
             </div>
             
             {['Socials', 'Support', 'Company'].map((title) => (
               <div key={title}>
-                <h2 className="font-bold text-lg mb-4">{title}</h2>
+                <h2 className="mb-4 text-lg font-bold">{title}</h2>
                 <ul className="space-y-2">
                   {['Instagram', 'LinkedIn', 'Twitter'].map((link) => (
                     <li key={link}>
-                      <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+                      <a href="#" className="text-gray-400 transition-colors duration-200 hover:text-white">
                         {link}
                       </a>
                     </li>
@@ -310,7 +310,7 @@ const Home = () => {
             ))}
           </div>
           
-          <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
+          <div className="pt-8 mt-12 text-center text-gray-400 border-t border-gray-800">
             © 2024 Eleweight. All rights reserved.
           </div>
         </div>

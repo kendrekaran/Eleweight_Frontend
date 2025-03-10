@@ -37,6 +37,7 @@ const NavBar = () => {
     { path: "/plans", name: "Workout Plans" },
     { path: "/my-plans", name: "My Plans" },
     { path: "/diet", name: "Diet" },
+    { path: "/nearby-gyms", name: "Nearby Gyms" },
   ];
 
   return (

@@ -15,6 +15,7 @@ import CustomPlan from './Pages/CustomPlan'
 import MyWorkoutPlans from './Pages/MyWorkoutPlans'
 import WorkoutPlanDetail from './Pages/WorkoutPlanDetail'
 import EditPlan from './Pages/EditPlan'
+import NearbyGymsPage from './Pages/NearbyGymsPage'
 
 const App = () => {
 
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/my-plans" element={<MyWorkoutPlans />} />
         <Route path="/workout-plan/:id" element={<WorkoutPlanDetail />} />
         <Route path="/edit-plan/:id" element={<EditPlan />} />
+        <Route path="/nearby-gyms" element={<NearbyGymsPage />} />
       </Routes>
     </LoadingProvider>
     </div>
