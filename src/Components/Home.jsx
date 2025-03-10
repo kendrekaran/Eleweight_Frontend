@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import FeatureCards from './FeaturedCards';
 import { motion } from "framer-motion";
 import { Dumbbell, List, Utensils, MoveRight, BookOpen, Plus, Calendar, MapPin } from "lucide-react";
+import FeaturesSection from './FeaturedCards';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -206,66 +207,7 @@ const Home = () => {
         </section>
 
         {/* Features Section */}
-        <section className="flex flex-col gap-16 justify-center items-center px-6 py-24 min-h-screen bg-gradient-to-br from-white to-gray-50 sm:px-16 lg:px-32">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="space-y-4 text-center"
-          >
-            <h2 className="text-4xl font-bold sm:text-5xl">
-              <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-900 to-gray-600">
-                Explore Our
-              </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-br from-sky-600 to-sky-500">
-                {" "}Features
-              </span>
-            </h2>
-            <p className="mx-auto max-w-2xl text-gray-600">
-              Discover powerful tools and resources designed to help you achieve your fitness goals
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 gap-8 w-full">
-            <FeatureCard
-              image="https://i.pinimg.com/originals/a0/d6/35/a0d635c33d9a31a1d3c4a6f6ab8c3e21.gif"
-              Icon={Dumbbell}
-              title="Browse Exercises"
-              description="Explore a comprehensive library of exercises categorized by muscle groups. Find detailed instructions, animations, and tips to perfect your form."
-              link="/muscle"
-            />
-            <FeatureCard
-              image="https://i.pinimg.com/originals/8e/8a/99/8e8a99e5a5a5e0ca7a4f6b670f9d3a1c.gif"
-              Icon={List}
-              title="Workout Plans"
-              description="Access curated workout plans designed by fitness experts. From beginners to advanced athletes, find the perfect routine to achieve your goals."
-              link="/plans"
-            />
-            <FeatureCard
-              image="https://i.pinimg.com/originals/60/77/fb/6077fb87e19f8738d539852db0e534bc.gif"
-              Icon={Plus}
-              title="Create Custom Plans"
-              description="Design your own personalized workout routines with our easy-to-use plan builder. Mix and match exercises to create the perfect workout for your specific needs and goals."
-              link="/create-plan"
-              isNew={true}
-            />
-            <FeatureCard
-              image="https://i.pinimg.com/736x/aa/d3/4e/aad34e88c7cebbbfbbeb82b614d8eee1.jpg"
-              Icon={Utensils}
-              title="Diet Plans"
-              description="Get personalized diet plans that complement your workout routine. Our nutrition guidance helps you fuel your body properly and achieve optimal results."
-              link="/diet"
-            />
-            <FeatureCard
-              image="https://i.pinimg.com/originals/e0/f3/73/e0f373000a27d99d4a4253db0f3a0af7.gif"
-              Icon={MapPin}
-              title="Find Nearby Gyms"
-              description="Discover fitness centers in your area to kickstart your fitness journey. We'll help you find the perfect gym based on your location."
-              link="/nearby-gyms"
-              isNew={true}
-            />
-          </div>
-        </section>
+        <FeaturesSection />
 
       {/* Results Section */}
       <section className="px-6 py-24 bg-sky-200 sm:px-16 lg:px-32">
