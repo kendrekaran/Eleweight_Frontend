@@ -10,6 +10,11 @@ import Plans from './Pages/Plans'
 import DietPlans from './Pages/DietPlans'
 import { LoadingProvider } from './Loaders/LoadingContext'
 import WorkoutPlan from './Exercises/WorkoutPlan'
+import AllExercises from './Pages/AllExercises'
+import CustomPlan from './Pages/CustomPlan'
+import MyWorkoutPlans from './Pages/MyWorkoutPlans'
+import WorkoutPlanDetail from './Pages/WorkoutPlanDetail'
+import EditPlan from './Pages/EditPlan'
 
 const App = () => {
 
@@ -27,6 +32,11 @@ const App = () => {
         <Route path="/muscle/:muscle" element={<MuscleExercises/>} ></Route>
         <Route path="/plans" element={<Plans />} />
         <Route path="/plans/:plan" element={<WorkoutPlan />} />
+        <Route path="/exercises" element={<AllExercises />} />
+        <Route path="/create-plan" element={<CustomPlan />} />
+        <Route path="/my-plans" element={<MyWorkoutPlans />} />
+        <Route path="/workout-plan/:id" element={<WorkoutPlanDetail />} />
+        <Route path="/edit-plan/:id" element={<EditPlan />} />
       </Routes>
     </LoadingProvider>
     </div>

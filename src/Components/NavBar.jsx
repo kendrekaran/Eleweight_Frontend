@@ -32,8 +32,10 @@ const NavBar = () => {
 
   const navLinks = [
     { path: "/home", name: "Home" },
-    { path: "/muscle", name: "Exercises" },
-    { path: "/plans", name: "Plans" },
+    { path: "/muscle", name: "Muscles" },
+    { path: "/exercises", name: "Exercise Library" },
+    { path: "/plans", name: "Workout Plans" },
+    { path: "/my-plans", name: "My Plans" },
     { path: "/diet", name: "Diet" },
   ];
 

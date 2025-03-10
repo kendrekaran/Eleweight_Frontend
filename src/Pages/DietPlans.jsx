@@ -19,6 +19,7 @@ const FitnessApp = () => {
     activityLevel: 'moderate',
     goal: 'maintain'
   });
+  
 
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
