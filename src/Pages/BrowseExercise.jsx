@@ -14,42 +14,41 @@ const MuscleCard = ({ to, imageSrc, title, exercises, difficulty, benefits }) =>
      
     <Link 
       to={to} 
-      className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+      className="overflow-hidden relative bg-white rounded-2xl shadow-md transition-all duration-300 group hover:shadow-xl"
     >
       
       <div className="aspect-w-16 aspect-h-12">
         <img
-          className="w-full h-full sm:w-96 sm:h-64 rounded-3xl object-cover transition-transform duration-500 "
+          className="object-cover w-full h-full rounded-3xl transition-transform duration-500 sm:w-96 sm:h-64"
           src={imageSrc}
           alt={`${title} Exercises`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent" />
-          
+        <div className="absolute inset-0 bg-gradient-to-t to-transparent from-black/90 via-black/60" />
       </div>
 
       <div className="absolute inset-x-0 bottom-0 p-6">
-        <div className="flex items-center gap-2 mb-28 ml-44 text-blue-400 transition-transform duration-300 transform translate-y-0 opacity-0 group-hover:-translate-y-2 group-hover:opacity-100">
+        <div className="flex gap-2 items-center mb-28 ml-44 text-purple-400 opacity-0 transition-transform duration-300 transform translate-y-0 group-hover:-translate-y-2 group-hover:opacity-100">
             <span>Explore exercises</span>
             <ChevronRight className="w-5 h-5" />
         </div>
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex justify-between items-center">
           
-            <h3 className="text-white text-2xl md:text-3xl font-bold tracking-wide">
+            <h3 className="text-2xl font-bold tracking-wide text-white md:text-3xl">
               {title}
             </h3>
-            <span className="bg-blue-500/20 backdrop-blur-sm text-blue-400 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="px-3 py-1 text-sm font-medium text-purple-400 rounded-full backdrop-blur-sm bg-purple-500/20">
               {exercises} exercises
             </span>
           </div>
 
           <div className="grid grid-cols-2 gap-3 text-sm">
-            <div className="flex items-center gap-2 text-gray-300">
-              <Trophy className="w-4 h-4 text-blue-400" />
+            <div className="flex gap-2 items-center text-gray-300">
+              <Trophy className="w-4 h-4 text-purple-400" />
               <span>{difficulty}</span>
             </div>
-            <div className="flex items-center gap-2 text-gray-300">
-              <Target className="w-4 h-4 text-blue-400" />
+            <div className="flex gap-2 items-center text-gray-300">
+              <Target className="w-4 h-4 text-purple-400" />
               <span>{benefits}</span>
             </div>
           </div>
@@ -59,7 +58,7 @@ const MuscleCard = ({ to, imageSrc, title, exercises, difficulty, benefits }) =>
       </div>
 
       <div className="absolute top-4 left-4">
-        <div className="bg-blue-600/10 backdrop-blur-sm p-2 rounded-xl">
+        <div className="p-2 rounded-xl backdrop-blur-sm bg-purple-600/10">
           <Dumbbell className="w-6 h-6 text-white" />
         </div>
       </div>
@@ -137,27 +136,27 @@ const BrowseExercise = () => {
     <div className="min-h-screen bg-gray-50">
       <NavBar />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <h1 className="mb-4 text-4xl font-bold md:text-5xl">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">
               Target Your
             </span>
-            <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-400">
               {" "}Muscle Groups
             </span>
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <p className="mx-auto max-w-2xl text-lg text-gray-600">
             Select a muscle group to discover targeted exercises and build your perfect workout
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
           {muscles.map((muscle, index) => (
             <MuscleCard
               key={muscle.id}

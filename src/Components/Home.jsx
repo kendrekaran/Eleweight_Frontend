@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import FeatureCards from './FeaturedCards';
 import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, List, Utensils, MoveRight, BookOpen, Plus, Calendar, MapPin, ArrowRight, Star, ChevronDown, Users, TrendingUp, Brain, ChevronLeft, ChevronRight, Check, Crown, Zap, Lock, Shield } from "lucide-react";
-import FeatureShowcase from './FeatureShowcase';
+import { Dumbbell, List,  MoveRight, BookOpen, Plus, Calendar, MapPin, ArrowRight,  Brain, ChevronLeft, ChevronRight, Check, Crown, Zap, Lock, Shield } from "lucide-react";
+
 import PaymentModal from './PaymentModal';
 import FitnessAdComponent from './FitnessAdComponent';
+
 
 const Home = () => {
   const navigate = useNavigate();

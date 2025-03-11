@@ -156,7 +156,7 @@ const Plans = () => {
           <h1 className="px-2 mb-3 text-3xl font-bold sm:text-4xl md:text-5xl sm:mb-4">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">
               Choose Your 
-              <span className="text-transparent bg-clip-text bg-gradient-to-br from-sky-600 to-blue-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-br from-sky-600 to-purple-600">
                 {" "}
                 Training Plan
               </span>
@@ -187,7 +187,7 @@ const Plans = () => {
               </div>
 
               <div className="relative p-4 sm:p-6">
-                <h3 className="mb-2 text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400 sm:text-2xl">
+                <h3 className="mb-2 text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-400 sm:text-2xl">
                   {planDetails[plan].title}
                 </h3>
 
@@ -197,24 +197,24 @@ const Plans = () => {
 
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div className="flex gap-1 items-center sm:gap-2">
-                    <Calendar className="w-4 h-4 text-blue-500 sm:w-5 sm:h-5" />
+                    <Calendar className="w-4 h-4 text-purple-500 sm:w-5 sm:h-5" />
                     <span className="text-xs text-gray-600 sm:text-sm">{planDetails[plan].days}</span>
                   </div>
                   <div className="flex gap-1 items-center sm:gap-2">
-                    <Timer className="w-4 h-4 text-blue-500 sm:w-5 sm:h-5" />
+                    <Timer className="w-4 h-4 text-purple-500 sm:w-5 sm:h-5" />
                     <span className="text-xs text-gray-600 sm:text-sm">{planDetails[plan].intensity}</span>
                   </div>
                   <div className="flex gap-1 items-center sm:gap-2">
-                    <Users className="w-4 h-4 text-blue-500 sm:w-5 sm:h-5" />
+                    <Users className="w-4 h-4 text-purple-500 sm:w-5 sm:h-5" />
                     <span className="text-xs text-gray-600 sm:text-sm">{planDetails[plan].experience}</span>
                   </div>
                   <div className="flex gap-1 items-center sm:gap-2">
-                    <Dumbbell className="w-4 h-4 text-blue-500 sm:w-5 sm:h-5" />
+                    <Dumbbell className="w-4 h-4 text-purple-500 sm:w-5 sm:h-5" />
                     <span className="text-xs text-gray-600 sm:text-sm">Strength Focus</span>
                   </div>
                 </div>
 
-                <div className="absolute right-0 bottom-0 left-0 h-1 bg-blue-500 transition-transform duration-300 transform origin-left scale-x-0 group-hover:scale-x-100" />
+                <div className="absolute right-0 bottom-0 left-0 h-1 bg-purple-500 transition-transform duration-300 transform origin-left scale-x-0 group-hover:scale-x-100" />
               </div>
             </motion.div>
           ))}

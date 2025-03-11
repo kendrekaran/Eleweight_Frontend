@@ -38,7 +38,7 @@ const FitnessApp = () => {
   
 
   const glassPanel = "backdrop-blur-lg bg-white/30 border border-white/40 shadow-lg";
-  const gradientText = "bg-gradient-to-r from-blue-500 via-blue-500 to-sky-500 bg-clip-text text-transparent";
+  const gradientText = "bg-gradient-to-r from-purple-500 via-purple-500 to-sky-500 bg-clip-text text-transparent";
   const neumorphicInput = "bg-gray-50 border-2 border-transparent rounded-xl shadow-[4px_4px_10px_0px_rgba(0,0,0,0.1),-4px_-4px_10px_0px_rgba(255,255,255,0.9)] focus:shadow-[inset_4px_4px_10px_0px_rgba(0,0,0,0.1),inset_-4px_-4px_10px_0px_rgba(255,255,255,0.9)] transition-all duration-300";
 
   const activityLevels = [
@@ -191,25 +191,25 @@ const FitnessApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-sky-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-purple-50 to-sky-50">
       <NavBar/>
       <div className='p-4 md:p-8'>
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
+          className="mb-8 text-center"
         >
-          <h1 className={`text-3xl md:text-4xl font-bold mb-2 ${gradientText}`}>
+          <h1 className={`mb-2 text-3xl font-bold md:text-4xl ${gradientText}`}>
             Personalized AI Diet Planner
           </h1>
           <p className="text-gray-600">Get a customized nutrition plan tailored to your needs</p>
         </motion.div>
 
-        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/50">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <form onSubmit={handleSubmit} className="p-8 mx-auto max-w-4xl rounded-xl border shadow-xl backdrop-blur-sm bg-white/90 border-white/50">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex items-center gap-2 text-gray-700 mb-3">
-                <Weight className="w-5 h-5 text-blue-500" />
+              <label className="flex gap-2 items-center mb-3 text-gray-700">
+                <Weight className="w-5 h-5 text-purple-500" />
                 <span className="font-medium">Weight (kg)</span>
               </label>
               <input
@@ -217,15 +217,15 @@ const FitnessApp = () => {
                 name="weight"
                 value={formData.weight}
                 onChange={handleInputChange}
-                className={`w-full h-14 px-4 ${neumorphicInput}`}
+                className={`px-4 w-full h-14 ${neumorphicInput}`}
                 placeholder="Enter weight"
                 required
               />
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex items-center gap-2 text-gray-700 mb-3">
-                <Ruler className="w-5 h-5 text-blue-500" />
+              <label className="flex gap-2 items-center mb-3 text-gray-700">
+                <Ruler className="w-5 h-5 text-purple-500" />
                 <span className="font-medium">Height (cm)</span>
               </label>
               <input
@@ -233,14 +233,14 @@ const FitnessApp = () => {
                 name="height"
                 value={formData.height}
                 onChange={handleInputChange}
-                className={`w-full h-14 px-4 ${neumorphicInput}`}
+                className={`px-4 w-full h-14 ${neumorphicInput}`}
                 placeholder="Enter height"
                 required
               />
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex items-center gap-2 text-gray-700 mb-3">
+              <label className="flex gap-2 items-center mb-3 text-gray-700">
                 <Calendar className="w-5 h-5 text-sky-500" />
                 <span className="font-medium">Age</span>
               </label>
@@ -249,22 +249,22 @@ const FitnessApp = () => {
                 name="age"
                 value={formData.age}
                 onChange={handleInputChange}
-                className={`w-full h-14 px-4 ${neumorphicInput}`}
+                className={`px-4 w-full h-14 ${neumorphicInput}`}
                 placeholder="Enter age"
                 required
               />
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex items-center gap-2 text-gray-700 mb-3">
-                <User className="w-5 h-5 text-blue-500" />
+              <label className="flex gap-2 items-center mb-3 text-gray-700">
+                <User className="w-5 h-5 text-purple-500" />
                 <span className="font-medium">Gender</span>
               </label>
               <select
                 name="gender"
                 value={formData.gender}
                 onChange={handleInputChange}
-                className={`w-full h-14 px-4 ${neumorphicInput}`}
+                className={`px-4 w-full h-14 ${neumorphicInput}`}
                 required
               >
                 <option value="male">Male</option>
@@ -273,15 +273,15 @@ const FitnessApp = () => {
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex items-center gap-2 text-gray-700 mb-3">
-                <Activity className="w-5 h-5 text-blue-500" />
+              <label className="flex gap-2 items-center mb-3 text-gray-700">
+                <Activity className="w-5 h-5 text-purple-500" />
                 <span className="font-medium">Activity Level</span>
               </label>
               <select
                 name="activityLevel"
                 value={formData.activityLevel}
                 onChange={handleInputChange}
-                className={`w-full h-14 px-4 ${neumorphicInput}`}
+                className={`px-4 w-full h-14 ${neumorphicInput}`}
                 required
               >
                 {activityLevels.map(level => (
@@ -293,7 +293,7 @@ const FitnessApp = () => {
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex items-center gap-2 text-gray-700 mb-3">
+              <label className="flex gap-2 items-center mb-3 text-gray-700">
                 <Target className="w-5 h-5 text-sky-500" />
                 <span className="font-medium">Goal</span>
               </label>
@@ -301,7 +301,7 @@ const FitnessApp = () => {
                 name="goal"
                 value={formData.goal}
                 onChange={handleInputChange}
-                className={`w-full h-14 px-4 ${neumorphicInput}`}
+                className={`px-4 w-full h-14 ${neumorphicInput}`}
                 required
               >
                 {goals.map(goal => (
@@ -313,7 +313,7 @@ const FitnessApp = () => {
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex items-center gap-2 text-gray-700 mb-3">
+              <label className="flex gap-2 items-center mb-3 text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                 </svg>
@@ -323,7 +323,7 @@ const FitnessApp = () => {
                 name="dietPreference"
                 value={formData.dietPreference}
                 onChange={handleInputChange}
-                className={`w-full h-14 px-4 ${neumorphicInput}`}
+                className={`px-4 w-full h-14 ${neumorphicInput}`}
                 required
               >
                 <option value="non-vegetarian">Non Vegetarian</option>
@@ -341,7 +341,7 @@ const FitnessApp = () => {
                 exit={{ opacity: 0, y: -20 }}
                 className="mt-6"
               >
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <div className="relative px-4 py-3 text-red-700 bg-red-100 rounded border border-red-400" role="alert">
                   <span className="block sm:inline">{error}</span>
                 </div>
               </motion.div>
@@ -354,11 +354,11 @@ const FitnessApp = () => {
               disabled={loading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="px-6 py-3 rounded-lg text-white font-medium bg-blue-500 hover:bg-blue-600 transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50"
+              className="flex gap-2 items-center px-6 py-3 mx-auto font-medium text-white bg-purple-500 rounded-lg transition-all duration-300 hover:bg-purple-600 disabled:opacity-50"
             >
               {loading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <div className="w-4 h-4 rounded-full border-2 border-white animate-spin border-t-transparent" />
                   Generating...
                 </>
               ) : (
@@ -377,57 +377,57 @@ const FitnessApp = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="mt-8 max-w-4xl mx-auto space-y-6"
+              className="mx-auto mt-8 space-y-6 max-w-4xl"
             >
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg p-6 shadow-lg">
-                  <h3 className="font-medium text-blue-100">Daily Calories</h3>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+                <div className="p-6 text-white bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg">
+                  <h3 className="font-medium text-purple-100">Daily Calories</h3>
                   <p className="text-2xl font-bold">{results.calories.toLocaleString()} kcal</p>
                 </div>
-                <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg p-6 shadow-lg">
+                <div className="p-6 text-white bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg">
                   <h3 className="font-medium text-green-100">Protein</h3>
                   <p className="text-2xl font-bold">{results.protein}g</p>
                 </div>
-                <div className="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white rounded-lg p-6 shadow-lg">
+                <div className="p-6 text-white bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg shadow-lg">
                   <h3 className="font-medium text-yellow-100">Carbs</h3>
                   <p className="text-2xl font-bold">{results.carbs}g</p>
                 </div>
-                <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg p-6 shadow-lg">
+                <div className="p-6 text-white bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg">
                   <h3 className="font-medium text-purple-100">Fats</h3>
                   <p className="text-2xl font-bold">{results.fats}g</p>
                 </div>
               </div>
 
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-md">
-                <div className="flex items-center justify-between mb-4">
+              <div className="p-6 rounded-lg shadow-md backdrop-blur-sm bg-white/80">
+                <div className="flex justify-between items-center mb-4">
                   <h3 className="text-xl font-semibold text-gray-800">Your AI-Generated Diet Plan</h3>
                   <motion.button
                     onClick={copyDietPlan}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                    className="flex gap-2 items-center px-4 py-2 text-white bg-purple-500 rounded-lg transition-colors hover:bg-purple-600"
                   >
                     <Copy className="w-4 h-4" />
                     <div className='hidden sm:block'>{copied ? 'Copied!' : 'Copy Plan'}</div>
                   </motion.button>
                 </div>
-                <div className="prose prose-blue max-w-none overflow-y-auto max-h-[600px] scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-100 pr-4">
+                <div className="prose prose-purple max-w-none overflow-y-auto max-h-[600px] scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-100 pr-4">
                   <div className="space-y-4">
                     <ReactMarkdown
                       components={{
                         p: ({ children }) => (
-                          <div className="p-4 bg-white/50 rounded-lg shadow-sm">
+                          <div className="p-4 rounded-lg shadow-sm bg-white/50">
                             <p className="text-gray-600">{children}</p>
                           </div>
                         ),
                         ul: ({ children }) => (
-                          <div className="p-4 bg-white/50 rounded-lg shadow-sm">
+                          <div className="p-4 rounded-lg shadow-sm bg-white/50">
                             <ul className="space-y-2">{children}</ul>
                           </div>
                         ),
                         li: ({ children }) => (
-                          <li className="flex items-start gap-2 text-gray-700">
-                            <ChevronRight className="w-4 h-4 mt-1 text-blue-500 flex-shrink-0" />
+                          <li className="flex gap-2 items-start text-gray-700">
+                            <ChevronRight className="flex-shrink-0 mt-1 w-4 h-4 text-purple-500" />
                             <span className="flex-1 break-words">{children}</span>
                           </li>
                         ),
