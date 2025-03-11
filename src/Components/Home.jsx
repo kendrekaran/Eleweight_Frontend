@@ -379,15 +379,15 @@ const Home = () => {
       </section>
 
       {/* Results Section with improved styling */}
-      <section className="px-6 py-24 bg-gradient-to-b from-sky-100 to-white sm:px-16 lg:px-32">
+      <section className="px-6 py-24 bg-gradient-to-b from-indigo-50 to-white sm:px-16 lg:px-32">
         <motion.div 
           className="mb-16 text-center"
           {...fadeInUp}
         >
-          <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-blue-700 bg-blue-100 rounded-full">
+          <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-indigo-700 bg-indigo-100 rounded-full shadow-sm">
             Real Results
           </span>
-          <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-gray-900 to-gray-600 sm:text-5xl">
+          <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-indigo-900 to-purple-700 sm:text-5xl">
             Train Hard. Track Results.
             <br />
             Transform Your Fitness Journey.
@@ -396,7 +396,18 @@ const Home = () => {
             Join thousands of users who have already transformed their bodies and lives with our personalized workout plans and nutrition guidance.
           </p>
         </motion.div>
-        <FeatureCards />
+        
+        {/* Decorative elements */}
+        <div className="relative">
+          {/* Background decorative elements */}
+          <div className="absolute -top-10 -left-10 w-64 h-64 bg-indigo-200 rounded-full opacity-20 blur-3xl"></div>
+          <div className="absolute top-1/2 right-0 w-80 h-80 bg-purple-200 rounded-full opacity-30 blur-3xl"></div>
+          
+          {/* Feature cards with container */}
+          <div className="relative z-10">
+            <FeatureCards />
+          </div>
+        </div>
       </section>
 
       {/* Premium Section */}

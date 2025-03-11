@@ -4,112 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, Camera, X, Check, Dumbbell, ChevronRight, Save, Eye, EyeOff, Clock, Flame, Target, Calendar, Plus, Upload } from 'lucide-react';
 import NavBar from '../Components/NavBar';
 import axios from 'axios';
-import { Cloudinary } from '@cloudinary/url-gen';
-import { auto } from '@cloudinary/url-gen/actions/resize';
-import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
-import { AdvancedImage } from '@cloudinary/react';
-
-// Cloudinary configuration
-const CLOUDINARY_CLOUD_NAME = 'dfm5hoz41';
-const CLOUDINARY_API_KEY = '258339917617439';
-const CLOUDINARY_UPLOAD_PRESET = 'dfm5hoz41';
-// Initialize Cloudinary
-const cld = new Cloudinary({ cloud: { cloudName: CLOUDINARY_CLOUD_NAME } });
-
-const avatarImages = [
-  'https://i.pinimg.com/474x/a3/cc/fd/a3ccfd7885e6cff94ebbbe40fd9e1611.jpg',
-  'https://i.pinimg.com/474x/9f/df/46/9fdf46c6e5b2465e340ede0da9ee431b.jpg',
-  'https://i.pinimg.com/474x/aa/4b/e1/aa4be101f8877e149fec292df48386c6.jpg',
-  'https://i.pinimg.com/474x/7b/1d/a5/7b1da57b92ec01450be38816f4a01da1.jpg',
-  'https://i.pinimg.com/736x/ee/09/21/ee09218c417823a7c7dbb67c5d3efd1b.jpg',
-  'https://i.pinimg.com/736x/5e/77/8e/5e778ebab678d1a829f5562f8a977bc4.jpg',
-  'https://i.pinimg.com/474x/9e/ec/be/9eecbe985bc4caaab201a0859c80e4c5.jpg',
-  'https://i.pinimg.com/474x/be/36/67/be366773fcf2247e40fe6f22ab509cf0.jpg',
-  'https://i.pinimg.com/474x/cc/ef/e1/ccefe13166d611943acdaca183e2663c.jpg'
-  ];
-
-const ProfilePictureModal = ({ isOpen, onClose, onSelect, currentImage, onFileUpload }) => (
-  <AnimatePresence>
-    {isOpen && (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        className="flex fixed inset-0 z-50 justify-center items-center p-4 backdrop-blur-sm bg-black/50"
-      >
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.95, opacity: 0 }}
-          onClick={e => e.stopPropagation()}
-          className="p-6 w-full max-w-lg bg-white rounded-xl"
-        >
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold">Choose Profile Picture</h2>
-            <button 
-              onClick={onClose}
-              className="p-1 rounded-full transition-colors hover:bg-gray-100"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-          
-          {/* Upload your own photo section */}
-          <div className="p-4 mb-6 text-center rounded-lg border border-gray-300 border-dashed">
-            <div className="flex flex-col items-center">
-              <Upload className="mb-2 w-8 h-8 text-blue-500" />
-              <h3 className="mb-2 text-lg font-medium">Upload your photo</h3>
-              <p className="mb-3 text-sm text-gray-500">
-                For best results, use an image at least 400x400 pixels
-              </p>
-              <button
-                onClick={() => document.getElementById('profile-file-upload').click()}
-                className="px-4 py-2 text-white bg-blue-500 rounded-lg transition-colors hover:bg-blue-600"
-              >
-                Choose File
-              </button>
-              <input
-                id="profile-file-upload"
-                type="file"
-                className="hidden"
-                accept="image/*"
-                onChange={onFileUpload}
-              />
-            </div>
-          </div>
-          
-          <h3 className="mb-3 text-lg font-medium">Or select from our avatars</h3>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {avatarImages.map((avatar, index) => (
-              <motion.button
-                key={index}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => onSelect(avatar)}
-                className={`relative aspect-square rounded-xl overflow-hidden border-2 
-                  ${currentImage === avatar ? 'border-blue-500' : 'border-transparent'}`}
-              >
-                <img
-                  src={avatar}
-                  alt={`Avatar option ${index + 1}`}
-                  className="object-cover w-full h-full"
-                />
-                {currentImage === avatar && (
-                  <div className="flex absolute inset-0 justify-center items-center bg-blue-500/20">
-                    <div className="p-1 bg-white rounded-full">
-                      <Check className="w-4 h-4 text-blue-500" />
-                    </div>
-                  </div>
-                )}
-              </motion.button>
-            ))}
-          </div>
-        </motion.div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-);
 
 const CustomPlanCard = ({ plan, onClick }) => {
   const getRandomColor = () => {
@@ -191,12 +85,10 @@ const CustomPlanCard = ({ plan, onClick }) => {
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(avatarImages[0]);
-  const [cloudinaryPublicId, setCloudinaryPublicId] = useState('');
+  const [profilePicture, setProfilePicture] = useState('');
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -224,12 +116,8 @@ const Profile = () => {
   useEffect(() => {
     // Load profile picture from localStorage if available
     const savedPicture = localStorage.getItem('profilePicture');
-    const savedPublicId = localStorage.getItem('cloudinaryPublicId');
     if (savedPicture) {
       setProfilePicture(savedPicture);
-    }
-    if (savedPublicId) {
-      setCloudinaryPublicId(savedPublicId);
     }
     
     const handleProfileUpdate = (e) => {
@@ -265,15 +153,6 @@ const Profile = () => {
     localStorage.removeItem('userName');
     localStorage.removeItem('userEmail');
     navigate("/login");
-  };
-
-  const handlePictureSelect = (newPicture) => {
-    setProfilePicture(newPicture);
-    localStorage.setItem('profilePicture', newPicture);
-    window.dispatchEvent(new CustomEvent('profilePictureUpdate', {
-      detail: { picture: newPicture }
-    }));
-    setIsModalOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -364,38 +243,48 @@ const Profile = () => {
     try {
       setUploading(true);
       
-      // Create a FormData object for the file upload
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-      formData.append('cloud_name', CLOUDINARY_CLOUD_NAME);
-      formData.append('api_key', CLOUDINARY_API_KEY);
+      // Convert file to base64 for Cloudinary upload
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
       
-      // Upload to Cloudinary
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-        formData
-      );
+      reader.onload = async () => {
+        const base64Image = reader.result;
+        
+        try {
+          // Upload to Cloudinary using backend API
+          const uploadResult = await axios.post(`${API_URL}/api/upload-image`, 
+            { image: base64Image },
+            { 
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          );
+          
+          // Get the secure URL from the response
+          const imageUrl = uploadResult.data.secure_url;
+          
+          // Update the UI and localStorage
+          setProfilePicture(imageUrl);
+          localStorage.setItem('profilePicture', imageUrl);
+          
+          // Notify other components about the profile picture update
+          window.dispatchEvent(new CustomEvent('profilePictureUpdate', {
+            detail: { picture: imageUrl }
+          }));
+        } catch (error) {
+          console.error('Error uploading image to Cloudinary:', error);
+        } finally {
+          setUploading(false);
+        }
+      };
       
-      // Get the public ID from the response
-      const publicId = response.data.public_id;
-      
-      // Create an optimized image URL using the Cloudinary SDK
-      const imageUrl = response.data.secure_url;
-      
-      // Update the UI and localStorage
-      setProfilePicture(imageUrl);
-      setCloudinaryPublicId(publicId); // Store the public ID for later use with AdvancedImage
-      localStorage.setItem('profilePicture', imageUrl);
-      localStorage.setItem('cloudinaryPublicId', publicId);
-      
-      // Notify other components about the profile picture update
-      window.dispatchEvent(new CustomEvent('profilePictureUpdate', {
-        detail: { picture: imageUrl, publicId: publicId }
-      }));
+      reader.onerror = (error) => {
+        console.error('Error reading file:', error);
+        setUploading(false);
+      };
     } catch (error) {
-      console.error('Error uploading image to Cloudinary:', error);
-    } finally {
+      console.error('Error handling file upload:', error);
       setUploading(false);
     }
   };
@@ -418,49 +307,31 @@ const Profile = () => {
             className="p-6 bg-white rounded-2xl shadow-lg lg:col-span-1"
           >
             <div className="relative mx-auto w-40 h-40">
-              {cloudinaryPublicId ? (
-                // Use AdvancedImage when we have a Cloudinary public ID
+              {profilePicture ? (
+                // Display uploaded Cloudinary image
                 <div className="overflow-hidden w-40 h-40 rounded-full shadow-lg">
-                  <AdvancedImage
-                    cldImg={cld
-                      .image(cloudinaryPublicId)
-                      .format('auto')
-                      .quality('auto')
-                      .resize(auto().gravity(autoGravity()).width(400).height(400))}
+                  <motion.img
                     className="object-cover w-full h-full"
+                    src={profilePicture}
                     alt="Profile"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 200 }}
                   />
                 </div>
               ) : (
-                // Use regular img for avatar images
-                <motion.img
-                  className="object-cover w-40 h-40 rounded-full shadow-lg"
-                  src={profilePicture}
-                  alt="Profile"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 200 }}
-                />
+                // Display default profile image placeholder
+                <div className="flex justify-center items-center w-40 h-40 bg-gray-200 rounded-full shadow-lg">
+                  <Camera className="w-16 h-16 text-gray-400" />
+                </div>
               )}
               <div className="flex absolute right-2 bottom-2 space-x-2">
-                <motion.button
-                  className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
-                  whileHover={{ scale: 1.1 }}
-                  onClick={() => setIsModalOpen(true)}
-                  title="Choose from avatars"
-                >
-                  <Camera className="w-5 h-5 text-gray-700" />
-                </motion.button>
                 <motion.button
                   className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
                   whileHover={{ scale: 1.1 }}
                   onClick={triggerFileInput}
                   title="Upload your photo"
                 >
-                  {uploading ? (
-                    <div className="w-5 h-5 rounded-full border-2 border-blue-500 animate-spin border-t-transparent"></div>
-                  ) : (
-                    <Upload className="w-5 h-5 text-gray-700" />
-                  )}
+                  <Camera className="w-5 h-5 text-gray-700" />
                 </motion.button>
                 <input 
                   type="file" 
@@ -669,20 +540,15 @@ const Profile = () => {
                 </Link>
               </motion.div>
             ) : (
-              <motion.div
-                className="grid grid-cols-1 gap-4 sm:grid-cols-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                {workoutPlans.map((plan) => (
-                  <CustomPlanCard
-                    key={plan._id}
-                    plan={plan}
-                    onClick={() => navigate(`/workout-plan/${plan._id}`)}
+              <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
+                {workoutPlans.map(plan => (
+                  <CustomPlanCard 
+                    key={plan._id} 
+                    plan={plan} 
+                    onClick={() => navigate(`/workout/${plan._id}`)} 
                   />
                 ))}
-              </motion.div>
+              </div>
             )}
 
             <motion.div
@@ -715,15 +581,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      
-      {/* Profile Picture Modal */}
-      <ProfilePictureModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSelect={handlePictureSelect}
-        currentImage={profilePicture}
-        onFileUpload={handleFileUpload}
-      />
     </div>
   );
 };
