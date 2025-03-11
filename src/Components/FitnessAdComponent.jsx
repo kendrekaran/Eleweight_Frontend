@@ -3,11 +3,11 @@ import { CheckCircle, ArrowRight } from 'lucide-react';
 
 const FitnessAdComponent = () => {
   return (
-    <div className="mx-auto mb-12 max-w-7xl rounded-2xl">
+    <div className="overflow-x-hidden mx-auto mb-12 max-w-7xl rounded-2xl">
       <div className="flex flex-col w-full md:flex-row">
         {/* Image Grid Section - Enhanced with overlays and better spacing */}
         <div className="flex relative flex-col justify-center p-8 w-full md:w-1/2">
-          <div className="absolute top-0 left-0 z-0 w-full h-full bg-gradient-to-r to-transparent from-purple-800/10"></div>
+          <div className="absolute top-0 left-0 z-0 w-full h-full"></div>
           
           <div className="relative z-10">
             <h3 className="mb-3 text-xl font-semibold text-purple-800">FITNESS PROGRAM</h3>
@@ -57,16 +57,14 @@ const FitnessAdComponent = () => {
         </div>
         
         {/* Content Section - Enhanced with better typography and spacing */}
-        <div className="flex relative flex-col justify-center p-10 w-full bg-purple-800 md:w-1/2">
-          <div className="absolute top-0 right-0 -mt-32 -mr-32 w-64 h-64 bg-blue-500 rounded-full opacity-20 filter blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 -mb-32 -ml-32 w-64 h-64 bg-purple-600 rounded-full opacity-20 filter blur-3xl"></div>
+        <div className="flex relative flex-col justify-center p-10 w-full md:w-1/2">
           
           <div className="relative z-10">
-            <h1 className="mb-6 text-5xl font-bold leading-tight text-white">
-              Transform your <span className="text-purple-100">physique</span> with our fitness plan
+            <h1 className="mb-6 text-5xl font-bold leading-tight text-black">
+              Transform your <span className="text-black">physique</span> with our fitness plan
             </h1>
             
-            <p className="mb-8 text-lg text-purple-200">
+            <p className="mb-8 text-lg text-black">
               Join our community and achieve your fitness goals with personalized workout plans and expert guidance.
             </p>
             
@@ -75,19 +73,19 @@ const FitnessAdComponent = () => {
                 <div className="flex justify-center items-center mr-4 w-8 h-8 rounded-full transition-colors bg-blue-500/20 group-hover:bg-blue-500/30">
                   <CheckCircle className="text-blue-300" size={18} />
                 </div>
-                <p className="text-lg text-white">Increase Muscle and Strength</p>
+                <p className="text-lg text-black">Increase Muscle and Strength</p>
               </div>
               <div className="flex items-center group">
                 <div className="flex justify-center items-center mr-4 w-8 h-8 rounded-full transition-colors bg-blue-500/20 group-hover:bg-blue-500/30">
                   <CheckCircle className="text-blue-300" size={18} />
                 </div>
-                <p className="text-lg text-white">Be Healthier than before</p>
+                <p className="text-lg text-black">Be Healthier than before</p>
               </div>
               <div className="flex items-center group">
                 <div className="flex justify-center items-center mr-4 w-8 h-8 rounded-full transition-colors bg-blue-500/20 group-hover:bg-blue-500/30">
                   <CheckCircle className="text-blue-300" size={18} />
                 </div>
-                <p className="text-lg text-white">Increase Stamina</p>
+                <p className="text-lg text-black">Increase Stamina</p>
               </div>
             </div>
             
@@ -96,9 +94,7 @@ const FitnessAdComponent = () => {
                 Join now
                 <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1" size={18} />
               </button>
-              <button className="px-8 py-4 font-bold text-white bg-transparent rounded-xl border-2 transition-all border-white/30 hover:bg-purple-700 hover:border-white/10">
-                Contact us
-              </button>
+              
             </div>
           </div>
         </div>

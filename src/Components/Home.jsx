@@ -345,7 +345,7 @@ const Home = () => {
       </section>
 
       {/* Results Section with improved styling */}
-      <section className="px-6 py-24 bg-gradient-to-b from-indigo-50 to-white sm:px-16 lg:px-32">
+      <section className="py-24 bg-gradient-to-b from-indigo-50 to-white sm:px-16 lg:px-32">
         <motion.div 
           className="mb-16 text-center"
           {...fadeInUp}
@@ -353,12 +353,12 @@ const Home = () => {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-indigo-700 bg-indigo-100 rounded-full shadow-sm">
             Real Results
           </span>
-          <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-indigo-900 to-purple-700 sm:text-5xl">
+          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-indigo-900 to-purple-700 sm:text-5xl">
             Train Hard. Track Results.
             <br />
             Transform Your Fitness Journey.
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-gray-600">
+          <p className="px-2 mx-auto mt-2 max-w-2xl text-xs text-gray-600 sm:mt-6 sm:text-base">
             Join thousands of users who have already transformed their bodies and lives with our personalized workout plans and nutrition guidance.
           </p>
         </motion.div>
