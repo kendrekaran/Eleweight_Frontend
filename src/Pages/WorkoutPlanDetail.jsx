@@ -134,14 +134,14 @@ const WorkoutPlanDetail = () => {
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-blue-600 to-blue-400 text-white">
         <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="container mx-auto px-4 py-12 relative z-10">
+        <div className="container mx-auto px-4 py-8 sm:py-12 relative z-10">
           <div className="mb-4">
             <button
               onClick={() => navigate('/my-plans')}
               className="flex items-center text-white/80 hover:text-white transition-colors"
             >
-              <ArrowLeft className="h-5 w-5 mr-1" />
-              <span>Back to My Plans</span>
+              <ArrowLeft className="h-4 h-4 sm:h-5 sm:w-5 mr-1" />
+              <span className="text-sm sm:text-base">Back to My Plans</span>
             </button>
           </div>
 
@@ -150,32 +150,32 @@ const WorkoutPlanDetail = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl font-bold mb-3">{plan.name}</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3">{plan.name}</h1>
             {plan.description && (
-              <p className="text-xl opacity-90 mb-6 max-w-3xl">{plan.description}</p>
+              <p className="text-base sm:text-xl opacity-90 mb-4 sm:mb-6 max-w-3xl">{plan.description}</p>
             )}
 
-            <div className="flex flex-wrap gap-4 items-center mt-6">
-              <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <Calendar className="h-5 w-5 mr-2" />
+            <div className="flex flex-wrap gap-2 sm:gap-4 items-center mt-4 sm:mt-6">
+              <div className="flex items-center bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm sm:text-base">
+                <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-1.5 sm:mr-2" />
                 <span>{plan.days.length} {plan.days.length === 1 ? 'Day' : 'Days'}</span>
               </div>
-              <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <Dumbbell className="h-5 w-5 mr-2" />
+              <div className="flex items-center bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm sm:text-base">
+                <Dumbbell className="h-4 w-4 sm:h-5 sm:w-5 mr-1.5 sm:mr-2" />
                 <span>{getTotalExercises()} Exercises</span>
               </div>
-              <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <Clock className="h-5 w-5 mr-2" />
+              <div className="flex items-center bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm sm:text-base">
+                <Clock className="h-4 w-4 sm:h-5 sm:w-5 mr-1.5 sm:mr-2" />
                 <span>Created {new Date(plan.createdAt).toLocaleDateString()}</span>
               </div>
             </div>
 
-            <div className="flex gap-3 mt-8">
+            <div className="flex gap-3 mt-6 sm:mt-8">
               <button
                 onClick={() => navigate(`/edit-plan/${plan._id}`)}
-                className="flex items-center px-4 py-2 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+                className="flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors text-sm sm:text-base"
               >
-                <Edit className="h-5 w-5 mr-2" />
+                <Edit className="h-4 w-4 sm:h-5 sm:w-5 mr-1.5 sm:mr-2" />
                 Edit Plan
               </button>
             </div>
@@ -183,69 +183,69 @@ const WorkoutPlanDetail = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center justify-between">
+      <div className="container mx-auto px-4 py-6 sm:py-8">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6 sm:mb-8">
+          <div className="p-4 sm:p-6 border-b border-gray-200">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0">
               <div className="flex items-center">
-                <div className="p-2 rounded-lg bg-blue-100 mr-3">
-                  <Calendar className="h-5 w-5 text-blue-500" />
+                <div className="p-1.5 sm:p-2 rounded-lg bg-blue-100 mr-2 sm:mr-3">
+                  <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500" />
                 </div>
-                <h2 className="text-xl font-semibold text-gray-800">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
                   {plan.days[activeDay].name}
                 </h2>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center justify-between sm:justify-end space-x-2">
                 <button
                   onClick={handlePreviousDay}
                   disabled={activeDay === 0}
-                  className={`p-2 rounded-full ${
+                  className={`p-1.5 sm:p-2 rounded-full ${
                     activeDay === 0
                       ? 'text-gray-400 cursor-not-allowed'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
-                  <ChevronLeft className="h-5 w-5" />
+                  <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
-                <span className="text-sm text-gray-500">
+                <span className="text-xs sm:text-sm text-gray-500">
                   Day {activeDay + 1} of {plan.days.length}
                 </span>
                 <button
                   onClick={handleNextDay}
                   disabled={activeDay === plan.days.length - 1}
-                  className={`p-2 rounded-full ${
+                  className={`p-1.5 sm:p-2 rounded-full ${
                     activeDay === plan.days.length - 1
                       ? 'text-gray-400 cursor-not-allowed'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
-                  <ChevronRight className="h-5 w-5" />
+                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
               </div>
             </div>
           </div>
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {plan.days[activeDay].exercises.length === 0 ? (
-              <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
-                <Dumbbell className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                <p className="text-gray-500">No exercises for this day.</p>
+              <div className="text-center py-8 sm:py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+                <Dumbbell className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3" />
+                <p className="text-gray-500 text-sm sm:text-base">No exercises for this day.</p>
                 <button
                   onClick={() => navigate(`/edit-plan/${plan._id}`)}
-                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                  className="mt-4 px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-500 text-white text-sm sm:text-base rounded-lg hover:bg-blue-600 transition-colors"
                 >
                   Add exercises
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {plan.days[activeDay].exercises.map((exercise, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-blue-300 transition-colors cursor-pointer group"
+                    className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200 hover:border-blue-300 transition-colors cursor-pointer group"
                     onClick={() => setSelectedExercise(exercise)}
                   >
                     <div className="flex items-center">

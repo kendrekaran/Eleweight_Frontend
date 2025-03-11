@@ -146,28 +146,28 @@ const Plans = () => {
     <div className="min-h-screen bg-gray-50">
       <NavBar />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="mb-8 text-center sm:mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <h1 className="px-2 mb-3 text-3xl font-bold sm:text-4xl md:text-5xl sm:mb-4">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">
               Choose Your 
-              <span className="bg-gradient-to-br from-sky-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="text-transparent bg-clip-text bg-gradient-to-br from-sky-600 to-blue-600">
                 {" "}
                 Training Plan
               </span>
             </span>
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="px-4 mx-auto max-w-2xl text-sm text-gray-600 sm:text-base">
             Select a workout plan that matches your goals and experience level
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 sm:gap-6 lg:gap-8">
           {Object.keys(planDetails).map((plan, index) => (
             <motion.div
               key={plan}
@@ -175,46 +175,46 @@ const Plans = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               onClick={() => handlePlanSelection(plan)}
-              className="group relative bg-white  rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="overflow-hidden relative bg-white rounded-2xl shadow-md transition-all duration-300 cursor-pointer group hover:shadow-xl"
             >
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <div className="relative aspect-w-16 aspect-h-9">
                 <img
-                  className="inset-0 w-96 h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover inset-0 w-full h-48 transition-transform duration-300 sm:h-64 group-hover:scale-105"
                   src={planDetails[plan].image}
                   alt={planDetails[plan].title}
                 />
-                <div className="absolute inset-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+                <div className="absolute inset-0 bottom-0 bg-gradient-to-t to-transparent from-black/80 via-black/50" />
               </div>
 
-              <div className="relative p-6">
-                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+              <div className="relative p-4 sm:p-6">
+                <h3 className="mb-2 text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400 sm:text-2xl">
                   {planDetails[plan].title}
                 </h3>
 
-                <p className="text-gray-600 mb-4 text-sm">
+                <p className="mb-4 text-xs text-gray-600 sm:text-sm">
                   {planDetails[plan].description}
                 </p>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-blue-500" />
-                    <span className="text-sm text-gray-600">{planDetails[plan].days}</span>
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  <div className="flex gap-1 items-center sm:gap-2">
+                    <Calendar className="w-4 h-4 text-blue-500 sm:w-5 sm:h-5" />
+                    <span className="text-xs text-gray-600 sm:text-sm">{planDetails[plan].days}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Timer className="w-5 h-5 text-blue-500" />
-                    <span className="text-sm text-gray-600">{planDetails[plan].intensity}</span>
+                  <div className="flex gap-1 items-center sm:gap-2">
+                    <Timer className="w-4 h-4 text-blue-500 sm:w-5 sm:h-5" />
+                    <span className="text-xs text-gray-600 sm:text-sm">{planDetails[plan].intensity}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-blue-500" />
-                    <span className="text-sm text-gray-600">{planDetails[plan].experience}</span>
+                  <div className="flex gap-1 items-center sm:gap-2">
+                    <Users className="w-4 h-4 text-blue-500 sm:w-5 sm:h-5" />
+                    <span className="text-xs text-gray-600 sm:text-sm">{planDetails[plan].experience}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Dumbbell className="w-5 h-5 text-blue-500" />
-                    <span className="text-sm text-gray-600">Strength Focus</span>
+                  <div className="flex gap-1 items-center sm:gap-2">
+                    <Dumbbell className="w-4 h-4 text-blue-500 sm:w-5 sm:h-5" />
+                    <span className="text-xs text-gray-600 sm:text-sm">Strength Focus</span>
                   </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <div className="absolute right-0 bottom-0 left-0 h-1 bg-blue-500 transition-transform duration-300 transform origin-left scale-x-0 group-hover:scale-x-100" />
               </div>
             </motion.div>
           ))}

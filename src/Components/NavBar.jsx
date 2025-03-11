@@ -3,15 +3,22 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Dumbbell, X, Menu, User, Search, Bell, ChevronDown, LogOut, Settings, Camera, Upload, Check, UserCircle } from 'lucide-react';
 import axios from 'axios';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 
 // Cloudinary configuration
 const CLOUDINARY_CLOUD_NAME = 'dfm5hoz41';
 const CLOUDINARY_API_KEY = '258339917617439';
 const CLOUDINARY_UPLOAD_PRESET = 'dfm5hoz41';
+// Initialize Cloudinary
+const cld = new Cloudinary({ cloud: { cloudName: CLOUDINARY_CLOUD_NAME } });
 
 const NavBar = () => {
   const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState('https://i.pinimg.com/474x/a3/cc/fd/a3ccfd7885e6cff94ebbbe40fd9e1611.jpg');
+  const [cloudinaryPublicId, setCloudinaryPublicId] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -24,8 +31,12 @@ const NavBar = () => {
   useEffect(() => {
     const handleStorageChange = () => {
       const savedPicture = localStorage.getItem('profilePicture');
+      const savedPublicId = localStorage.getItem('cloudinaryPublicId');
       if (savedPicture) {
         setProfileImage(savedPicture);
+      }
+      if (savedPublicId) {
+        setCloudinaryPublicId(savedPublicId);
       }
       setUserName(localStorage.getItem('userName') || 'User');
       setUserEmail(localStorage.getItem('userEmail') || 'user@example.com');
@@ -33,6 +44,9 @@ const NavBar = () => {
 
     const handleProfileUpdate = (e) => {
       setProfileImage(e.detail.picture);
+      if (e.detail.publicId) {
+        setCloudinaryPublicId(e.detail.publicId);
+      }
     };
 
     const handleScroll = () => {
@@ -91,16 +105,21 @@ const NavBar = () => {
         formData
       );
       
+      // Get the public ID from the response
+      const publicId = response.data.public_id;
+      
       // Get the optimized image URL with auto-format and auto-quality
       const imageUrl = response.data.secure_url;
       
       // Update the UI and localStorage
       setProfileImage(imageUrl);
+      setCloudinaryPublicId(publicId);
       localStorage.setItem('profilePicture', imageUrl);
+      localStorage.setItem('cloudinaryPublicId', publicId);
       
       // Notify other components about the profile picture update
       window.dispatchEvent(new CustomEvent('profilePictureUpdate', {
-        detail: { picture: imageUrl }
+        detail: { picture: imageUrl, publicId: publicId }
       }));
     } catch (error) {
       console.error('Error uploading image to Cloudinary:', error);
@@ -119,16 +138,16 @@ const NavBar = () => {
     { path: "/exercises", name: "Exercises", icon: "dumbbell" },
     { path: "/my-plans", name: "My Plans", icon: "calendar" },
     { path: "/diet", name: "Diet Plans", icon: "utensils" },
-    { path: "/nearby-gyms", name: "Find Gyms", icon: "map-pin", isNew: true },
+    { path: "/nearby-gyms", name: "Find Gyms", icon: "map-pin" },
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 py-3 px-4 sm:px-8 lg:px-32 transition-all duration-300 ${
-      scrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-transparent'
+    <nav className={`top-0 left-0 right-0 z-50 py-3 px-4 sm:px-8 lg:px-32 transition-all duration-300 ${
+      scrolled ? 'shadow-md backdrop-blur-md bg-white/95' : 'bg-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="flex justify-between items-center mx-auto max-w-7xl">
         {/* Logo with enhanced animation */}
-        <Link to="/home" className="flex items-center gap-2 group">
+        <Link to="/home" className="flex gap-2 items-center group">
           <motion.div
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -136,13 +155,13 @@ const NavBar = () => {
           >
             <Dumbbell className="w-5 h-5 text-white" />
           </motion.div>
-          <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent group-hover:from-blue-500 group-hover:to-blue-300 transition-all">
+          <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400 transition-all group-hover:from-blue-500 group-hover:to-blue-300">
             Eleweight
           </h1>
         </Link>
         
         {/* Desktop Navigation with improved hover effects */}
-        <div className="hidden sm:flex items-center gap-6">
+        <div className="hidden gap-6 items-center sm:flex">
           <div className="flex space-x-2">
             {navLinks.map((link) => (
               <NavLink
@@ -180,35 +199,39 @@ const NavBar = () => {
             ))}
           </div>
 
-          {/* Search Button */}
-          <button className="p-2 text-gray-600 hover:text-blue-500 hover:bg-gray-50/80 rounded-full transition-colors">
-            <Search className="w-5 h-5" />
-          </button>
-
-          {/* Notifications */}
-          <button className="p-2 text-gray-600 hover:text-blue-500 hover:bg-gray-50/80 rounded-full transition-colors relative">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
-
+         
           {/* Enhanced Profile Section with Dropdown */}
-          <div className="pl-4 border-l border-gray-200 relative" ref={dropdownRef}>
+          <div className="relative pl-4 border-l border-gray-200" ref={dropdownRef}>
             <button 
               onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-              className="group flex items-center gap-2 p-1 rounded-full hover:bg-gray-50/80 transition-colors"
+              className="flex gap-2 items-center p-1 rounded-full transition-colors group hover:bg-gray-50/80"
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="relative"
               >
-                <img
-                  className="h-9 w-9 rounded-full object-cover border-2 border-white shadow-sm group-hover:shadow-md transition-all"
-                  src={profileImage}
-                  alt="Profile"
-                />
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white" />
+                {cloudinaryPublicId ? (
+                  <div className="w-9 h-9 rounded-full border-2 border-white shadow-sm transition-all group-hover:shadow-md overflow-hidden">
+                    <AdvancedImage
+                      cldImg={cld
+                        .image(cloudinaryPublicId)
+                        .format('auto')
+                        .quality('auto')
+                        .resize(auto().gravity(autoGravity()).width(100).height(100))}
+                      className="object-cover w-full h-full"
+                      alt="Profile"
+                    />
+                  </div>
+                ) : (
+                  <img
+                    className="object-cover w-9 h-9 rounded-full border-2 border-white shadow-sm transition-all group-hover:shadow-md"
+                    src={profileImage}
+                    alt="Profile"
+                  />
+                )}
+                <div className="absolute -right-1 -bottom-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white" />
               </motion.div>
-              <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600 hidden md:block">
+              <span className="hidden text-sm font-medium text-gray-700 group-hover:text-blue-600 md:block">
                 {userName}
               </span>
               <ChevronDown className={`w-4 h-4 text-gray-500 hidden md:block transition-transform duration-200 ${profileDropdownOpen ? 'rotate-180' : ''}`} />
@@ -222,22 +245,36 @@ const NavBar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50"
+                  className="overflow-hidden absolute right-0 z-50 mt-2 w-72 bg-white rounded-xl border border-gray-100 shadow-lg"
                 >
                   <div className="p-4">
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex gap-4 items-center mb-4">
                       <div className="relative group">
-                        <img 
-                          src={profileImage} 
-                          alt="Profile" 
-                          className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md"
-                        />
+                        {cloudinaryPublicId ? (
+                          <div className="w-16 h-16 rounded-full border-2 border-white shadow-md overflow-hidden">
+                            <AdvancedImage
+                              cldImg={cld
+                                .image(cloudinaryPublicId)
+                                .format('auto')
+                                .quality('auto')
+                                .resize(auto().gravity(autoGravity()).width(200).height(200))}
+                              className="object-cover w-full h-full"
+                              alt="Profile"
+                            />
+                          </div>
+                        ) : (
+                          <img 
+                            src={profileImage} 
+                            alt="Profile" 
+                            className="object-cover w-16 h-16 rounded-full border-2 border-white shadow-md"
+                          />
+                        )}
                         <button 
                           onClick={triggerFileInput}
-                          className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="flex absolute inset-0 justify-center items-center rounded-full opacity-0 transition-opacity bg-black/50 group-hover:opacity-100"
                         >
                           {uploading ? (
-                            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            <div className="w-6 h-6 rounded-full border-2 border-white animate-spin border-t-transparent"></div>
                           ) : (
                             <Camera className="w-5 h-5 text-white" />
                           )}
@@ -256,10 +293,10 @@ const NavBar = () => {
                       </div>
                     </div>
 
-                    <div className="border-t border-gray-100 pt-3 mt-2">
+                    <div className="pt-3 mt-2 border-t border-gray-100">
                       <button 
                         onClick={handleLogOut}
-                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-left text-red-600 rounded-md hover:bg-red-50 transition-colors"
+                        className="flex gap-2 items-center px-3 py-2 w-full text-sm text-left text-red-600 rounded-md transition-colors hover:bg-red-50"
                       >
                         <LogOut className="w-4 h-4" />
                         <span>Log Out</span>
@@ -275,7 +312,7 @@ const NavBar = () => {
         {/* Improved Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="sm:hidden p-2 rounded-lg bg-gray-50/80 backdrop-blur-sm hover:bg-gray-100 transition-colors"
+          className="p-2 rounded-lg backdrop-blur-sm transition-colors sm:hidden bg-gray-50/80 hover:bg-gray-100"
           aria-label="Toggle menu"
         >
           <motion.div
@@ -298,7 +335,7 @@ const NavBar = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="absolute top-16 left-0 right-0 bg-white/95 backdrop-blur-lg shadow-xl sm:hidden mx-2 rounded-xl border border-gray-100 overflow-hidden z-50"
+              className="overflow-hidden absolute right-0 left-0 top-16 z-50 mx-2 rounded-xl border border-gray-100 shadow-xl backdrop-blur-lg bg-white/95 sm:hidden"
             >
               <div className="flex flex-col p-2">
                 {navLinks.map((link) => (
@@ -313,7 +350,7 @@ const NavBar = () => {
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`
                     }
                   >
-                    <span className="flex items-center gap-2">
+                    <span className="flex gap-2 items-center">
                       {link.name}
                       {link.isNew && (
                         <span className="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-semibold text-white bg-gradient-to-r from-green-500 to-emerald-500 rounded-full">
@@ -325,21 +362,35 @@ const NavBar = () => {
                 ))}
 
                 {/* Profile section in mobile menu */}
-                <div className="border-t border-gray-100 mt-2 pt-3">
+                <div className="pt-3 mt-2 border-t border-gray-100">
                   <div className="px-4 py-3">
-                    <div className="flex items-center gap-3 mb-3">
+                    <div className="flex gap-3 items-center mb-3">
                       <div className="relative group">
-                        <img 
-                          src={profileImage} 
-                          alt="Profile" 
-                          className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md"
-                        />
+                        {cloudinaryPublicId ? (
+                          <div className="w-16 h-16 rounded-full border-2 border-white shadow-md overflow-hidden">
+                            <AdvancedImage
+                              cldImg={cld
+                                .image(cloudinaryPublicId)
+                                .format('auto')
+                                .quality('auto')
+                                .resize(auto().gravity(autoGravity()).width(200).height(200))}
+                              className="object-cover w-full h-full"
+                              alt="Profile"
+                            />
+                          </div>
+                        ) : (
+                          <img 
+                            src={profileImage} 
+                            alt="Profile" 
+                            className="object-cover w-16 h-16 rounded-full border-2 border-white shadow-md"
+                          />
+                        )}
                         <button 
                           onClick={triggerFileInput}
-                          className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="flex absolute inset-0 justify-center items-center rounded-full opacity-0 transition-opacity bg-black/50 group-hover:opacity-100"
                         >
                           {uploading ? (
-                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            <div className="w-4 h-4 rounded-full border-2 border-white animate-spin border-t-transparent"></div>
                           ) : (
                             <Camera className="w-4 h-4 text-white" />
                           )}
@@ -356,7 +407,7 @@ const NavBar = () => {
                         handleLogOut();
                         setIsOpen(false);
                       }}
-                      className="flex items-center gap-2 w-full px-3 py-2 text-sm text-left text-red-600 rounded-md hover:bg-red-50 transition-colors"
+                      className="flex gap-2 items-center px-3 py-2 w-full text-sm text-left text-red-600 rounded-md transition-colors hover:bg-red-50"
                     >
                       <LogOut className="w-4 h-4" />
                       <span>Log Out</span>

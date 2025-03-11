@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import NavBar from '../Components/NavBar';
 import { exercises } from '../exercises.json';
-import { Plus, Trash2, Save, X, Edit, Calendar, ChevronRight, ChevronDown, ChevronUp, Search } from 'lucide-react';
+import { Plus, Trash2, Save, X, Calendar, ChevronDown, ChevronUp, Search } from 'lucide-react';
 import axios from 'axios';
 
 const CustomPlan = () => {
@@ -156,52 +156,52 @@ const CustomPlan = () => {
     <div className="min-h-screen bg-gray-50">
       <NavBar />
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="container px-4 py-4 mx-auto sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-8"
+          className="mb-6"
         >
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Custom Workout Plan</h1>
-          <p className="text-gray-600">Design your own workout routine with exercises from our library</p>
+          <h1 className="mb-2 text-2xl font-bold text-gray-900 sm:text-3xl">Create Custom Workout Plan</h1>
+          <p className="text-sm text-gray-600 sm:text-base">Design your own workout routine with exercises from our library</p>
         </motion.div>
 
         {error && (
-          <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">
+          <div className="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-md border border-red-400 sm:p-4 sm:text-base">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md">
+          <div className="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-md border border-green-400 sm:p-4 sm:text-base">
             {success}
           </div>
         )}
 
-        <div className="bg-white rounded-xl shadow-md p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="p-4 mb-6 bg-white rounded-xl shadow-md sm:p-6 sm:mb-8">
+          <div className="grid grid-cols-1 gap-4 mb-6 sm:gap-6">
             <div>
-              <label htmlFor="planName" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="planName" className="block mb-1 text-sm font-medium text-gray-700">
                 Plan Name
               </label>
               <input
                 type="text"
                 id="planName"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-3 py-2 w-full text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:px-4"
                 placeholder="My Custom Plan"
                 value={planName}
                 onChange={(e) => setPlanName(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="planDescription" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="planDescription" className="block mb-1 text-sm font-medium text-gray-700">
                 Description (Optional)
               </label>
               <input
                 type="text"
                 id="planDescription"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-3 py-2 w-full text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:px-4"
                 placeholder="A brief description of your plan"
                 value={planDescription}
                 onChange={(e) => setPlanDescription(e.target.value)}
@@ -209,18 +209,18 @@ const CustomPlan = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-gray-800">Workout Days</h2>
+          <div className="flex flex-col justify-between items-start mb-4 sm:flex-row sm:items-center">
+            <h2 className="mb-2 text-lg font-semibold text-gray-800 sm:mb-0 sm:text-xl">Workout Days</h2>
             <button
               onClick={addDay}
-              className="flex items-center px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              className="flex items-center px-3 py-1.5 text-sm text-white bg-blue-500 rounded-lg transition-colors hover:bg-blue-600 sm:py-2"
             >
-              <Plus className="h-4 w-4 mr-1" />
+              <Plus className="mr-1 w-3.5 h-3.5 sm:w-4 sm:h-4" />
               Add Day
             </button>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex overflow-x-auto flex-wrap gap-2 pb-2 mb-6">
             {days.map((day, index) => (
               <div
                 key={index}
@@ -228,18 +228,21 @@ const CustomPlan = () => {
                   activeDay === index
                     ? 'bg-blue-500 text-white'
                     : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                } rounded-lg px-4 py-2 cursor-pointer transition-colors`}
+                } rounded-lg px-3 py-1.5 text-sm cursor-pointer transition-colors sm:px-4 sm:py-2 flex-shrink-0`}
               >
                 <div className="flex items-center" onClick={() => setActiveDay(index)}>
-                  <Calendar className="h-4 w-4 mr-2" />
+                  <Calendar className="mr-1.5 w-3.5 h-3.5 sm:mr-2 sm:w-4 sm:h-4" />
                   <span>{day.name}</span>
                 </div>
                 {days.length > 1 && (
                   <button
-                    onClick={() => removeDay(index)}
-                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeDay(index);
+                    }}
+                    className="absolute -top-1 -right-1 p-0.5 text-white bg-red-500 rounded-full opacity-0 transition-opacity group-hover:opacity-100 sm:-top-2 sm:-right-2 sm:p-1"
                   >
-                    <X className="h-3 w-3" />
+                    <X className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </button>
                 )}
               </div>
@@ -247,84 +250,84 @@ const CustomPlan = () => {
           </div>
 
           <div className="mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center">
+            <div className="flex flex-col justify-between items-start mb-4 sm:flex-row sm:items-center">
+              <div className="flex items-center mb-2 w-full sm:mb-0 sm:w-auto">
                 <input
                   type="text"
                   value={days[activeDay].name}
                   onChange={(e) => updateDayName(activeDay, e.target.value)}
-                  className="text-lg font-semibold bg-transparent border-b border-gray-300 focus:border-blue-500 focus:outline-none"
+                  className="text-base font-semibold bg-transparent border-b border-gray-300 focus:border-blue-500 focus:outline-none sm:text-lg"
                 />
-                <span className="ml-2 text-gray-500">({days[activeDay].exercises.length} exercises)</span>
+                <span className="ml-2 text-sm text-gray-500 sm:text-base">({days[activeDay].exercises.length} exercises)</span>
               </div>
               <button
                 onClick={() => setIsExerciseModalOpen(true)}
-                className="flex items-center px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                className="flex items-center px-3 py-1.5 text-sm text-white bg-green-500 rounded-lg transition-colors hover:bg-green-600 sm:px-3 sm:py-2"
               >
-                <Plus className="h-4 w-4 mr-1" />
+                <Plus className="mr-1 w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 Add Exercise
               </button>
             </div>
 
             {days[activeDay].exercises.length === 0 ? (
-              <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
-                <p className="text-gray-500">No exercises added to this day yet.</p>
+              <div className="py-8 text-center bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed sm:py-12">
+                <p className="text-sm text-gray-500 sm:text-base">No exercises added to this day yet.</p>
                 <button
                   onClick={() => setIsExerciseModalOpen(true)}
-                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                  className="px-3 py-1.5 mt-3 text-sm text-white bg-blue-500 rounded-lg transition-colors hover:bg-blue-600 sm:px-4 sm:py-2 sm:mt-4"
                 >
                   Add your first exercise
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {days[activeDay].exercises.map((exercise, index) => (
                   <div
                     key={index}
-                    className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-blue-300 transition-colors"
+                    className="p-3 bg-gray-50 rounded-lg border border-gray-200 transition-colors hover:border-blue-300 sm:p-4"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                    <div className="flex flex-col justify-between mb-3 sm:flex-row sm:items-center sm:mb-4">
                       <div className="flex items-center mb-2 sm:mb-0">
                         <img
                           src={exercise.gif_url}
                           alt={exercise.name}
-                          className="w-12 h-12 object-cover rounded-md mr-4"
+                          className="object-cover mr-3 w-10 h-10 rounded-md sm:mr-4 sm:w-12 sm:h-12"
                         />
                         <div>
-                          <h3 className="font-medium text-gray-900">{exercise.name}</h3>
-                          <span className="text-sm text-gray-500">{exercise.muscle}</span>
+                          <h3 className="text-sm font-medium text-gray-900 sm:text-base">{exercise.name}</h3>
+                          <span className="text-xs text-gray-500 sm:text-sm">{exercise.muscle}</span>
                         </div>
                       </div>
                       <button
                         onClick={() => removeExerciseFromDay(activeDay, index)}
-                        className="self-end sm:self-center text-red-500 hover:text-red-700 transition-colors"
+                        className="self-end text-red-500 transition-colors sm:self-center hover:text-red-700"
                       >
-                        <Trash2 className="h-5 w-5" />
+                        <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block mb-1 text-xs font-medium text-gray-700 sm:text-sm">
                           Sets
                         </label>
                         <input
                           type="number"
                           min="1"
                           value={exercise.sets}
-                          onChange={(e) => updateExerciseDetails(activeDay, index, 'sets', parseInt(e.target.value))}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          onChange={(e) => updateExerciseDetails(activeDay, index, 'sets', parseInt(e.target.value) || 1)}
+                          className="px-2 py-1.5 w-full text-sm rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:px-3 sm:py-2"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block mb-1 text-xs font-medium text-gray-700 sm:text-sm">
                           Reps
                         </label>
                         <input
                           type="number"
                           min="1"
                           value={exercise.reps}
-                          onChange={(e) => updateExerciseDetails(activeDay, index, 'reps', parseInt(e.target.value))}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          onChange={(e) => updateExerciseDetails(activeDay, index, 'reps', parseInt(e.target.value) || 1)}
+                          className="px-2 py-1.5 w-full text-sm rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:px-3 sm:py-2"
                         />
                       </div>
                     </div>
@@ -338,13 +341,13 @@ const CustomPlan = () => {
             <button
               onClick={savePlan}
               disabled={isSaving}
-              className="flex items-center px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-blue-300"
+              className="flex items-center px-4 py-2 text-sm text-white bg-blue-500 rounded-lg transition-colors hover:bg-blue-600 disabled:bg-blue-300 sm:px-6 sm:py-3 sm:text-base"
             >
               {isSaving ? (
                 <span>Saving...</span>
               ) : (
                 <>
-                  <Save className="h-5 w-5 mr-2" />
+                  <Save className="mr-1.5 w-4 h-4 sm:mr-2 sm:w-5 sm:h-5" />
                   Save Plan
                 </>
               )}
@@ -355,27 +358,27 @@ const CustomPlan = () => {
 
       {/* Exercise Selection Modal */}
       {isExerciseModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="flex fixed inset-0 z-50 justify-center items-center p-2 bg-black bg-opacity-50 sm:p-4">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
-            <div className="p-6 border-b border-gray-200">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold text-gray-800">Add Exercises</h2>
+            <div className="p-4 border-b border-gray-200 sm:p-6">
+              <div className="flex justify-between items-center mb-3 sm:mb-4">
+                <h2 className="text-lg font-semibold text-gray-800 sm:text-xl">Add Exercises</h2>
                 <button
                   onClick={() => setIsExerciseModalOpen(false)}
                   className="text-gray-500 hover:text-gray-700"
                 >
-                  <X className="h-6 w-6" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-4 mb-6">
+              <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:gap-4 sm:mb-6">
                 <div className="relative flex-grow">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-5 w-5 text-gray-400" />
+                  <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                    <Search className="w-4 h-4 text-gray-400 sm:w-5 sm:h-5" />
                   </div>
                   <input
                     type="text"
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="block py-2 pr-3 pl-9 w-full text-sm bg-white rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:py-3 sm:pl-10"
                     placeholder="Search exercises..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -385,27 +388,27 @@ const CustomPlan = () => {
                 <div className="relative">
                   <button
                     onClick={() => setIsFilterOpen(!isFilterOpen)}
-                    className="flex items-center justify-between w-full md:w-48 px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="flex justify-between items-center px-3 py-2 w-full text-sm bg-white rounded-lg border border-gray-300 shadow-sm md:w-48 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:px-4 sm:py-3"
                   >
                     <div className="flex items-center">
                       <span>{selectedMuscle || 'Filter by muscle'}</span>
                     </div>
                     {isFilterOpen ? (
-                      <ChevronUp className="h-5 w-5 text-gray-400" />
+                      <ChevronUp className="w-4 h-4 text-gray-400 sm:w-5 sm:h-5" />
                     ) : (
-                      <ChevronDown className="h-5 w-5 text-gray-400" />
+                      <ChevronDown className="w-4 h-4 text-gray-400 sm:w-5 sm:h-5" />
                     )}
                   </button>
                   
                   {isFilterOpen && (
-                    <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg">
+                    <div className="absolute z-10 mt-1 w-full bg-white rounded-lg border border-gray-300 shadow-lg">
                       <div className="p-2">
                         <button
                           onClick={() => {
                             setSelectedMuscle('');
                             setIsFilterOpen(false);
                           }}
-                          className="flex items-center w-full px-3 py-2 text-left rounded-md hover:bg-gray-100"
+                          className="flex items-center px-3 py-2 w-full text-sm text-left rounded-md hover:bg-gray-100"
                         >
                           <span>All muscles</span>
                         </button>
@@ -416,7 +419,7 @@ const CustomPlan = () => {
                               setSelectedMuscle(muscle);
                               setIsFilterOpen(false);
                             }}
-                            className="flex items-center w-full px-3 py-2 text-left rounded-md hover:bg-gray-100"
+                            className="flex items-center px-3 py-2 w-full text-sm text-left rounded-md hover:bg-gray-100"
                           >
                             <span>{muscle.charAt(0).toUpperCase() + muscle.slice(1)}</span>
                           </button>
@@ -428,12 +431,12 @@ const CustomPlan = () => {
               </div>
             </div>
 
-            <div className="overflow-y-auto max-h-[60vh] p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="overflow-y-auto max-h-[50vh] p-4 sm:p-6">
+              <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {filteredExercises.map((exercise) => (
                   <div
                     key={exercise.id}
-                    className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-md transition-all cursor-pointer"
+                    className="p-3 rounded-lg border border-gray-200 transition-all cursor-pointer hover:border-blue-300 hover:shadow-md sm:p-4"
                     onClick={() => {
                       addExerciseToDay(exercise);
                       setIsExerciseModalOpen(false);
@@ -443,27 +446,27 @@ const CustomPlan = () => {
                       <img
                         src={exercise.gif_url}
                         alt={exercise.name}
-                        className="w-12 h-12 object-cover rounded-md mr-3"
+                        className="object-cover mr-2 w-10 h-10 rounded-md sm:mr-3 sm:w-12 sm:h-12"
                       />
                       <div>
-                        <h3 className="font-medium text-gray-900">{exercise.name}</h3>
-                        <span className="text-sm text-gray-500">{exercise.muscle}</span>
+                        <h3 className="text-sm font-medium text-gray-900 sm:text-base">{exercise.name}</h3>
+                        <span className="text-xs text-gray-500 sm:text-sm">{exercise.muscle}</span>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 line-clamp-2">{exercise.description1}</p>
+                    <p className="text-xs text-gray-600 line-clamp-2 sm:text-sm">{exercise.description1}</p>
                   </div>
                 ))}
               </div>
 
               {filteredExercises.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-gray-500">No exercises found matching your criteria.</p>
+                <div className="py-8 text-center sm:py-12">
+                  <p className="text-sm text-gray-500 sm:text-base">No exercises found matching your criteria.</p>
                   <button
                     onClick={() => {
                       setSearchTerm('');
                       setSelectedMuscle('');
                     }}
-                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                    className="px-3 py-1.5 mt-3 text-sm text-white bg-blue-500 rounded-lg transition-colors hover:bg-blue-600 sm:px-4 sm:py-2 sm:mt-4"
                   >
                     Clear filters
                   </button>
@@ -471,10 +474,10 @@ const CustomPlan = () => {
               )}
             </div>
 
-            <div className="p-4 border-t border-gray-200 flex justify-end">
+            <div className="flex justify-end p-3 border-t border-gray-200 sm:p-4">
               <button
                 onClick={() => setIsExerciseModalOpen(false)}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors mr-2"
+                className="px-3 py-1.5 text-sm text-gray-700 rounded-lg border border-gray-300 transition-colors hover:bg-gray-50 sm:px-4 sm:py-2"
               >
                 Cancel
               </button>
@@ -486,4 +489,4 @@ const CustomPlan = () => {
   );
 };
 
-export default CustomPlan; 
+export default CustomPlan;

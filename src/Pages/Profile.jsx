@@ -4,11 +4,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, Camera, X, Check, Dumbbell, ChevronRight, Save, Eye, EyeOff, Clock, Flame, Target, Calendar, Plus, Upload } from 'lucide-react';
 import NavBar from '../Components/NavBar';
 import axios from 'axios';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 
 // Cloudinary configuration
 const CLOUDINARY_CLOUD_NAME = 'dfm5hoz41';
 const CLOUDINARY_API_KEY = '258339917617439';
 const CLOUDINARY_UPLOAD_PRESET = 'dfm5hoz41';
+// Initialize Cloudinary
+const cld = new Cloudinary({ cloud: { cloudName: CLOUDINARY_CLOUD_NAME } });
 
 const avatarImages = [
   'https://i.pinimg.com/474x/a3/cc/fd/a3ccfd7885e6cff94ebbbe40fd9e1611.jpg',
@@ -50,16 +56,16 @@ const ProfilePictureModal = ({ isOpen, onClose, onSelect, currentImage, onFileUp
           </div>
           
           {/* Upload your own photo section */}
-          <div className="mb-6 p-4 border border-dashed border-gray-300 rounded-lg text-center">
+          <div className="p-4 mb-6 text-center rounded-lg border border-gray-300 border-dashed">
             <div className="flex flex-col items-center">
-              <Upload className="w-8 h-8 text-blue-500 mb-2" />
-              <h3 className="text-lg font-medium mb-2">Upload your photo</h3>
-              <p className="text-sm text-gray-500 mb-3">
+              <Upload className="mb-2 w-8 h-8 text-blue-500" />
+              <h3 className="mb-2 text-lg font-medium">Upload your photo</h3>
+              <p className="mb-3 text-sm text-gray-500">
                 For best results, use an image at least 400x400 pixels
               </p>
               <button
                 onClick={() => document.getElementById('profile-file-upload').click()}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                className="px-4 py-2 text-white bg-blue-500 rounded-lg transition-colors hover:bg-blue-600"
               >
                 Choose File
               </button>
@@ -73,7 +79,7 @@ const ProfilePictureModal = ({ isOpen, onClose, onSelect, currentImage, onFileUp
             </div>
           </div>
           
-          <h3 className="text-lg font-medium mb-3">Or select from our avatars</h3>
+          <h3 className="mb-3 text-lg font-medium">Or select from our avatars</h3>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {avatarImages.map((avatar, index) => (
               <motion.button
@@ -186,18 +192,28 @@ const CustomPlanCard = ({ plan, onClick }) => {
 const Profile = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(avatarImages[0]);
   const [isEditing, setIsEditing] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [profilePicture, setProfilePicture] = useState(avatarImages[0]);
+  const [cloudinaryPublicId, setCloudinaryPublicId] = useState('');
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    height: '',
+    weight: '',
+    age: '',
+    gender: ''
+  });
+  const [workoutPlans, setWorkoutPlans] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const token = localStorage.getItem('token');
-  const [workoutPlans, setWorkoutPlans] = useState([]);
   const [loadingPlans, setLoadingPlans] = useState(true);
   const [plansError, setPlansError] = useState('');
-  const [uploading, setUploading] = useState(false);
-  const fileInputRef = useRef(null);
   
   useEffect(() => {
     if (!token) {
@@ -206,9 +222,14 @@ const Profile = () => {
   }, [token, navigate]);
 
   useEffect(() => {
+    // Load profile picture from localStorage if available
     const savedPicture = localStorage.getItem('profilePicture');
+    const savedPublicId = localStorage.getItem('cloudinaryPublicId');
     if (savedPicture) {
       setProfilePicture(savedPicture);
+    }
+    if (savedPublicId) {
+      setCloudinaryPublicId(savedPublicId);
     }
     
     const handleProfileUpdate = (e) => {
@@ -307,8 +328,7 @@ const Profile = () => {
     } catch (err) {
       setError(err.message || 'An error occurred while updating profile');
     }
-}
-  
+  };
 
   useEffect(() => {
     document.title = `${formData.name}'s Profile`;
@@ -357,16 +377,21 @@ const Profile = () => {
         formData
       );
       
-      // Get the optimized image URL with auto-format and auto-quality
+      // Get the public ID from the response
+      const publicId = response.data.public_id;
+      
+      // Create an optimized image URL using the Cloudinary SDK
       const imageUrl = response.data.secure_url;
       
       // Update the UI and localStorage
       setProfilePicture(imageUrl);
+      setCloudinaryPublicId(publicId); // Store the public ID for later use with AdvancedImage
       localStorage.setItem('profilePicture', imageUrl);
+      localStorage.setItem('cloudinaryPublicId', publicId);
       
       // Notify other components about the profile picture update
       window.dispatchEvent(new CustomEvent('profilePictureUpdate', {
-        detail: { picture: imageUrl }
+        detail: { picture: imageUrl, publicId: publicId }
       }));
     } catch (error) {
       console.error('Error uploading image to Cloudinary:', error);
@@ -393,14 +418,30 @@ const Profile = () => {
             className="p-6 bg-white rounded-2xl shadow-lg lg:col-span-1"
           >
             <div className="relative mx-auto w-40 h-40">
-              <motion.img
-                className="object-cover w-40 h-40 rounded-full shadow-lg"
-                src={profilePicture}
-                alt="Profile"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 200 }}
-              />
-              <div className="absolute right-2 bottom-2 flex space-x-2">
+              {cloudinaryPublicId ? (
+                // Use AdvancedImage when we have a Cloudinary public ID
+                <div className="overflow-hidden w-40 h-40 rounded-full shadow-lg">
+                  <AdvancedImage
+                    cldImg={cld
+                      .image(cloudinaryPublicId)
+                      .format('auto')
+                      .quality('auto')
+                      .resize(auto().gravity(autoGravity()).width(400).height(400))}
+                    className="object-cover w-full h-full"
+                    alt="Profile"
+                  />
+                </div>
+              ) : (
+                // Use regular img for avatar images
+                <motion.img
+                  className="object-cover w-40 h-40 rounded-full shadow-lg"
+                  src={profilePicture}
+                  alt="Profile"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                />
+              )}
+              <div className="flex absolute right-2 bottom-2 space-x-2">
                 <motion.button
                   className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
                   whileHover={{ scale: 1.1 }}
@@ -416,7 +457,7 @@ const Profile = () => {
                   title="Upload your photo"
                 >
                   {uploading ? (
-                    <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 rounded-full border-2 border-blue-500 animate-spin border-t-transparent"></div>
                   ) : (
                     <Upload className="w-5 h-5 text-gray-700" />
                   )}
