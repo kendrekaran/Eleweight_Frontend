@@ -119,60 +119,6 @@ const Home = () => {
     transition: { duration: 0.6, ease: "easeOut" }
   };
 
-  const FeatureCard = ({ image, Icon, title, description, link, isNew }) => {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="overflow-hidden relative mx-auto w-full max-w-5xl bg-white rounded-3xl border shadow-sm transition-all duration-300 group hover:shadow-xl"
-      >
-        {isNew && (
-          <div className="absolute top-4 right-4 z-10 px-3 py-1 text-xs font-bold text-white bg-gradient-to-r from-green-500 to-emerald-500 rounded-full shadow-lg">
-            NEW
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 to-gray-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        
-        <div className="flex relative flex-col justify-center items-center p-4 md:ml-24 md:flex-row gap- sm:gap-24 sm:p-6 lg:p-8">
-
-          <div className="w-full md:w-1/3 lg:w-72">
-            <div className="overflow-hidden relative rounded-2xl aspect-square">
-              <div className="absolute inset-0 bg-gradient-to-br transition-transform duration-300 from-indigo-100/20 to-gray-100/20 group-hover:scale-110" />
-              <img
-                src={image}
-                className="object-cover object-center p-4 w-full h-full rounded-3xl transition-transform duration-300 group-hover:scale-105"
-                alt={title}
-              />
-            </div>
-          </div>
-  
-          {/* Content Container */}
-          <div className="flex flex-col flex-1 gap-4 sm:gap-6">
-            <div className="flex gap-4 items-center">
-              <div className="flex justify-center items-center w-12 h-12 bg-indigo-50 rounded-2xl transition-colors duration-300 sm:w-14 sm:h-14 group-hover:bg-indigo-100">
-                <Icon className="w-6 h-6 text-indigo-600 sm:w-8 sm:h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">{title}</h3>
-            </div>
-  
-            <p className="text-sm leading-relaxed text-gray-600 sm:text-base sm:pr-44">
-              {description}
-            </p>
-  
-            <Link
-              to={link}
-              className="inline-flex justify-between items-center px-4 py-3 w-full text-sm text-white bg-indigo-600 rounded-xl transition-colors duration-200 sm:w-80 sm:px-6 sm:text-base hover:bg-indigo-700 group/button"
-            >
-              <span>Get Started</span>
-              <MoveRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover/button:translate-x-1" />
-            </Link>
-          </div>
-        </div>
-      </motion.div>
-    );
-  };
 
   const nextFeature = () => {
     // Don't stop auto-play when manually navigating
@@ -200,7 +146,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="overflow-x-hidden min-h-screen bg-gray-50">
       <NavBar />
 
       {/* Hero Section with FeatureShowcase */}
