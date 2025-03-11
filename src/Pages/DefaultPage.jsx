@@ -61,7 +61,7 @@ const DefaultPage = () => {
               onClick={() => navigate('/login')}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="group relative px-8 py-3 bg-blue-500 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:bg-blue-600 hover:shadow-lg"
+              className="group relative px-8 py-3 bg-purple-500 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:bg-purple-600 hover:shadow-lg"
             >
               Get Started
               <ArrowRight className={`inline-block ml-2 transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
@@ -83,7 +83,7 @@ const DefaultPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1">
-                <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center mb-4">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
@@ -117,7 +117,7 @@ const DefaultPage = () => {
                 </div>
                 <div className="flex items-center">
                   {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-blue-500 fill-current" />
+                    <Star key={i} className="w-5 h-5 text-purple-500 fill-current" />
                   ))}
                 </div>
               </div>
@@ -133,12 +133,12 @@ const DefaultPage = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="py-20 bg-blue-500">
+      <div className="py-20 bg-indigo-500">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold text-white mb-8">Ready to Start Your Fitness Journey?</h2>
           <button
             onClick={() => navigate('/register')}
-            className="px-8 py-3 bg-white text-blue-500 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-gray-100 hover:shadow-lg"
+            className="px-8 py-3 bg-white text-indigo-500 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-gray-100 hover:shadow-lg"
           >
             Join Eleweight Today
           </button>

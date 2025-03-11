@@ -151,11 +151,11 @@ const NavBar = () => {
           <motion.div
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            className="p-2 bg-gradient-to-br from-blue-600 to-blue-500 rounded-lg shadow-md group-hover:shadow-lg"
+            className="p-2 bg-gradient-to-br from-purple-600 to-indigo-500 rounded-lg shadow-md group-hover:shadow-lg"
           >
             <Dumbbell className="w-5 h-5 text-white" />
           </motion.div>
-          <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400 transition-all group-hover:from-blue-500 group-hover:to-blue-300">
+          <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-400 transition-all group-hover:from-purple-500 group-hover:to-indigo-300">
             Eleweight
           </h1>
         </Link>
@@ -170,10 +170,10 @@ const NavBar = () => {
                 className={({ isActive }) => 
                   `relative text-base font-medium px-3 py-2 rounded-md transition-all flex items-center gap-1.5
                   ${isActive 
-                    ? 'text-blue-600 bg-blue-50/80 backdrop-blur-sm' 
+                    ? 'text-purple-600 bg-purple-50/80 backdrop-blur-sm' 
                     : scrolled 
-                      ? 'text-gray-700 hover:text-blue-500 hover:bg-gray-50/80' 
-                      : 'text-gray-800 hover:text-blue-500 hover:bg-white/30 backdrop-blur-sm'}`
+                      ? 'text-gray-700 hover:text-purple-500 hover:bg-gray-50/80' 
+                      : 'text-gray-800 hover:text-purple-500 hover:bg-white/30 backdrop-blur-sm'}`
                 }
               >
                 {({ isActive }) => (
@@ -186,7 +186,7 @@ const NavBar = () => {
                     )}
                     {isActive && (
                       <motion.div
-                        className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 rounded-full"
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-purple-500 rounded-full"
                         layoutId="underline"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -231,7 +231,7 @@ const NavBar = () => {
                 )}
                 <div className="absolute -right-1 -bottom-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white" />
               </motion.div>
-              <span className="hidden text-sm font-medium text-gray-700 group-hover:text-blue-600 md:block">
+              <span className="hidden text-sm font-medium text-gray-700 group-hover:text-purple-600 md:block">
                 {userName}
               </span>
               <ChevronDown className={`w-4 h-4 text-gray-500 hidden md:block transition-transform duration-200 ${profileDropdownOpen ? 'rotate-180' : ''}`} />
@@ -346,7 +346,7 @@ const NavBar = () => {
                     className={({ isActive }) => 
                       `px-4 py-3 my-1 rounded-lg text-base font-medium transition-all flex items-center justify-between
                       ${isActive 
-                        ? 'bg-blue-50 text-blue-600' 
+                        ? 'bg-purple-50 text-purple-600' 
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`
                     }
                   >

@@ -61,7 +61,7 @@ const SignIn = () => {
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex">
             {/* Left Panel - Image */}
             <div className="hidden lg:flex lg:w-1/2 relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-sky-500/20 backdrop-blur-sm z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 backdrop-blur-sm z-10" />
                 <img
                     src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2940&auto=format&fit=crop"
                     alt="Background"
@@ -106,7 +106,7 @@ const SignIn = () => {
                                         placeholder="Enter your email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                                         required
                                     />
                                 </div>
@@ -125,7 +125,7 @@ const SignIn = () => {
                                         placeholder="Enter your password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                                         required
                                     />
                                 </div>
@@ -142,7 +142,7 @@ const SignIn = () => {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center"
+                            className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 flex items-center justify-center"
                             disabled={isLoading}
                         >
                             {isLoading ? (
@@ -161,7 +161,7 @@ const SignIn = () => {
                         {/* Register Link */}
                         <div className="text-center text-sm text-gray-600">
                             Don't have an account?{' '}
-                            <Link to="/register" className="font-medium text-blue-600 hover:underline">
+                            <Link to="/register" className="font-medium text-purple-600 hover:underline">
                                 Register now
                             </Link>
                         </div>

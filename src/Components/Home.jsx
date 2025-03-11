@@ -5,6 +5,7 @@ import FeatureCards from './FeaturedCards';
 import { motion, AnimatePresence } from "framer-motion";
 import { Dumbbell, List, Utensils, MoveRight, BookOpen, Plus, Calendar, MapPin, ArrowRight, Star, ChevronDown, Users, TrendingUp, Brain, ChevronLeft, ChevronRight, Check, Crown, Zap, Lock, Shield } from "lucide-react";
 import FeatureShowcase from './FeatureShowcase';
+import PaymentModal from './PaymentModal';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -14,6 +15,14 @@ const Home = () => {
   const [isHovering, setIsHovering] = useState(false);
   const featureSliderRef = useRef(null);
   const autoPlayTimerRef = useRef(null);
+  
+  // Payment modal state
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState({
+    name: '',
+    price: '',
+    period: ''
+  });
 
   // Hero showcase features with expanded options
   const heroFeatures = [
@@ -23,7 +32,7 @@ const Home = () => {
       title: "Browse Exercises",
       description: "Explore our comprehensive library of exercises with detailed instructions, animations, and tips to perfect your form.",
       link: "/exercises",
-      color: "from-blue-600 to-blue-400"
+      color: "from-purple-600 to-indigo-400"
     },
     {
       image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
@@ -73,7 +82,7 @@ const Home = () => {
       title: "Workout Plans",
       description: "Discover professionally designed workout plans for every fitness level, from beginners to advanced athletes.",
       link: "/plans",
-      color: "from-cyan-500 to-blue-400"
+      color: "from-purple-500 to-indigo-400"
     }
   ];
 
@@ -123,13 +132,13 @@ const Home = () => {
             NEW
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-gray-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 to-gray-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         
         <div className="flex relative flex-col justify-center items-center p-4 md:ml-24 md:flex-row gap- sm:gap-24 sm:p-6 lg:p-8">
 
           <div className="w-full md:w-1/3 lg:w-72">
             <div className="overflow-hidden relative rounded-2xl aspect-square">
-              <div className="absolute inset-0 bg-gradient-to-br transition-transform duration-300 from-sky-100/20 to-gray-100/20 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-br transition-transform duration-300 from-indigo-100/20 to-gray-100/20 group-hover:scale-110" />
               <img
                 src={image}
                 className="object-cover object-center p-4 w-full h-full rounded-3xl transition-transform duration-300 group-hover:scale-105"
@@ -141,8 +150,8 @@ const Home = () => {
           {/* Content Container */}
           <div className="flex flex-col flex-1 gap-4 sm:gap-6">
             <div className="flex gap-4 items-center">
-              <div className="flex justify-center items-center w-12 h-12 bg-sky-50 rounded-2xl transition-colors duration-300 sm:w-14 sm:h-14 group-hover:bg-sky-100">
-                <Icon className="w-6 h-6 text-sky-600 sm:w-8 sm:h-8" />
+              <div className="flex justify-center items-center w-12 h-12 bg-indigo-50 rounded-2xl transition-colors duration-300 sm:w-14 sm:h-14 group-hover:bg-indigo-100">
+                <Icon className="w-6 h-6 text-indigo-600 sm:w-8 sm:h-8" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">{title}</h3>
             </div>
@@ -153,7 +162,7 @@ const Home = () => {
   
             <Link
               to={link}
-              className="inline-flex justify-between items-center px-4 py-3 w-full text-sm text-white bg-sky-600 rounded-xl transition-colors duration-200 sm:w-80 sm:px-6 sm:text-base hover:bg-sky-700 group/button"
+              className="inline-flex justify-between items-center px-4 py-3 w-full text-sm text-white bg-indigo-600 rounded-xl transition-colors duration-200 sm:w-80 sm:px-6 sm:text-base hover:bg-indigo-700 group/button"
             >
               <span>Get Started</span>
               <MoveRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover/button:translate-x-1" />
@@ -179,6 +188,16 @@ const Home = () => {
     setActiveFeature(index);
   };
 
+  // Function to handle opening the payment modal
+  const handleOpenPaymentModal = (planName, price, period) => {
+    setSelectedPlan({
+      name: planName,
+      price: price,
+      period: period
+    });
+    setIsPaymentModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <NavBar />
@@ -186,8 +205,8 @@ const Home = () => {
       {/* Hero Section with FeatureShowcase */}
       <section className="overflow-hidden relative">
         {/* Decorative elements */}
-        <div className="absolute right-20 top-40 w-64 h-64 bg-gradient-to-br rounded-full blur-3xl from-blue-200/20 to-blue-200/20" />
-        <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br rounded-full blur-3xl from-sky-200/20 to-sky-200/20" />
+        <div className="absolute right-20 top-40 w-64 h-64 bg-gradient-to-br rounded-full blur-3xl from-purple-200/20 to-purple-200/20" />
+        <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br rounded-full blur-3xl from-indigo-200/20 to-indigo-200/20" />
 
         <div className="container relative z-10 px-6 mx-auto sm:px-16 lg:px-32">
           <div className="flex flex-col gap-4 justify-center items-center px-8 py-8 w-full lg:flex-row-reverse sm:gap-12">
@@ -197,7 +216,7 @@ const Home = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-blue-400/20 rounded-[2rem] blur-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-purple-400/20 rounded-[2rem] blur-3xl" />
               <img
                 src="Toji.svg"
                 alt="Fitness"
@@ -225,14 +244,14 @@ const Home = () => {
                 <h1 className="text-3xl font-bold leading-tight text-center sm:text-5xl md:text-7xl sm:text-start">
                   <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-700 to-gray-800">
                     Your 
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-sky-600">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-indigo-600">
                     {" "}
                     Personal
                   </span>
                     <br />
                     Guide To
                   </span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-sky-600">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-indigo-600">
                     {" "}
                     Fitness
                   </span>
@@ -246,9 +265,9 @@ const Home = () => {
               <div className="flex flex-col gap-4 px-8 sm:flex-row sm:px-0">
                 <Link
                   to="/exercises"
-                  className="group inline-flex items-center justify-center gap-2 px-2 py-2 sm:px-6 sm:py-3 bg-gradient-to-br from-blue-600 to-sky-600 text-white rounded-2xl font-semibold hover:shadow-xl transform transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
+                  className="group inline-flex items-center justify-center gap-2 px-2 py-2 sm:px-6 sm:py-3 bg-gradient-to-br from-purple-600 to-indigo-600 text-white rounded-2xl font-semibold hover:shadow-xl transform transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-300 from-blue-400/20 group-hover:opacity-100" />
+                  <span className="absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-300 from-purple-400/20 group-hover:opacity-100" />
                   Browse Exercises
                   <MoveRight className="transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
@@ -367,7 +386,7 @@ const Home = () => {
                   onClick={() => goToFeature(index)}
                   className={`h-2 rounded-full transition-all ${
                     activeFeature === index 
-                      ? 'w-8 bg-blue-600' 
+                      ? 'w-8 bg-purple-600' 
                       : 'w-2 bg-gray-300 hover:bg-gray-400'
                   }`}
                   aria-label={`Go to feature ${index + 1}`}
@@ -401,7 +420,7 @@ const Home = () => {
         <div className="relative">
           {/* Background decorative elements */}
           <div className="absolute -top-10 -left-10 w-64 h-64 bg-indigo-200 rounded-full opacity-20 blur-3xl"></div>
-          <div className="absolute top-1/2 right-0 w-80 h-80 bg-purple-200 rounded-full opacity-30 blur-3xl"></div>
+          <div className="absolute right-0 top-1/2 w-80 h-80 bg-purple-200 rounded-full opacity-30 blur-3xl"></div>
           
           {/* Feature cards with container */}
           <div className="relative z-10">
@@ -415,7 +434,7 @@ const Home = () => {
         {/* Decorative elements */}
         <div className="overflow-hidden absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-purple-400 rounded-full blur-3xl"></div>
-          <div className="absolute right-0 top-1/2 w-80 h-80 bg-blue-400 rounded-full blur-3xl"></div>
+          <div className="absolute right-0 top-1/2 w-80 h-80 bg-purple-400 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-indigo-400 rounded-full blur-3xl"></div>
         </div>
 
@@ -475,7 +494,10 @@ const Home = () => {
                   </li>
                 ))}
               </ul>
-              <button className="px-6 py-3 w-full font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl transition-all hover:shadow-lg hover:from-blue-600 hover:to-indigo-700">
+              <button 
+                onClick={() => handleOpenPaymentModal('Monthly Premium', '$9.99', 'month')}
+                className="px-6 py-3 w-full font-medium text-white bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl transition-all hover:shadow-lg hover:from-purple-600 hover:to-indigo-700"
+              >
                 Start Monthly Plan
               </button>
             </motion.div>
@@ -512,7 +534,10 @@ const Home = () => {
                   </li>
                 ))}
               </ul>
-              <button className="px-6 py-3 w-full font-medium text-white bg-gradient-to-r from-yellow-400 to-amber-600 rounded-xl transition-all hover:shadow-lg hover:from-yellow-500 hover:to-amber-700">
+              <button 
+                onClick={() => handleOpenPaymentModal('Annual Premium', '$89.99', 'year')}
+                className="px-6 py-3 w-full font-medium text-white bg-gradient-to-r from-yellow-400 to-amber-600 rounded-xl transition-all hover:shadow-lg hover:from-yellow-500 hover:to-amber-700"
+              >
                 Start Annual Plan
               </button>
             </motion.div>
@@ -533,7 +558,7 @@ const Home = () => {
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
             <div>
               <div className="flex gap-4 items-center mb-4">
-                <div className="p-2 bg-gradient-to-br from-blue-600 to-blue-500 rounded-lg shadow-md">
+                <div className="p-2 bg-gradient-to-br from-purple-600 to-indigo-500 rounded-lg shadow-md">
                   <Dumbbell className="w-5 h-5 text-white" />
                 </div>
                 <h1 className="text-3xl font-bold">Eleweight</h1>
@@ -588,6 +613,15 @@ const Home = () => {
           </div>
         </div>
       </footer>
+
+      {/* Payment Modal */}
+      <PaymentModal 
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        plan={selectedPlan.name}
+        price={selectedPlan.price}
+        period={selectedPlan.period}
+      />
     </div>
   );
 };
