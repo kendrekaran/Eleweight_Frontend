@@ -26,26 +26,26 @@ const ProfilePictureModal = ({ isOpen, onClose, onSelect, currentImage }) => (
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        className="flex fixed inset-0 z-50 justify-center items-center p-4 backdrop-blur-sm bg-black/50"
       >
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.95, opacity: 0 }}
           onClick={e => e.stopPropagation()}
-          className="bg-white rounded-xl p-6 max-w-lg w-full"
+          className="p-6 w-full max-w-lg bg-white rounded-xl"
         >
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-semibold">Choose Profile Picture</h2>
             <button 
               onClick={onClose}
-              className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+              className="p-1 rounded-full transition-colors hover:bg-gray-100"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {avatarImages.map((avatar, index) => (
               <motion.button
                 key={index}
@@ -58,11 +58,11 @@ const ProfilePictureModal = ({ isOpen, onClose, onSelect, currentImage }) => (
                 <img
                   src={avatar}
                   alt={`Avatar option ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  className="object-cover w-full h-full"
                 />
                 {currentImage === avatar && (
-                  <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center">
-                    <div className="bg-white rounded-full p-1">
+                  <div className="flex absolute inset-0 justify-center items-center bg-blue-500/20">
+                    <div className="p-1 bg-white rounded-full">
                       <Check className="w-4 h-4 text-blue-500" />
                     </div>
                   </div>
@@ -96,44 +96,44 @@ const CustomPlanCard = ({ plan, onClick }) => {
 
   return (
     <motion.div
-      className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden cursor-pointer"
+      className="overflow-hidden relative bg-white rounded-2xl shadow-lg transition-shadow cursor-pointer group hover:shadow-xl"
       whileHover={{ y: -5, scale: 1.02 }}
       transition={{ type: "spring", stiffness: 300 }}
       onClick={onClick}
     >
-      <div className={`relative p-6 ${color} text-white overflow-hidden`}>
+      <div className={`overflow-hidden relative p-6 text-white ${color}`}>
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/20 rounded-full" />
-          <div className="absolute -left-4 -bottom-4 w-24 h-24 bg-white/20 rounded-full" />
+          <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/20" />
+          <div className="absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-white/20" />
         </div>
         
         <div className="relative">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/20 rounded-xl">
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex gap-3 items-center">
+              <div className="p-2 rounded-xl bg-white/20">
                 <Calendar className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold">{plan.name}</h3>
             </div>
-            <span className="px-3 py-1 text-sm bg-white/20 rounded-full font-medium">
+            <span className="px-3 py-1 text-sm font-medium rounded-full bg-white/20">
               {plan.days.length} {plan.days.length === 1 ? 'day' : 'days'}
             </span>
           </div>
           
-          <div className="h-1 w-16 bg-white/30 rounded-full" />
+          <div className="w-16 h-1 rounded-full bg-white/30" />
         </div>
       </div>
       
       <div className="p-6">
         {plan.description && (
-          <p className="text-gray-600 text-sm mb-4">{plan.description}</p>
+          <p className="mb-4 text-sm text-gray-600">{plan.description}</p>
         )}
         
-        <div className="space-y-2 mb-4">
+        <div className="mb-4 space-y-2">
           {plan.days.slice(0, 3).map((day, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-gray-300" />
+            <div key={index} className="flex gap-2 items-center">
+              <div className="w-2 h-2 bg-gray-300 rounded-full" />
               <span className="text-sm text-gray-700">{day.name}</span>
               <span className="text-xs text-gray-500">({day.exercises.length} exercises)</span>
             </div>
@@ -145,9 +145,9 @@ const CustomPlanCard = ({ plan, onClick }) => {
           )}
         </div>
         
-        <div className="flex items-center justify-end text-blue-600 group-hover:text-blue-700 transition-colors">
+        <div className="flex justify-end items-center text-blue-600 transition-colors group-hover:text-blue-700">
           <span className="text-sm font-medium">View details</span>
-          <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+          <ChevronRight className="ml-1 w-4 h-4 transition-transform group-hover:translate-x-1" />
         </div>
       </div>
     </motion.div>
@@ -298,25 +298,25 @@ const Profile = () => {
     <div className="min-h-screen bg-gray-100">
       <NavBar />
       
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="container px-4 py-8 mx-auto">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Left Column - Profile Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-2xl shadow-lg p-6 lg:col-span-1"
+            className="p-6 bg-white rounded-2xl shadow-lg lg:col-span-1"
           >
             <div className="relative mx-auto w-40 h-40">
               <motion.img
-                className="w-40 h-40 rounded-full object-cover shadow-lg"
+                className="object-cover w-40 h-40 rounded-full shadow-lg"
                 src={profilePicture}
                 alt="Profile"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 200 }}
               />
               <motion.button
-                className="absolute bottom-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
+                className="absolute right-2 bottom-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
                 whileHover={{ scale: 1.1 }}
                 onClick={() => setIsModalOpen(true)}
               >
@@ -326,19 +326,19 @@ const Profile = () => {
 
             <form onSubmit={handleSubmit} className="mt-6">
               {error && (
-                <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+                <div className="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-lg">
                   {error}
                 </div>
               )}
               {success && (
-                <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-lg text-sm">
+                <div className="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-lg">
                   {success}
                 </div>
               )}
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block mb-1 text-sm font-medium text-gray-700">
                     Name
                   </label>
                   <input
@@ -347,12 +347,12 @@ const Profile = () => {
                     value={formData.name}
                     onChange={handleChange}
                     disabled={!isEditing}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                    className="px-3 py-2 w-full rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block mb-1 text-sm font-medium text-gray-700">
                     Email
                   </label>
                   <input
@@ -361,14 +361,14 @@ const Profile = () => {
                     value={formData.email}
                     onChange={handleChange}
                     disabled={!isEditing}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                    className="px-3 py-2 w-full rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
                   />
                 </div>
 
                 {isEditing && (
                   <>
                     <div className="relative">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block mb-1 text-sm font-medium text-gray-700">
                         Current Password
                       </label>
                       <input
@@ -376,7 +376,7 @@ const Profile = () => {
                         name="currentPassword"
                         value={formData.currentPassword}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="px-3 py-2 w-full rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
                       <button
                         type="button"
@@ -392,7 +392,7 @@ const Profile = () => {
                     </div>
 
                     <div className="relative">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block mb-1 text-sm font-medium text-gray-700">
                         New Password
                       </label>
                       <input
@@ -400,7 +400,7 @@ const Profile = () => {
                         name="newPassword"
                         value={formData.newPassword}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="px-3 py-2 w-full rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
                       <button
                         type="button"
@@ -418,12 +418,12 @@ const Profile = () => {
                 )}
               </div>
 
-              <div className="mt-6 flex justify-center gap-4">
+              <div className="flex gap-4 justify-center mt-6">
                 {isEditing ? (
                   <>
                     <motion.button
                       type="submit"
-                      className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                      className="flex gap-2 items-center px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                       whileHover={{ scale: 1.05 }}
                     >
                       <Save className="w-4 h-4" />
@@ -431,7 +431,7 @@ const Profile = () => {
                     </motion.button>
                     <motion.button
                       type="button"
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+                      className="flex gap-2 items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
                       whileHover={{ scale: 1.05 }}
                       onClick={() => {
                         setIsEditing(false);
@@ -450,7 +450,7 @@ const Profile = () => {
                   <>
                     <motion.button
                       type="button"
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800"
+                      className="flex gap-2 items-center px-4 py-2 text-white bg-gray-900 rounded-lg hover:bg-gray-800"
                       whileHover={{ scale: 1.05 }}
                       onClick={handleLogOut}
                     >
@@ -458,7 +458,7 @@ const Profile = () => {
                     </motion.button>
                     <motion.button
                       type="button"
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+                      className="flex gap-2 items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
                       whileHover={{ scale: 1.05 }}
                       onClick={() => setIsEditing(true)}
                     >
@@ -477,15 +477,15 @@ const Profile = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className="mb-6 flex justify-between items-center"
+              className="flex justify-between items-center mb-6"
             >
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">My Workout Plans</h2>
+                <h2 className="mb-2 text-2xl font-bold text-gray-900">My Workout Plans</h2>
                 <p className="text-gray-600">Your custom workout routines</p>
               </div>
               <Link
                 to="/create-plan"
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex gap-2 items-center px-4 py-2 text-white bg-blue-600 rounded-lg transition-colors hover:bg-blue-700"
               >
                 <Plus className="w-5 h-5" />
                 <span>Create Plan</span>
@@ -494,10 +494,10 @@ const Profile = () => {
             
             {loadingPlans ? (
               <div className="flex justify-center items-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                <div className="w-12 h-12 rounded-full border-t-2 border-b-2 border-blue-500 animate-spin"></div>
               </div>
             ) : plansError ? (
-              <div className="bg-red-100 text-red-700 p-4 rounded-lg">
+              <div className="p-4 text-red-700 bg-red-100 rounded-lg">
                 {plansError}
               </div>
             ) : workoutPlans.length === 0 ? (
@@ -505,24 +505,24 @@ const Profile = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl p-8 text-center"
+                className="p-8 text-center bg-gray-50 rounded-xl border-2 border-gray-300 border-dashed"
               >
-                <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">No Custom Plans Yet</h3>
-                <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                <Calendar className="mx-auto mb-4 w-16 h-16 text-gray-400" />
+                <h3 className="mb-2 text-xl font-semibold text-gray-800">No Custom Plans Yet</h3>
+                <p className="mx-auto mb-6 max-w-md text-gray-600">
                   Create your first custom workout plan to start tracking your fitness journey
                 </p>
                 <Link
                   to="/create-plan"
-                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="inline-flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg transition-colors hover:bg-blue-700"
                 >
-                  <Plus className="w-5 h-5 mr-2" />
+                  <Plus className="mr-2 w-5 h-5" />
                   Create Your First Plan
                 </Link>
               </motion.div>
             ) : (
               <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -541,23 +541,23 @@ const Profile = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100"
+              className="p-6 mt-8 bg-blue-50 rounded-xl border border-blue-100"
             >
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Explore More Features</h3>
-              <p className="text-gray-600 mb-4">
+              <h3 className="mb-2 text-lg font-semibold text-gray-900">Explore More Features</h3>
+              <p className="mb-4 text-gray-600">
                 Check out our new features to enhance your fitness journey
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link
                   to="/exercises"
-                  className="flex items-center gap-2 px-4 py-2 bg-white text-blue-600 rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors"
+                  className="flex gap-2 items-center px-4 py-2 text-blue-600 bg-white rounded-lg border border-blue-200 transition-colors hover:bg-blue-50"
                 >
                   <Dumbbell className="w-4 h-4" />
                   <span>Exercise Library</span>
                 </Link>
                 <Link
                   to="/my-plans"
-                  className="flex items-center gap-2 px-4 py-2 bg-white text-blue-600 rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors"
+                  className="flex gap-2 items-center px-4 py-2 text-blue-600 bg-white rounded-lg border border-blue-200 transition-colors hover:bg-blue-50"
                 >
                   <Calendar className="w-4 h-4" />
                   <span>All My Plans</span>

@@ -136,13 +136,9 @@ const NearbyGyms = () => {
         {gyms.map((gym) => (
           <div key={gym.place_id} className="overflow-hidden bg-white rounded-xl shadow-md transition-shadow duration-300 hover:shadow-lg">
             {gym.photos && gym.photos[0] ? (
-              <div className="overflow-hidden h-48">
-                <img 
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${gym.photos[0].photo_reference}&key=${import.meta.env.VITE_MAPS_API_KEY}`}
-                  alt={gym.name}
-                  className="object-cover w-full h-full"
-                />
-              </div>
+              <div className="flex justify-center items-center h-48 bg-gray-200">
+              <MapPin className="w-12 h-12 text-gray-400" />
+            </div>
             ) : (
               <div className="flex justify-center items-center h-48 bg-gray-200">
                 <MapPin className="w-12 h-12 text-gray-400" />

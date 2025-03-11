@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-/**
- * Service for fetching nearby gyms using the GoMaps.pro Places API
- */
 const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY 
 
 /**

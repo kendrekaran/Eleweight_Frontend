@@ -45,42 +45,9 @@ const AllExercises = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <NavBar />
-      
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-blue-400 text-white">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="container mx-auto px-4 py-16 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-3xl"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Exercise Library</h1>
-            <p className="text-xl md:text-2xl opacity-90 mb-8">
-              Browse our comprehensive collection of exercises to build your perfect workout routine
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() => navigate('/create-plan')}
-                className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors flex items-center"
-              >
-                <Plus className="h-5 w-5 mr-2" />
-                Create Custom Plan
-              </button>
-              <button
-                onClick={() => navigate('/my-plans')}
-                className="bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800 transition-colors"
-              >
-                View My Plans
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </div>
 
       <div className="container mx-auto px-4 py-12">
-        <div className="bg-white rounded-xl shadow-md p-6 mb-8 sticky top-20 z-30">
+        <div className="bg-white rounded-xl shadow-md p-6 mb-8 sticky top-0 z-30">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-grow">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -102,7 +69,7 @@ const AllExercises = () => {
               >
                 <div className="flex items-center">
                   <Filter className="h-5 w-5 text-gray-400 mr-2" />
-                  <span>{selectedMuscle || 'Filter by muscle'}</span>
+                  <span>{selectedMuscle || 'Filter Muscle'}</span>
                 </div>
                 {isFilterOpen ? (
                   <ChevronUp className="h-5 w-5 text-gray-400" />
