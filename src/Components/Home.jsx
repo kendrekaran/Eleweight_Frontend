@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Dumbbell, List, Utensils, MoveRight, BookOpen, Plus, Calendar, MapPin, ArrowRight, Star, ChevronDown, Users, TrendingUp, Brain, ChevronLeft, ChevronRight, Check, Crown, Zap, Lock, Shield } from "lucide-react";
 import FeatureShowcase from './FeatureShowcase';
 import PaymentModal from './PaymentModal';
+import FitnessAdComponent from './FitnessAdComponent';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -429,8 +430,12 @@ const Home = () => {
         </div>
       </section>
 
+      <div>
+        <FitnessAdComponent />
+      </div>
+
       {/* Premium Section */}
-      <section className="overflow-hidden relative px-6 py-24 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 sm:px-16 lg:px-32">
+      <section id='pricing' className="overflow-hidden relative px-6 py-24 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 sm:px-16 lg:px-32">
         {/* Decorative elements */}
         <div className="overflow-hidden absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-purple-400 rounded-full blur-3xl"></div>
