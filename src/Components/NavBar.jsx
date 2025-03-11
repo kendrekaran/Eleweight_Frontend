@@ -4,6 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Dumbbell, X, Menu, User, Search, Bell, ChevronDown, LogOut, Settings, Camera, Upload, Check, UserCircle } from 'lucide-react';
 import axios from 'axios';
 
+// Cloudinary configuration
+const CLOUDINARY_CLOUD_NAME = 'dfm5hoz41';
+const CLOUDINARY_API_KEY = '258339917617439';
+const CLOUDINARY_UPLOAD_PRESET = 'dfm5hoz41';
+
 const NavBar = () => {
   const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState('https://i.pinimg.com/474x/a3/cc/fd/a3ccfd7885e6cff94ebbbe40fd9e1611.jpg');
@@ -70,25 +75,35 @@ const NavBar = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'dfm5hoz41'); // Cloudinary upload preset
-
     try {
       setUploading(true);
+      
+      // Create a FormData object for the file upload
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+      formData.append('cloud_name', CLOUDINARY_CLOUD_NAME);
+      formData.append('api_key', CLOUDINARY_API_KEY);
+      
+      // Upload to Cloudinary
       const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/dfm5hoz41/image/upload',
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
         formData
       );
-
+      
+      // Get the optimized image URL with auto-format and auto-quality
       const imageUrl = response.data.secure_url;
+      
+      // Update the UI and localStorage
       setProfileImage(imageUrl);
       localStorage.setItem('profilePicture', imageUrl);
+      
+      // Notify other components about the profile picture update
       window.dispatchEvent(new CustomEvent('profilePictureUpdate', {
         detail: { picture: imageUrl }
       }));
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error('Error uploading image to Cloudinary:', error);
     } finally {
       setUploading(false);
     }

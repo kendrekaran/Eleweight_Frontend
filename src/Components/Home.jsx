@@ -11,7 +11,6 @@ const Home = () => {
   const token = localStorage.getItem('token');
   const [activeTab, setActiveTab] = useState('all');
   const [activeFeature, setActiveFeature] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
   const featureSliderRef = useRef(null);
   const autoPlayTimerRef = useRef(null);
@@ -75,19 +74,18 @@ const Home = () => {
         if (!isHovering) {
           setActiveFeature(prev => (prev === heroFeatures.length - 1 ? 0 : prev + 1));
         }
-      }, 5000); // Change slide every 5 seconds
+      }, 3000); // Change slide every 3 seconds instead of 5 seconds
     };
 
-    if (isAutoPlaying) {
-      startAutoPlay();
-    }
+    // Always auto-play, no conditional check
+    startAutoPlay();
 
     return () => {
       if (autoPlayTimerRef.current) {
         clearInterval(autoPlayTimerRef.current);
       }
     };
-  }, [isAutoPlaying, isHovering, heroFeatures.length]);
+  }, [isHovering, heroFeatures.length]); // Remove isAutoPlaying from dependencies
 
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
@@ -151,31 +149,18 @@ const Home = () => {
   };
 
   const nextFeature = () => {
-    if (autoPlayTimerRef.current) {
-      clearInterval(autoPlayTimerRef.current);
-      setIsAutoPlaying(false);
-    }
+    // Don't stop auto-play when manually navigating
     setActiveFeature((prev) => (prev === heroFeatures.length - 1 ? 0 : prev + 1));
   };
 
   const prevFeature = () => {
-    if (autoPlayTimerRef.current) {
-      clearInterval(autoPlayTimerRef.current);
-      setIsAutoPlaying(false);
-    }
+    // Don't stop auto-play when manually navigating
     setActiveFeature((prev) => (prev === 0 ? heroFeatures.length - 1 : prev - 1));
   };
 
   const goToFeature = (index) => {
-    if (autoPlayTimerRef.current) {
-      clearInterval(autoPlayTimerRef.current);
-      setIsAutoPlaying(false);
-    }
+    // Don't stop auto-play when manually navigating
     setActiveFeature(index);
-  };
-
-  const toggleAutoPlay = () => {
-    setIsAutoPlaying(!isAutoPlaying);
   };
 
   return (
@@ -362,41 +347,21 @@ const Home = () => {
                 </button>
               </div>
               
-              {/* Auto-play control */}
-              <button
-                onClick={toggleAutoPlay}
-                className="absolute bottom-4 right-4 z-30 flex items-center gap-2 px-3 py-1.5 bg-black/30 backdrop-blur-md text-white/90 rounded-full border border-white/10 text-xs font-medium hover:bg-black/40 transition-colors"
-              >
-                {isAutoPlaying ? (
-                  <>
-                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    Auto-playing
-                  </>
-                ) : (
-                  <>
-                    <span className="w-2 h-2 bg-gray-400 rounded-full" />
-                    Paused
-                  </>
-                )}
-              </button>
-              
-              {/* Progress bar */}
-              {isAutoPlaying && (
-                <div className="absolute right-0 bottom-0 left-0 z-20 h-1 bg-white/10">
-                  <motion.div
-                    className={`h-full bg-gradient-to-r ${heroFeatures[activeFeature].color}`}
-                    initial={{ width: "0%" }}
-                    animate={{ width: "100%" }}
-                    transition={{ 
-                      duration: 5,
-                      ease: "linear",
-                      repeat: isAutoPlaying ? 1 : 0,
-                      repeatType: "loop"
-                    }}
-                    key={`progress-${activeFeature}`}
-                  />
-                </div>
-              )}
+              {/* Progress bar - always visible */}
+              <div className="absolute right-0 bottom-0 left-0 z-20 h-1 bg-white/10">
+                <motion.div
+                  className={`h-full bg-gradient-to-r ${heroFeatures[activeFeature].color}`}
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ 
+                    duration: 3,
+                    ease: "linear",
+                    repeat: Infinity,
+                    repeatType: "loop"
+                  }}
+                  key={`progress-${activeFeature}`}
+                />
+              </div>
             </div>
             
             {/* Dots Navigation */}
