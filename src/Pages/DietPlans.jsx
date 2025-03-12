@@ -4,13 +4,13 @@ import { Activity, User, Weight, Ruler, Calendar, Target, ArrowRight, ChevronRig
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import ReactMarkdown from 'react-markdown';
 import NavBar from '../Components/NavBar';
-import { Navigate } from 'react-router-dom';
-
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
 const FitnessApp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     weight: '',
     height: '',
@@ -21,22 +21,19 @@ const FitnessApp = () => {
     dietPreference: 'non-vegetarian'
   });
   
-
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [progress, setProgress] = useState({ calories: 0, protein: 0 });
-  const [animatedDietPlan, setAnimatedDietPlan] = useState('');
   const [copied, setCopied] = useState(false);
   const token = localStorage.getItem('token');
   
-    useEffect(() => {
-      if (!token) {
-        navigate("/login");
-      }
-    }, [token, Navigate]);
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
   
-
   const glassPanel = "backdrop-blur-lg bg-white/30 border border-white/40 shadow-lg";
   const gradientText = "bg-gradient-to-r from-purple-500 via-purple-500 to-sky-500 bg-clip-text text-transparent";
   const neumorphicInput = "bg-gray-50 border-2 border-transparent rounded-xl shadow-[4px_4px_10px_0px_rgba(0,0,0,0.1),-4px_-4px_10px_0px_rgba(255,255,255,0.9)] focus:shadow-[inset_4px_4px_10px_0px_rgba(0,0,0,0.1),inset_-4px_-4px_10px_0px_rgba(255,255,255,0.9)] transition-all duration-300";
@@ -126,30 +123,10 @@ const FitnessApp = () => {
     }
   };
 
-  useEffect(() => {
-    if (results?.dietPlan) {
-      setAnimatedDietPlan(''); 
-      let i = 0;
-      const text = String(results.dietPlan); 
-      
-      const interval = setInterval(() => {
-        if (i < text.length) {
-          setAnimatedDietPlan(prev => prev + text[i]);
-          i++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 20);
-
-      return () => clearInterval(interval);
-    }
-  }, [results?.dietPlan]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setAnimatedDietPlan('');
     setResults(null);
 
     try {
@@ -191,9 +168,9 @@ const FitnessApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-purple-50 to-sky-50">
+    <div className="min-h-screen">
       <NavBar/>
-      <div className='p-4 md:p-8'>
+      <div className="p-4 mx-auto max-w-6xl md:p-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -202,242 +179,268 @@ const FitnessApp = () => {
           <h1 className={`mb-2 text-3xl font-bold md:text-4xl ${gradientText}`}>
             Personalized AI Diet Planner
           </h1>
-          <p className="text-gray-600">Get a customized nutrition plan tailored to your needs</p>
+          <p className="mx-auto max-w-2xl text-gray-600">Get a customized nutrition plan tailored to your goals, preferences, and lifestyle</p>
         </motion.div>
 
-        <form onSubmit={handleSubmit} className="p-8 mx-auto max-w-4xl rounded-xl border shadow-xl backdrop-blur-sm bg-white/90 border-white/50">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex gap-2 items-center mb-3 text-gray-700">
-                <Weight className="w-5 h-5 text-purple-500" />
-                <span className="font-medium">Weight (kg)</span>
-              </label>
-              <input
-                type="number"
-                name="weight"
-                value={formData.weight}
-                onChange={handleInputChange}
-                className={`px-4 w-full h-14 ${neumorphicInput}`}
-                placeholder="Enter weight"
-                required
-              />
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex gap-2 items-center mb-3 text-gray-700">
-                <Ruler className="w-5 h-5 text-purple-500" />
-                <span className="font-medium">Height (cm)</span>
-              </label>
-              <input
-                type="number"
-                name="height"
-                value={formData.height}
-                onChange={handleInputChange}
-                className={`px-4 w-full h-14 ${neumorphicInput}`}
-                placeholder="Enter height"
-                required
-              />
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex gap-2 items-center mb-3 text-gray-700">
-                <Calendar className="w-5 h-5 text-sky-500" />
-                <span className="font-medium">Age</span>
-              </label>
-              <input
-                type="number"
-                name="age"
-                value={formData.age}
-                onChange={handleInputChange}
-                className={`px-4 w-full h-14 ${neumorphicInput}`}
-                placeholder="Enter age"
-                required
-              />
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex gap-2 items-center mb-3 text-gray-700">
-                <User className="w-5 h-5 text-purple-500" />
-                <span className="font-medium">Gender</span>
-              </label>
-              <select
-                name="gender"
-                value={formData.gender}
-                onChange={handleInputChange}
-                className={`px-4 w-full h-14 ${neumorphicInput}`}
-                required
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex gap-2 items-center mb-3 text-gray-700">
-                <Activity className="w-5 h-5 text-purple-500" />
-                <span className="font-medium">Activity Level</span>
-              </label>
-              <select
-                name="activityLevel"
-                value={formData.activityLevel}
-                onChange={handleInputChange}
-                className={`px-4 w-full h-14 ${neumorphicInput}`}
-                required
-              >
-                {activityLevels.map(level => (
-                  <option key={level.value} value={level.value}>
-                    {level.label}
-                  </option>
-                ))}
-              </select>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex gap-2 items-center mb-3 text-gray-700">
-                <Target className="w-5 h-5 text-sky-500" />
-                <span className="font-medium">Goal</span>
-              </label>
-              <select
-                name="goal"
-                value={formData.goal}
-                onChange={handleInputChange}
-                className={`px-4 w-full h-14 ${neumorphicInput}`}
-                required
-              >
-                {goals.map(goal => (
-                  <option key={goal.value} value={goal.value}>
-                    {goal.label}
-                  </option>
-                ))}
-              </select>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.02 }} className="group">
-              <label className="flex gap-2 items-center mb-3 text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-                </svg>
-                <span className="font-medium">Diet Preference</span>
-              </label>
-              <select
-                name="dietPreference"
-                value={formData.dietPreference}
-                onChange={handleInputChange}
-                className={`px-4 w-full h-14 ${neumorphicInput}`}
-                required
-              >
-                <option value="non-vegetarian">Non Vegetarian</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="vegan">Vegan</option>
-              </select>
-            </motion.div>
-          </div>
-
-          <AnimatePresence>
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="mt-6"
-              >
-                <div className="relative px-4 py-3 text-red-700 bg-red-100 rounded border border-red-400" role="alert">
-                  <span className="block sm:inline">{error}</span>
-                </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-8 mx-auto rounded-xl border shadow-xl backdrop-blur-sm bg-white/90 border-white/50"
+        >
+          <h2 className="mb-6 text-xl font-semibold text-gray-800">Enter Your Details</h2>
+          
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <motion.div whileHover={{ scale: 1.02 }} className="space-y-2 group">
+                <label className="flex gap-2 items-center text-gray-700">
+                  <Weight className="w-5 h-5 text-purple-500" />
+                  <span className="font-medium">Weight (kg)</span>
+                </label>
+                <input
+                  type="number"
+                  name="weight"
+                  value={formData.weight}
+                  onChange={handleInputChange}
+                  className={`px-4 w-full h-12 ${neumorphicInput}`}
+                  placeholder="Enter weight"
+                  required
+                />
               </motion.div>
-            )}
-          </AnimatePresence>
 
-          <div className="mt-8 text-center">
-            <motion.button
-              type="submit"
-              disabled={loading}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex gap-2 items-center px-6 py-3 mx-auto font-medium text-white bg-purple-500 rounded-lg transition-all duration-300 hover:bg-purple-600 disabled:opacity-50"
-            >
-              {loading ? (
-                <>
-                  <div className="w-4 h-4 rounded-full border-2 border-white animate-spin border-t-transparent" />
-                  Generating...
-                </>
-              ) : (
-                <>
-                  Calculate Plan
-                  <ArrowRight className="w-4 h-4" />
-                </>
+              <motion.div whileHover={{ scale: 1.02 }} className="space-y-2 group">
+                <label className="flex gap-2 items-center text-gray-700">
+                  <Ruler className="w-5 h-5 text-purple-500" />
+                  <span className="font-medium">Height (cm)</span>
+                </label>
+                <input
+                  type="number"
+                  name="height"
+                  value={formData.height}
+                  onChange={handleInputChange}
+                  className={`px-4 w-full h-12 ${neumorphicInput}`}
+                  placeholder="Enter height"
+                  required
+                />
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.02 }} className="space-y-2 group">
+                <label className="flex gap-2 items-center text-gray-700">
+                  <Calendar className="w-5 h-5 text-sky-500" />
+                  <span className="font-medium">Age</span>
+                </label>
+                <input
+                  type="number"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleInputChange}
+                  className={`px-4 w-full h-12 ${neumorphicInput}`}
+                  placeholder="Enter age"
+                  required
+                />
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.02 }} className="space-y-2 group">
+                <label className="flex gap-2 items-center text-gray-700">
+                  <User className="w-5 h-5 text-purple-500" />
+                  <span className="font-medium">Gender</span>
+                </label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  className={`px-4 w-full h-12 ${neumorphicInput}`}
+                  required
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.02 }} className="space-y-2 group">
+                <label className="flex gap-2 items-center text-gray-700">
+                  <Activity className="w-5 h-5 text-purple-500" />
+                  <span className="font-medium">Activity Level</span>
+                </label>
+                <select
+                  name="activityLevel"
+                  value={formData.activityLevel}
+                  onChange={handleInputChange}
+                  className={`px-4 w-full h-12 ${neumorphicInput}`}
+                  required
+                >
+                  {activityLevels.map(level => (
+                    <option key={level.value} value={level.value}>
+                      {level.label}
+                    </option>
+                  ))}
+                </select>
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.02 }} className="space-y-2 group">
+                <label className="flex gap-2 items-center text-gray-700">
+                  <Target className="w-5 h-5 text-sky-500" />
+                  <span className="font-medium">Goal</span>
+                </label>
+                <select
+                  name="goal"
+                  value={formData.goal}
+                  onChange={handleInputChange}
+                  className={`px-4 w-full h-12 ${neumorphicInput}`}
+                  required
+                >
+                  {goals.map(goal => (
+                    <option key={goal.value} value={goal.value}>
+                      {goal.label}
+                    </option>
+                  ))}
+                </select>
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.02 }} className="space-y-2 group">
+                <label className="flex gap-2 items-center text-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                  </svg>
+                  <span className="font-medium">Diet Preference</span>
+                </label>
+                <select
+                  name="dietPreference"
+                  value={formData.dietPreference}
+                  onChange={handleInputChange}
+                  className={`px-4 w-full h-12 ${neumorphicInput}`}
+                  required
+                >
+                  <option value="non-vegetarian">Non Vegetarian</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                </select>
+              </motion.div>
+            </div>
+
+            <AnimatePresence>
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="mt-6"
+                >
+                  <div className="relative px-4 py-3 text-red-700 bg-red-100 rounded-lg border border-red-400" role="alert">
+                    <span className="block sm:inline">{error}</span>
+                  </div>
+                </motion.div>
               )}
-            </motion.button>
-          </div>
-        </form>
+            </AnimatePresence>
 
-        <AnimatePresence mode="wait">
+            <div className="mt-8 text-center">
+              <motion.button
+                type="submit"
+                disabled={loading}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex gap-2 items-center px-8 py-3 mx-auto font-medium text-white bg-gradient-to-r from-purple-600 to-purple-500 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg disabled:opacity-50"
+              >
+                {loading ? (
+                  <>
+                    <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />
+                    <span>Generating Plan...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Calculate Your Plan</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                )}
+              </motion.button>
+            </div>
+          </form>
+        </motion.div>
+
+        <AnimatePresence>
           {results && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              className="mx-auto mt-8 space-y-6 max-w-4xl"
+              transition={{ delay: 0.2 }}
+              className="mx-auto mt-8 space-y-6"
             >
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                <div className="p-6 text-white bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg">
+              {/* Metrics cards */}
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <motion.div 
+                  whileHover={{ y: -5 }}
+                  className="p-6 text-white bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg"
+                >
                   <h3 className="font-medium text-purple-100">Daily Calories</h3>
                   <p className="text-2xl font-bold">{results.calories.toLocaleString()} kcal</p>
-                </div>
-                <div className="p-6 text-white bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg">
-                  <h3 className="font-medium text-green-100">Protein</h3>
+                </motion.div>
+                <motion.div 
+                  whileHover={{ y: -5 }}
+                  className="p-6 text-white bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg"
+                >
+                  <h3 className="font-medium text-blue-100">Protein</h3>
                   <p className="text-2xl font-bold">{results.protein}g</p>
-                </div>
-                <div className="p-6 text-white bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg shadow-lg">
-                  <h3 className="font-medium text-yellow-100">Carbs</h3>
+                </motion.div>
+                <motion.div 
+                  whileHover={{ y: -5 }}
+                  className="p-6 text-white bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl shadow-lg"
+                >
+                  <h3 className="font-medium text-amber-100">Carbs</h3>
                   <p className="text-2xl font-bold">{results.carbs}g</p>
-                </div>
-                <div className="p-6 text-white bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg">
-                  <h3 className="font-medium text-purple-100">Fats</h3>
+                </motion.div>
+                <motion.div 
+                  whileHover={{ y: -5 }}
+                  className="p-6 text-white bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg"
+                >
+                  <h3 className="font-medium text-green-100">Fats</h3>
                   <p className="text-2xl font-bold">{results.fats}g</p>
-                </div>
+                </motion.div>
               </div>
 
-              <div className="p-6 rounded-lg shadow-md backdrop-blur-sm bg-white/80">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-xl font-semibold text-gray-800">Your AI-Generated Diet Plan</h3>
+              {/* Diet plan */}
+              <motion.div 
+                className="p-6 rounded-xl shadow-lg backdrop-blur-sm bg-white/90"
+                transition={{ delay: 0.4 }}
+              >
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-xl font-semibold text-gray-800 sm:text-2xl">Your Personalized Diet Plan</h3>
                   <motion.button
                     onClick={copyDietPlan}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex gap-2 items-center px-4 py-2 text-white bg-purple-500 rounded-lg transition-colors hover:bg-purple-600"
+                    className="flex gap-2 items-center px-4 py-2 text-white bg-gradient-to-r from-purple-600 to-purple-500 rounded-lg shadow-md transition-colors hover:shadow-lg"
                   >
                     <Copy className="w-4 h-4" />
-                    <div className='hidden sm:block'>{copied ? 'Copied!' : 'Copy Plan'}</div>
+                    <span className="hidden sm:block">{copied ? 'Copied!' : 'Copy Plan'}</span>
                   </motion.button>
                 </div>
-                <div className="prose prose-purple max-w-none overflow-y-auto max-h-[600px] scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-100 pr-4">
-                  <div className="space-y-4">
-                    <ReactMarkdown
-                      components={{
-                        p: ({ children }) => (
-                          <div className="p-4 rounded-lg shadow-sm bg-white/50">
-                            <p className="text-gray-600">{children}</p>
-                          </div>
-                        ),
-                        ul: ({ children }) => (
-                          <div className="p-4 rounded-lg shadow-sm bg-white/50">
-                            <ul className="space-y-2">{children}</ul>
-                          </div>
-                        ),
-                        li: ({ children }) => (
-                          <li className="flex gap-2 items-start text-gray-700">
-                            <ChevronRight className="flex-shrink-0 mt-1 w-4 h-4 text-purple-500" />
-                            <span className="flex-1 break-words">{children}</span>
-                          </li>
-                        ),
-                      }}
-                    >
-                      {animatedDietPlan}
-                    </ReactMarkdown>
-                  </div>
+                
+                <div className="prose prose-purple max-w-none overflow-y-auto max-h-[500px] pr-4 bg-white/50 rounded-lg p-6 shadow-inner">
+                  <ReactMarkdown
+                    components={{
+                      h1: ({ children }) => (
+                        <h2 className="mb-4 text-xl font-bold text-purple-700">{children}</h2>
+                      ),
+                      h2: ({ children }) => (
+                        <h3 className="mt-6 mb-3 text-lg font-bold text-purple-600">{children}</h3>
+                      ),
+                      p: ({ children }) => (
+                        <p className="mb-4 text-gray-700">{children}</p>
+                      ),
+                      ul: ({ children }) => (
+                        <ul className="my-4 space-y-3">{children}</ul>
+                      ),
+                      li: ({ children }) => (
+                        <li className="flex gap-3 items-start p-3 text-gray-700 rounded-lg shadow-sm bg-white/70">
+                          <ChevronRight className="flex-shrink-0 mt-1 w-5 h-5 text-purple-500" />
+                          <span className="flex-1">{children}</span>
+                        </li>
+                      ),
+                    }}
+                  >
+                    {results.dietPlan}
+                  </ReactMarkdown>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
