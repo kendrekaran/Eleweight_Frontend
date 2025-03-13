@@ -3,12 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import FeatureCards from './FeaturedCards';
 import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, List,  MoveRight, BookOpen, Plus, Calendar, MapPin, ArrowRight,  Brain, ChevronLeft, ChevronRight, Check, Crown, Target } from "lucide-react";
-
+import { Dumbbell, List,  MoveRight, BookOpen, Plus, Calendar, MapPin, ArrowRight,  Brain, ChevronLeft, ChevronRight, Check, Crown } from "lucide-react";
 
 import PaymentModal from './PaymentModal';
 import FitnessAdComponent from './FitnessAdComponent';
-
 
 const Home = () => {
   const navigate = useNavigate();
@@ -147,7 +145,7 @@ const Home = () => {
   };
 
   return (
-    <div className="overflow-x-hidden min-h-screen ">
+    <div className="overflow-x-hidden min-h-screen">
       <NavBar />
 
       {/* Hero Section with FeatureShowcase */}
@@ -157,7 +155,7 @@ const Home = () => {
         <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br rounded-full blur-3xl from-indigo-200/20 to-indigo-200/20" />
 
         <div className="container relative z-10 px-6 mx-auto sm:px-16 lg:px-32">
-          <div className="flex flex-col gap-4  justify-center items-center px-8 py-8 w-full lg:flex-row-reverse sm:gap-12">
+          <div className="flex flex-col gap-4 justify-center items-center px-8 py-8 w-full lg:flex-row-reverse sm:gap-12">
             <motion.div
               className="relative w-full lg:w-1/2"
               initial={{ opacity: 0, scale: 0.95 }}
@@ -168,7 +166,7 @@ const Home = () => {
               <img
                 src="Toji.svg"
                 alt="Fitness"
-                className="object-contain py-8 relative pt-4 mx-auto w-60 max-w-xl drop-shadow-2xl md:w-full md:pt-0"
+                className="object-contain relative py-8 pt-4 mx-auto w-60 max-w-xl drop-shadow-2xl md:w-full md:pt-0"
               />
             </motion.div>
 
@@ -232,7 +230,7 @@ const Home = () => {
           </div>
         </div>
 
-        <section className="py-16  sm:py-20">
+        <section className="py-16 sm:py-20">
           <div className="container px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-10 text-center">
           <span className="inline-block px-5 py-2 mb-4 text-sm font-medium tracking-wide text-purple-700 bg-purple-100 rounded-full ring-1 ring-purple-200 shadow-sm">

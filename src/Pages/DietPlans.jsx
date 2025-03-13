@@ -437,19 +437,19 @@ const FitnessApp = () => {
                   <ReactMarkdown
                     components={{
                       h1: ({ children }) => (
-                        <h2 className="mt-8 mb-4 text-2xl font-bold text-purple-700 border-b-2 border-purple-200 pb-2">{children}</h2>
+                        <h2 className="pb-2 mt-8 mb-4 text-2xl font-bold text-purple-700 border-b-2 border-purple-200">{children}</h2>
                       ),
                       h2: ({ children }) => (
                         <h3 className="mt-6 mb-3 text-xl font-semibold text-purple-600">{children}</h3>
                       ),
                       p: ({ children }) => (
-                        <p className="mb-4 text-gray-700 leading-relaxed">{children}</p>
+                        <p className="mb-4 leading-relaxed text-gray-700">{children}</p>
                       ),
                       ul: ({ children }) => (
-                        <ul className="my-4 grid gap-3 md:grid-cols-2">{children}</ul>
+                        <ul className="grid gap-3 my-4 md:grid-cols-2">{children}</ul>
                       ),
                       li: ({ children }) => (
-                        <li className="flex gap-3 items-start p-4 text-gray-700 rounded-lg shadow-sm bg-white/70 hover:bg-white/90 transition-colors duration-200">
+                        <li className="flex gap-3 items-start p-4 text-gray-700 rounded-lg shadow-sm transition-colors duration-200 bg-white/70 hover:bg-white/90">
                           <ChevronRight className="flex-shrink-0 mt-1 w-5 h-5 text-purple-500" />
                           <span className="flex-1">{children}</span>
                         </li>

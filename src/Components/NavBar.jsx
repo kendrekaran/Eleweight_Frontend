@@ -190,6 +190,19 @@ const NavBar = () => {
             ))}
           </div>
 
+          {/* Food Analysis Camera Icon */}
+          <NavLink
+            to="/food-analysis"
+            className={({ isActive }) => 
+              `relative p-2 rounded-full transition-all
+              ${isActive 
+                ? 'text-white bg-gradient-to-r from-purple-600 to-purple-500 shadow-md' 
+                : 'text-gray-700 hover:text-purple-500 hover:bg-gray-100'}`
+            }
+            title="Analyze Food"
+          >
+            <Camera className="w-5 h-5" />
+          </NavLink>
          
           {/* Enhanced Profile Section with Dropdown */}
           <div className="relative pl-4 border-l border-gray-200" ref={dropdownRef}>
