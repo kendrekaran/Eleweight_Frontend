@@ -4,9 +4,9 @@ import { CheckCircle, ArrowRight } from 'lucide-react';
 const FitnessAdComponent = () => {
   return (
     <div className="overflow-x-hidden mx-auto mb-12 max-w-7xl rounded-2xl">
-      <div className="flex flex-col w-full md:flex-row">
+      <div className="flex flex-col w-full md:flex-row ">
         {/* Image Grid Section - Enhanced with overlays and better spacing */}
-        <div className="flex relative flex-col justify-center p-8 w-full md:w-1/2">
+        <div className="flex relative  flex-col justify-center p-8 w-full md:w-1/2">
           <div className="absolute top-0 left-0 z-0 w-full h-full"></div>
           
           <div className="relative z-10">
@@ -90,7 +90,7 @@ const FitnessAdComponent = () => {
             </div>
             
             <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-              <button className="flex justify-center items-center px-8 py-4 font-bold text-white bg-blue-500 rounded-xl shadow-lg transition-all group hover:bg-blue-600 hover:shadow-blue-500/30">
+              <button className="flex justify-center items-center px-8 py-4 font-bold text-white bg-purple-500 rounded-xl shadow-lg transition-all group hover:bg-purple-600 hover:shadow-blue-500/30">
                 Join now
                 <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1" size={18} />
               </button>

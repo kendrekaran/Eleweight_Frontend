@@ -147,17 +147,17 @@ const Home = () => {
   };
 
   return (
-    <div className="overflow-x-hidden min-h-screen bg-gray-50">
+    <div className="overflow-x-hidden min-h-screen ">
       <NavBar />
 
       {/* Hero Section with FeatureShowcase */}
-      <section className="overflow-hidden relative">
+      <section className="overflow-hidden relative bg-white">
         {/* Decorative elements */}
         <div className="absolute right-20 top-40 w-64 h-64 bg-gradient-to-br rounded-full blur-3xl from-purple-200/20 to-purple-200/20" />
         <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br rounded-full blur-3xl from-indigo-200/20 to-indigo-200/20" />
 
         <div className="container relative z-10 px-6 mx-auto sm:px-16 lg:px-32">
-          <div className="flex flex-col gap-4 justify-center items-center px-8 py-8 w-full lg:flex-row-reverse sm:gap-12">
+          <div className="flex flex-col gap-4  justify-center items-center px-8 py-8 w-full lg:flex-row-reverse sm:gap-12">
             <motion.div
               className="relative w-full lg:w-1/2"
               initial={{ opacity: 0, scale: 0.95 }}
@@ -168,7 +168,7 @@ const Home = () => {
               <img
                 src="Toji.svg"
                 alt="Fitness"
-                className="object-contain relative pt-4 mx-auto w-60 max-w-xl drop-shadow-2xl md:w-full md:pt-0"
+                className="object-contain py-8 relative pt-4 mx-auto w-60 max-w-xl drop-shadow-2xl md:w-full md:pt-0"
               />
             </motion.div>
 
@@ -232,135 +232,168 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Success Stories Section */}
-      <section className="py-24 bg-white sm:px-16 lg:px-32">
-        <div className="container px-6 mx-auto">
-          <motion.div 
-            className="mb-16 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-purple-700 bg-purple-100 rounded-full shadow-sm">
-              Popular Plans
-            </span>
-            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-purple-900 to-indigo-700 sm:text-5xl">
-              Start Your Fitness Journey
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {/* Muscle Route */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              whileHover={{ y: -8 }}
-              className="overflow-hidden relative rounded-2xl border border-gray-100 shadow-xl transition-all duration-300 group hover:border-purple-200 hover:shadow-2xl"
-            >
-              
-              <div className="aspect-[3/4] overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1613845205719-8c87760ab728?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDU5fHx8ZW58MHx8fHx8"
-                  alt="Muscle Groups" 
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="flex absolute inset-0 flex-col justify-end p-8 text-white bg-gradient-to-t to-transparent from-black/90 via-black/50">
-                <div className="p-3 mb-4 w-14 h-14 rounded-xl backdrop-blur-md bg-purple-600/30">
-                  <Target className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold">Muscle Groups</h3>
-                <p className="p-3 mb-5 text-sm rounded-lg backdrop-blur-sm text-white/90 bg-black/10">Target specific muscle groups with specialized exercises</p>
-                <Link
-                  to="/muscle"
-                  className="inline-flex items-center justify-between px-5 py-3.5 w-full text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl transition-all duration-200 hover:from-purple-600 hover:to-indigo-700 shadow-sm hover:shadow-md"
-                >
-                  <span>Explore Muscles</span>
-                  <MoveRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Workout Plans */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              whileHover={{ y: -8 }}
-              className="overflow-hidden relative rounded-2xl border border-gray-100 shadow-xl transition-all duration-300 group hover:border-purple-200 hover:shadow-2xl"
-            >
-              
-              <div className="aspect-[3/4] overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1614367674345-f414b2be3e5b?q=80&w=1823&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="Workout Plans" 
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="flex absolute inset-0 flex-col justify-end p-8 text-white bg-gradient-to-t to-transparent from-black/90 via-black/50">
-                <div className="p-3 mb-4 w-14 h-14 rounded-xl backdrop-blur-md bg-indigo-600/30">
-                  <List className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold">Workout Plans</h3>
-                <p className="p-3 mb-5 text-sm rounded-lg backdrop-blur-sm text-white/90 bg-black/10">Browse our collection of expert-crafted workout plans</p>
-                <Link
-                  to="/plans"
-                  className="inline-flex items-center justify-between px-5 py-3.5 w-full text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl transition-all duration-200 hover:from-purple-600 hover:to-indigo-700 shadow-sm hover:shadow-md"
-                >
-                  <span>View Plans</span>
-                  <MoveRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Nearby Gyms */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              whileHover={{ y: -8 }}
-              className="overflow-hidden relative rounded-2xl border border-gray-100 shadow-xl transition-all duration-300 group hover:border-purple-200 hover:shadow-2xl"
-            >
-              
-              <div className="absolute top-4 right-4 z-10 px-3 py-1 text-xs font-bold text-white bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full shadow-lg">
-                NEW
-              </div>
-              <div className="aspect-[3/4] overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1597452485683-0e0bde820f87?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8"
-                  alt="Nearby Gyms" 
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="flex absolute inset-0 flex-col justify-end p-8 text-white bg-gradient-to-t to-transparent from-black/90 via-black/50">
-                <div className="p-3 mb-4 w-14 h-14 rounded-xl backdrop-blur-md bg-purple-600/30">
-                  <MapPin className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold">Nearby Gyms</h3>
-                <p className="p-3 mb-5 text-sm rounded-lg backdrop-blur-sm text-white/90 bg-black/10">Find and explore gyms near your location to enhance your fitness journey</p>
-                <Link
-                  to="/nearby-gyms"
-                  className="inline-flex items-center justify-between px-5 py-3.5 w-full text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl transition-all duration-200 hover:from-purple-600 hover:to-indigo-700 shadow-sm hover:shadow-md"
-                >
-                  <span>Find Gyms</span>
-                  <MoveRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </motion.div>
+        <section className="py-16  sm:py-20">
+          <div className="container px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mb-10 text-center">
+          <span className="inline-block px-5 py-2 mb-4 text-sm font-medium tracking-wide text-purple-700 bg-purple-100 rounded-full ring-1 ring-purple-200 shadow-sm">
+          Find Your Perfect Fit
+          </span>
+          <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-indigo-600 sm:text-4xl">
+          Start Your Fitness Journey Today
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600">
+          Discover personalized workout plans, targeted exercises, and convenient locations to achieve your fitness goals.
+          </p>
           </div>
-        </div>
-      </section>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {/* Muscle Route Card - Optimized */}
+          <div className="overflow-hidden relative rounded-xl shadow-md transition-all duration-300 hover:shadow-lg group">
+          <div className="aspect-[4/5] overflow-hidden bg-gray-100">
+            <img 
+              src="https://images.unsplash.com/photo-1613845205719-8c87760ab728?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDU5fHx8ZW58MHx8fHx8" 
+              alt="Targeted muscle group training" 
+              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              width="400"
+              height="500"
+            />
+          </div>
+          <div className="flex absolute inset-0 flex-col justify-end p-6 text-white bg-gradient-to-t to-transparent from-black/80">
+            <div className="inline-flex items-center mb-2">
+              <span className="flex justify-center items-center mr-3 w-8 h-8 bg-purple-600 rounded-full">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                  <line x1="6" y1="1" x2="6" y2="4"></line>
+                  <line x1="10" y1="1" x2="10" y2="4"></line>
+                  <line x1="14" y1="1" x2="14" y2="4"></line>
+                </svg>
+              </span>
+              <h3 className="text-xl font-bold">Muscle Groups</h3>
+            </div>
+            
+            <div className="mt-auto">
+              <Link to="/muscle" className="inline-flex items-center px-4 py-2 font-medium text-white bg-purple-600 rounded-lg transition-colors hover:bg-purple-700">
+                Explore Muscles
+                <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </Link>
+            </div>
+          </div>
+          <div className="absolute top-4 right-4">
+            <span className="flex justify-center items-center w-10 h-10 rounded-full shadow-md bg-white/90">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b21a8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+                <line x1="16" y1="8" x2="2" y2="22"></line>
+                <line x1="17.5" y1="15" x2="9" y2="15"></line>
+              </svg>
+            </span>
+          </div>
+          </div>
+
+          {/* Workout Plans Card - Optimized */}
+          <div className="overflow-hidden relative rounded-xl shadow-md transition-all duration-300 hover:shadow-lg group">
+          <div className="aspect-[4/5] overflow-hidden bg-gray-100">
+            <img 
+              src="https://images.unsplash.com/photo-1614367674345-f414b2be3e5b?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+              alt="Professional workout plans" 
+              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              width="400"
+              height="500"
+            />
+          </div>
+          <div className="flex absolute inset-0 flex-col justify-end p-6 text-white bg-gradient-to-t to-transparent from-black/80">
+            <div className="inline-flex items-center mb-2">
+              <span className="flex justify-center items-center mr-3 w-8 h-8 bg-indigo-600 rounded-full">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </span>
+              <h3 className="text-xl font-bold">Custom Plans</h3>
+            </div>
+            <div className="mt-auto">
+              <Link to="/plans" className="inline-flex items-center px-4 py-2 font-medium text-white bg-indigo-600 rounded-lg transition-colors hover:bg-indigo-700">
+                View Plans
+                <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </Link>
+            </div>
+          </div>
+          <div className="absolute top-4 right-4">
+            <span className="flex justify-center items-center w-10 h-10 rounded-full shadow-md bg-white/90">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              </svg>
+            </span>
+          </div>
+          </div>
+
+          {/* Nearby Gyms Card - Optimized */}
+          <div className="overflow-hidden relative rounded-xl shadow-md transition-all duration-300 hover:shadow-lg group">
+          <div className="aspect-[4/5] overflow-hidden bg-gray-100">
+            <img 
+              src="https://images.unsplash.com/photo-1597452485683-0e0bde820f87?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8" 
+              alt="Local gym facilities" 
+              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              width="400"
+              height="500"
+            />
+          </div>
+          <div className="flex absolute inset-0 flex-col justify-end p-6 text-white bg-gradient-to-t to-transparent from-black/80">
+            <div className="inline-flex items-center mb-2">
+              <span className="flex justify-center items-center mr-3 w-8 h-8 bg-blue-600 rounded-full">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="10" r="3"></circle>
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"></path>
+                </svg>
+              </span>
+              <h3 className="text-xl font-bold">Nearby Gyms</h3>
+            </div>
+            <div className="mt-auto">
+              <Link to="/nearby-gyms" className="inline-flex items-center px-4 py-2 font-medium text-white bg-blue-600 rounded-lg transition-colors hover:bg-blue-700">
+                Find Gyms
+                <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </Link>
+            </div>
+          </div>
+          <div className="absolute top-4 right-4">
+            <span className="flex justify-center items-center w-10 h-10 rounded-full shadow-md bg-white/90">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </span>
+          </div>
+          </div>
+          </div>
+          </div>
+        </section>
 
         {/* Feature Showcase */}
         <div className="overflow-hidden mt-12 mb-12 sm:mt-24">
           <div className="container px-6 mx-auto sm:px-16 lg:px-0">
             <div className="mb-8 text-center">
-              <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Discover Our Key Features</h2>
+            <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-indigo-700 bg-indigo-100 rounded-full shadow-sm">
+            Key Features
+          </span>
+            <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-indigo-900 to-purple-700 sm:text-5xl">
+            Discover our Key Features
+          </h2>
               <p className="mt-2 text-gray-600">Everything you need for your fitness journey in one place</p>
             </div>
             
@@ -470,7 +503,7 @@ const Home = () => {
       </section>
 
       {/* Results Section with improved styling */}
-      <section className="py-24 bg-gradient-to-b from-indigo-50 to-white sm:px-16 lg:px-32">
+      <section className="py-24 sm:px-16 lg:px-32">
         <motion.div 
           className="mb-16 text-center"
           {...fadeInUp}
