@@ -387,15 +387,7 @@ const Home = () => {
         {/* Feature Showcase */}
         <div className="overflow-hidden mt-12 mb-12 sm:mt-24">
           <div className="container px-6 mx-auto sm:px-16 lg:px-0">
-            <div className="mb-8 text-center">
-            <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-indigo-700 bg-indigo-100 rounded-full shadow-sm">
-            Key Features
-          </span>
-            <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-indigo-900 to-purple-700 sm:text-5xl">
-            Discover our Key Features
-          </h2>
-              <p className="mt-2 text-gray-600">Everything you need for your fitness journey in one place</p>
-            </div>
+         
             
             <div 
               className="relative" 

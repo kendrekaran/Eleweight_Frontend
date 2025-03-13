@@ -91,24 +91,43 @@ const FitnessApp = () => {
   };
 
   const getDietPlan = async (calories, protein) => {
-    const prompt = `Generate a concise yet effective ${formData.dietPreference} diet plan based on the following daily requirements:
-
-    Calories: ${calories} kcal
-    Protein: ${protein}g
+    const prompt = `Generate a detailed ${formData.dietPreference} diet plan based on:
+    
+    Calories: ${calories} kcal/day
+    Protein: ${protein}g/day
     Goal: ${formData.goal} weight
     Activity Level: ${formData.activityLevel}
     Diet Preference: ${formData.dietPreference}
 
-    The plan should include:
-    1️⃣ Meal timings (breakfast, lunch, dinner, snacks)
-    2️⃣ Recommended foods (categorized: proteins, carbs, fats)
-    3️⃣ Foods to avoid
-    4️⃣ Quick meal suggestions
+    Format the response with these sections using markdown:
+    
+    # Daily Meal Schedule
+    - List meal timings and portion suggestions
+    
+    # Food Recommendations
+    ## Proteins
+    - List protein sources
+    ## Carbohydrates
+    - List carb sources
+    ## Healthy Fats
+    - List fat sources
+    
+    # Foods to Avoid
+    - List foods to avoid
+    
+    # Quick Meal Ideas
+    ## Breakfast Options
+    - List 2-3 quick breakfast ideas
+    ## Lunch Options
+    - List 2-3 quick lunch ideas
+    ## Dinner Options
+    - List 2-3 quick dinner ideas
+    ## Healthy Snacks
+    - List 2-3 snack ideas
 
-    Format the response in bullet points. Keep it practical and easy to follow.
-    Don't use * symbol for bullets.
-    Ensure all meal suggestions comply with ${formData.dietPreference} dietary restrictions.
-    `;
+    Keep suggestions practical and easy to follow.
+    Use - for bullet points.
+    Ensure all suggestions comply with ${formData.dietPreference} preferences.`;
 
     try {
       const result = await model.generateContent(prompt);
@@ -418,19 +437,19 @@ const FitnessApp = () => {
                   <ReactMarkdown
                     components={{
                       h1: ({ children }) => (
-                        <h2 className="mb-4 text-xl font-bold text-purple-700">{children}</h2>
+                        <h2 className="mt-8 mb-4 text-2xl font-bold text-purple-700 border-b-2 border-purple-200 pb-2">{children}</h2>
                       ),
                       h2: ({ children }) => (
-                        <h3 className="mt-6 mb-3 text-lg font-bold text-purple-600">{children}</h3>
+                        <h3 className="mt-6 mb-3 text-xl font-semibold text-purple-600">{children}</h3>
                       ),
                       p: ({ children }) => (
-                        <p className="mb-4 text-gray-700">{children}</p>
+                        <p className="mb-4 text-gray-700 leading-relaxed">{children}</p>
                       ),
                       ul: ({ children }) => (
-                        <ul className="my-4 space-y-3">{children}</ul>
+                        <ul className="my-4 grid gap-3 md:grid-cols-2">{children}</ul>
                       ),
                       li: ({ children }) => (
-                        <li className="flex gap-3 items-start p-3 text-gray-700 rounded-lg shadow-sm bg-white/70">
+                        <li className="flex gap-3 items-start p-4 text-gray-700 rounded-lg shadow-sm bg-white/70 hover:bg-white/90 transition-colors duration-200">
                           <ChevronRight className="flex-shrink-0 mt-1 w-5 h-5 text-purple-500" />
                           <span className="flex-1">{children}</span>
                         </li>
