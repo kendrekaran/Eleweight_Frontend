@@ -16,6 +16,7 @@ import WorkoutPlanDetail from './Pages/WorkoutPlanDetail'
 import EditPlan from './Pages/EditPlan'
 import NearbyGymsPage from './Pages/NearbyGymsPage'
 import FoodAnalysis from './Pages/FoodAnalysis'
+import AITrainerChatbot from './Components/AITrainerChatbot'
 
 const App = () => {
 
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/nearby-gyms" element={<NearbyGymsPage />} />
         <Route path="/food-analysis" element={<FoodAnalysis />} />
       </Routes>
+      <AITrainerChatbot />
     </LoadingProvider>
     </div>
   )

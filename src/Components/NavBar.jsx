@@ -1,28 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Dumbbell, X, Menu, User, Search, Bell, ChevronDown, LogOut, Settings, Camera, Upload, Check, UserCircle } from 'lucide-react';
-import axios from 'axios';
-import { Cloudinary } from '@cloudinary/url-gen';
-import { auto } from '@cloudinary/url-gen/actions/resize';
-import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
-import { AdvancedImage } from '@cloudinary/react';
-
-// Cloudinary configuration
-const CLOUDINARY_CLOUD_NAME = 'dfm5hoz41';
-const CLOUDINARY_API_KEY = '258339917617439';
-const CLOUDINARY_UPLOAD_PRESET = 'dfm5hoz41';
-// Initialize Cloudinary
-const cld = new Cloudinary({ cloud: { cloudName: CLOUDINARY_CLOUD_NAME } });
+import { Dumbbell, X, Menu, User, Search, Bell, ChevronDown, LogOut, Settings, Camera, Upload, Check, UserCircle, ScanLine } from 'lucide-react';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState('https://i.pinimg.com/474x/a3/cc/fd/a3ccfd7885e6cff94ebbbe40fd9e1611.jpg');
-  const [cloudinaryPublicId, setCloudinaryPublicId] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [userName, setUserName] = useState(localStorage.getItem('userName') || 'User');
   const [userEmail, setUserEmail] = useState(localStorage.getItem('userEmail') || 'user@example.com');
   const fileInputRef = useRef(null);
@@ -31,12 +17,8 @@ const NavBar = () => {
   useEffect(() => {
     const handleStorageChange = () => {
       const savedPicture = localStorage.getItem('profilePicture');
-      const savedPublicId = localStorage.getItem('cloudinaryPublicId');
       if (savedPicture) {
         setProfileImage(savedPicture);
-      }
-      if (savedPublicId) {
-        setCloudinaryPublicId(savedPublicId);
       }
       setUserName(localStorage.getItem('userName') || 'User');
       setUserEmail(localStorage.getItem('userEmail') || 'user@example.com');
@@ -44,9 +26,6 @@ const NavBar = () => {
 
     const handleProfileUpdate = (e) => {
       setProfileImage(e.detail.picture);
-      if (e.detail.publicId) {
-        setCloudinaryPublicId(e.detail.publicId);
-      }
     };
 
     const handleScroll = () => {
@@ -90,41 +69,19 @@ const NavBar = () => {
     if (!file) return;
 
     try {
-      setUploading(true);
-      
-      // Create a FormData object for the file upload
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-      formData.append('cloud_name', CLOUDINARY_CLOUD_NAME);
-      formData.append('api_key', CLOUDINARY_API_KEY);
-      
-      // Upload to Cloudinary
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-        formData
-      );
-      
-      // Get the public ID from the response
-      const publicId = response.data.public_id;
-      
-      // Get the optimized image URL with auto-format and auto-quality
-      const imageUrl = response.data.secure_url;
+      // Create a local URL for the file for preview
+      const imageUrl = URL.createObjectURL(file);
       
       // Update the UI and localStorage
       setProfileImage(imageUrl);
-      setCloudinaryPublicId(publicId);
       localStorage.setItem('profilePicture', imageUrl);
-      localStorage.setItem('cloudinaryPublicId', publicId);
       
       // Notify other components about the profile picture update
       window.dispatchEvent(new CustomEvent('profilePictureUpdate', {
-        detail: { picture: imageUrl, publicId: publicId }
+        detail: { picture: imageUrl }
       }));
     } catch (error) {
-      console.error('Error uploading image to Cloudinary:', error);
-    } finally {
-      setUploading(false);
+      console.error('Error handling image:', error);
     }
   };
 
@@ -162,7 +119,7 @@ const NavBar = () => {
         
         {/* Desktop Navigation with improved hover effects */}
         <div className="hidden gap-6 items-center sm:flex">
-          <div className="flex space-x-1 bg-gray-100/50 rounded-full p-1">
+          <div className="flex p-1 space-x-1 rounded-full bg-gray-100/50">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
@@ -201,7 +158,7 @@ const NavBar = () => {
             }
             title="Analyze Food"
           >
-            <Camera className="w-5 h-5" />
+            <ScanLine className="w-5 h-5" />
           </NavLink>
          
           {/* Enhanced Profile Section with Dropdown */}
@@ -214,25 +171,11 @@ const NavBar = () => {
                 whileHover={{ scale: 1.05 }}
                 className="relative"
               >
-                {cloudinaryPublicId ? (
-                  <div className="w-9 h-9 rounded-full border-2 border-white shadow-sm transition-all group-hover:shadow-md overflow-hidden">
-                    <AdvancedImage
-                      cldImg={cld
-                        .image(cloudinaryPublicId)
-                        .format('auto')
-                        .quality('auto')
-                        .resize(auto().gravity(autoGravity()).width(100).height(100))}
-                      className="object-cover w-full h-full"
-                      alt="Profile"
-                    />
-                  </div>
-                ) : (
-                  <img
-                    className="object-cover w-9 h-9 rounded-full border-2 border-white shadow-sm transition-all group-hover:shadow-md"
-                    src={profileImage}
-                    alt="Profile"
-                  />
-                )}
+                <img
+                  className="object-cover w-9 h-9 rounded-full border-2 border-white shadow-sm transition-all group-hover:shadow-md"
+                  src={profileImage}
+                  alt="Profile"
+                />
                 <div className="absolute -right-1 -bottom-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white" />
               </motion.div>
               <span className="hidden text-sm font-medium text-gray-700 group-hover:text-purple-600 md:block">
@@ -254,34 +197,16 @@ const NavBar = () => {
                   <div className="p-4">
                     <div className="flex gap-4 items-center mb-4">
                       <div className="relative group">
-                        {cloudinaryPublicId ? (
-                          <div className="w-16 h-16 rounded-full border-2 border-white shadow-md overflow-hidden">
-                            <AdvancedImage
-                              cldImg={cld
-                                .image(cloudinaryPublicId)
-                                .format('auto')
-                                .quality('auto')
-                                .resize(auto().gravity(autoGravity()).width(200).height(200))}
-                              className="object-cover w-full h-full"
-                              alt="Profile"
-                            />
-                          </div>
-                        ) : (
-                          <img 
-                            src={profileImage} 
-                            alt="Profile" 
-                            className="object-cover w-16 h-16 rounded-full border-2 border-white shadow-md"
-                          />
-                        )}
+                        <img 
+                          src={profileImage} 
+                          alt="Profile" 
+                          className="object-cover w-16 h-16 rounded-full border-2 border-white shadow-md"
+                        />
                         <button 
                           onClick={triggerFileInput}
                           className="flex absolute inset-0 justify-center items-center rounded-full opacity-0 transition-opacity bg-black/50 group-hover:opacity-100"
                         >
-                          {uploading ? (
-                            <div className="w-6 h-6 rounded-full border-2 border-white animate-spin border-t-transparent"></div>
-                          ) : (
-                            <Camera className="w-5 h-5 text-white" />
-                          )}
+                          <ScanLine className="w-5 h-5 text-white" />
                         </button>
                         <input 
                           type="file" 
@@ -314,22 +239,38 @@ const NavBar = () => {
         </div>
 
         {/* Improved Mobile Menu Button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-full backdrop-blur-sm transition-colors sm:hidden bg-gray-50/80 hover:bg-gray-100"
-          aria-label="Toggle menu"
-        >
-          <motion.div
-            animate={{ rotate: isOpen ? 90 : 0 }}
-            transition={{ duration: 0.2 }}
+        <div className="flex gap-2 items-center sm:hidden">
+          {/* Food Analysis Camera Icon for Mobile */}
+          <NavLink
+            to="/food-analysis"
+            className={({ isActive }) => 
+              `relative p-2 rounded-full transition-all
+              ${isActive 
+                ? 'text-white bg-gradient-to-r from-purple-600 to-purple-500 shadow-md' 
+                : 'text-gray-700 hover:text-purple-500 hover:bg-gray-100'}`
+            }
+            title="Analyze Food"
           >
-            {isOpen ? (
-              <X className="w-6 h-6 text-gray-700" />
-            ) : (
-              <Menu className="w-6 h-6 text-gray-700" />
-            )}
-          </motion.div>
-        </button>
+            <ScanLine className="w-5 h-5" />
+          </NavLink>
+          
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 rounded-full backdrop-blur-sm transition-colors bg-gray-50/80 hover:bg-gray-100"
+            aria-label="Toggle menu"
+          >
+            <motion.div
+              animate={{ rotate: isOpen ? 90 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {isOpen ? (
+                <X className="w-6 h-6 text-gray-700" />
+              ) : (
+                <Menu className="w-6 h-6 text-gray-700" />
+              )}
+            </motion.div>
+          </button>
+        </div>
 
         {/* Enhanced Mobile Menu */}
         <AnimatePresence>
@@ -370,34 +311,16 @@ const NavBar = () => {
                   <div className="px-4 py-3">
                     <div className="flex gap-3 items-center mb-3">
                       <div className="relative group">
-                        {cloudinaryPublicId ? (
-                          <div className="w-16 h-16 rounded-full border-2 border-white shadow-md overflow-hidden">
-                            <AdvancedImage
-                              cldImg={cld
-                                .image(cloudinaryPublicId)
-                                .format('auto')
-                                .quality('auto')
-                                .resize(auto().gravity(autoGravity()).width(200).height(200))}
-                              className="object-cover w-full h-full"
-                              alt="Profile"
-                            />
-                          </div>
-                        ) : (
-                          <img 
-                            src={profileImage} 
-                            alt="Profile" 
-                            className="object-cover w-16 h-16 rounded-full border-2 border-white shadow-md"
-                          />
-                        )}
+                        <img 
+                          src={profileImage} 
+                          alt="Profile" 
+                          className="object-cover w-16 h-16 rounded-full border-2 border-white shadow-md"
+                        />
                         <button 
                           onClick={triggerFileInput}
                           className="flex absolute inset-0 justify-center items-center rounded-full opacity-0 transition-opacity bg-black/50 group-hover:opacity-100"
                         >
-                          {uploading ? (
-                            <div className="w-4 h-4 rounded-full border-2 border-white animate-spin border-t-transparent"></div>
-                          ) : (
-                            <Camera className="w-4 h-4 text-white" />
-                          )}
+                          <ScanLine className="w-4 h-4 text-white" />
                         </button>
                       </div>
                       <div>
@@ -405,6 +328,7 @@ const NavBar = () => {
                         <p className="text-xs text-gray-500">{userEmail}</p>
                       </div>
                     </div>
+
                     
                     <button 
                       onClick={() => {

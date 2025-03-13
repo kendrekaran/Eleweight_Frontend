@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, Upload, ArrowRight, ChevronRight } from 'lucide-react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { Camera, Upload, ArrowRight } from 'lucide-react';
 import axios from 'axios';
 import NavBar from '../Components/NavBar';
 
@@ -206,7 +205,7 @@ const FoodAnalysis = () => {
                       ref={videoRef} 
                       autoPlay 
                       playsInline 
-                      className="w-full h-64 object-cover rounded-xl border border-gray-200 bg-black"
+                      className="object-cover w-full h-64 bg-black rounded-xl border border-gray-200"
                     />
                     <canvas ref={canvasRef} className="hidden" />
                     
@@ -242,9 +241,9 @@ const FoodAnalysis = () => {
                         <img 
                           src={`data:image/jpeg;base64,${imageBase64}`} 
                           alt="Food" 
-                          className="w-full h-64 object-cover rounded-xl border border-gray-200"
+                          className="object-cover w-full h-64 rounded-xl border border-gray-200"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="flex absolute inset-0 justify-center items-center">
                           <motion.button
                             onClick={() => setImageBase64('')}
                             whileHover={{ scale: 1.05 }}
@@ -261,7 +260,7 @@ const FoodAnalysis = () => {
                           onClick={startCamera}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className="flex gap-3 items-center p-6 text-left text-gray-700 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300 hover:border-purple-300 hover:bg-purple-50/50 transition-colors"
+                          className="flex gap-3 items-center p-6 text-left text-gray-700 bg-gray-50 rounded-xl border-2 border-gray-300 border-dashed transition-colors hover:border-purple-300 hover:bg-purple-50/50"
                         >
                           <div className="p-3 bg-purple-100 rounded-full">
                             <Camera className="w-6 h-6 text-purple-600" />
@@ -276,7 +275,7 @@ const FoodAnalysis = () => {
                           onClick={triggerFileInput}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className="flex gap-3 items-center p-6 text-left text-gray-700 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300 hover:border-purple-300 hover:bg-purple-50/50 transition-colors"
+                          className="flex gap-3 items-center p-6 text-left text-gray-700 bg-gray-50 rounded-xl border-2 border-gray-300 border-dashed transition-colors hover:border-purple-300 hover:bg-purple-50/50"
                         >
                           <div className="p-3 bg-blue-100 rounded-full">
                             <Upload className="w-6 h-6 text-blue-600" />
@@ -332,7 +331,7 @@ const FoodAnalysis = () => {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
-                  className="p-6 space-y-4 bg-white/80 rounded-xl shadow-lg"
+                  className="p-6 space-y-4 rounded-xl shadow-lg bg-white/80"
                 >
                   <h3 className="text-xl font-semibold text-purple-700">
                     {foodAnalysisResults.foodName || "Food Analysis"}
