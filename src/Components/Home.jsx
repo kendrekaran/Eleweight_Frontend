@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import FeatureCards from './FeaturedCards';
 import { motion, AnimatePresence } from "framer-motion";
 import { Dumbbell, List,  MoveRight, BookOpen, Plus, Calendar, MapPin, ArrowRight,  Brain, ChevronLeft, ChevronRight, Check, Crown, Zap, Lock, Shield } from "lucide-react";
+import { Twitter, Facebook, Instagram } from "lucide-react"
 
 import PaymentModal from './PaymentModal';
 import FitnessAdComponent from './FitnessAdComponent';
@@ -232,9 +233,9 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Hero Feature Showcase */}
+        {/* Feature Showcase */}
         <div className="overflow-hidden mt-12 mb-12 sm:mt-24">
-          <div className="container px-6 mx-auto sm:px-16 lg:px-32">
+          <div className="container px-6 mx-auto sm:px-16 lg:px-0">
             <div className="mb-8 text-center">
               <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Discover Our Key Features</h2>
               <p className="mt-2 text-gray-600">Everything you need for your fitness journey in one place</p>
@@ -376,7 +377,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-
+     
       <div>
         <FitnessAdComponent />
       </div>
