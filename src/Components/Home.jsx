@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import FeatureCards from './FeaturedCards';
 import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, List,  MoveRight, BookOpen, Plus, Calendar, MapPin, ArrowRight,  Brain, ChevronLeft, ChevronRight, Check, Crown, Zap, Lock, Shield } from "lucide-react";
-import { Twitter, Facebook, Instagram } from "lucide-react"
+import { Dumbbell, List,  MoveRight, BookOpen, Plus, Calendar, MapPin, ArrowRight,  Brain, ChevronLeft, ChevronRight, Check, Crown, Target } from "lucide-react";
+
 
 import PaymentModal from './PaymentModal';
 import FitnessAdComponent from './FitnessAdComponent';
@@ -13,7 +13,6 @@ import FitnessAdComponent from './FitnessAdComponent';
 const Home = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const [activeTab, setActiveTab] = useState('all');
   const [activeFeature, setActiveFeature] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const featureSliderRef = useRef(null);
@@ -233,6 +232,130 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Success Stories Section */}
+      <section className="py-24 bg-white sm:px-16 lg:px-32">
+        <div className="container px-6 mx-auto">
+          <motion.div 
+            className="mb-16 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-purple-700 bg-purple-100 rounded-full shadow-sm">
+              Popular Plans
+            </span>
+            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-purple-900 to-indigo-700 sm:text-5xl">
+              Start Your Fitness Journey
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {/* Muscle Route */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              whileHover={{ y: -8 }}
+              className="overflow-hidden relative rounded-2xl border border-gray-100 shadow-xl transition-all duration-300 group hover:border-purple-200 hover:shadow-2xl"
+            >
+              
+              <div className="aspect-[3/4] overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1613845205719-8c87760ab728?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDU5fHx8ZW58MHx8fHx8"
+                  alt="Muscle Groups" 
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="flex absolute inset-0 flex-col justify-end p-8 text-white bg-gradient-to-t to-transparent from-black/90 via-black/50">
+                <div className="p-3 mb-4 w-14 h-14 rounded-xl backdrop-blur-md bg-purple-600/30">
+                  <Target className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="mb-3 text-2xl font-bold">Muscle Groups</h3>
+                <p className="p-3 mb-5 text-sm rounded-lg backdrop-blur-sm text-white/90 bg-black/10">Target specific muscle groups with specialized exercises</p>
+                <Link
+                  to="/muscle"
+                  className="inline-flex items-center justify-between px-5 py-3.5 w-full text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl transition-all duration-200 hover:from-purple-600 hover:to-indigo-700 shadow-sm hover:shadow-md"
+                >
+                  <span>Explore Muscles</span>
+                  <MoveRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Workout Plans */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ y: -8 }}
+              className="overflow-hidden relative rounded-2xl border border-gray-100 shadow-xl transition-all duration-300 group hover:border-purple-200 hover:shadow-2xl"
+            >
+              
+              <div className="aspect-[3/4] overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1614367674345-f414b2be3e5b?q=80&w=1823&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Workout Plans" 
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="flex absolute inset-0 flex-col justify-end p-8 text-white bg-gradient-to-t to-transparent from-black/90 via-black/50">
+                <div className="p-3 mb-4 w-14 h-14 rounded-xl backdrop-blur-md bg-indigo-600/30">
+                  <List className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="mb-3 text-2xl font-bold">Workout Plans</h3>
+                <p className="p-3 mb-5 text-sm rounded-lg backdrop-blur-sm text-white/90 bg-black/10">Browse our collection of expert-crafted workout plans</p>
+                <Link
+                  to="/plans"
+                  className="inline-flex items-center justify-between px-5 py-3.5 w-full text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl transition-all duration-200 hover:from-purple-600 hover:to-indigo-700 shadow-sm hover:shadow-md"
+                >
+                  <span>View Plans</span>
+                  <MoveRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Nearby Gyms */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ y: -8 }}
+              className="overflow-hidden relative rounded-2xl border border-gray-100 shadow-xl transition-all duration-300 group hover:border-purple-200 hover:shadow-2xl"
+            >
+              
+              <div className="absolute top-4 right-4 z-10 px-3 py-1 text-xs font-bold text-white bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full shadow-lg">
+                NEW
+              </div>
+              <div className="aspect-[3/4] overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1597452485683-0e0bde820f87?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8"
+                  alt="Nearby Gyms" 
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="flex absolute inset-0 flex-col justify-end p-8 text-white bg-gradient-to-t to-transparent from-black/90 via-black/50">
+                <div className="p-3 mb-4 w-14 h-14 rounded-xl backdrop-blur-md bg-purple-600/30">
+                  <MapPin className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="mb-3 text-2xl font-bold">Nearby Gyms</h3>
+                <p className="p-3 mb-5 text-sm rounded-lg backdrop-blur-sm text-white/90 bg-black/10">Find and explore gyms near your location to enhance your fitness journey</p>
+                <Link
+                  to="/nearby-gyms"
+                  className="inline-flex items-center justify-between px-5 py-3.5 w-full text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl transition-all duration-200 hover:from-purple-600 hover:to-indigo-700 shadow-sm hover:shadow-md"
+                >
+                  <span>Find Gyms</span>
+                  <MoveRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
         {/* Feature Showcase */}
         <div className="overflow-hidden mt-12 mb-12 sm:mt-24">
           <div className="container px-6 mx-auto sm:px-16 lg:px-0">
@@ -377,7 +500,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-     
+
       <div>
         <FitnessAdComponent />
       </div>
