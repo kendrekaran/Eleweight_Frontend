@@ -319,7 +319,6 @@ const EditPlan = () => {
                   onChange={(e) => updateDayName(activeDay, e.target.value)}
                   className="text-lg font-semibold bg-transparent border-b border-gray-300 focus:border-blue-500 focus:outline-none"
                 />
-                <span className="ml-2 text-gray-500">({days[activeDay].exercises.length} exercises)</span>
               </div>
               <button
                 onClick={() => setIsExerciseModalOpen(true)}
