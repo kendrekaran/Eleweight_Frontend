@@ -111,7 +111,7 @@ const AITrainerChatbot = () => {
         setMessages((prev) => [...prev, { role: "bot", content: text }]);
         setTypingText("");
       }
-    }, 15); // Speed of typing
+    }, 1); // Speed of typing
   };
 
   // Cleanup typing effect on unmount
